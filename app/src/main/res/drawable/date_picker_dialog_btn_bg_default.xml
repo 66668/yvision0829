@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- data_picker_dialog_btn_bg.xml调用 -->
+    <solid android:color="#ffffff"/>
+    
+</shape>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 考勤系统主界面umain.xml调用 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/common_topbar_height"
+    android:background="@color/common_topbar_bgcolor" >
+    <RelativeLayout
+        android:id="@+id/img_back"
+        android:layout_width="@dimen/common_topbar_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/back" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_centerInParent="true"
+        android:text="@string/attendTile"
+        android:textSize="@dimen/common_textSize_default18"
+        android:textColor="#FFF"
+        />
+    <TextView
+        android:id="@+id/tv_addWifiAttend"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_topbar_height"
+        android:gravity="center_vertical"
+        android:text="@string/wifiAttend"
+        android:textSize="@dimen/common_textSize_default22"
+        android:textColor="#FFF"
+        android:layout_alignParentRight="true"
+        />
+
+    <!-- 灰色横线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="#9d9d9d" />
+
+</RelativeLayout>

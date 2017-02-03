@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- photo_choose.xml布局中的调用 -->
+    <item android:drawable="@drawable/date_picker_dialog_btn_bg_press" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/date_picker_dialog_btn_bg_default"></item>
+
+</selector>

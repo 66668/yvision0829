@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 图片剪裁中调用/photo_clip.xml调用 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/common_topbar_height46"
+    android:background="@color/common_topbar_bgcolor" >
+
+    <!-- 设置 -->
+    <RelativeLayout
+        android:id="@+id/tv_settings"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/main_setting" />
+    </RelativeLayout>
+
+    <!-- 标题 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_topbar_height"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="访客系统"
+        android:textSize="@dimen/common_textSize_default18"
+        android:textColor="#FFF"
+        />
+</RelativeLayout>

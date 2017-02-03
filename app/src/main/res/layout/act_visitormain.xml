@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:theme="@android:style/Theme.NoTitleBar">
+
+    <!-- actionbar -->
+    <include layout="@layout/topbar_vmain"/>
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/topbar_vmain_search"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- list -->
+        <LinearLayout
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.yvision.widget.MultiListView
+                android:id="@+id/visitorList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.yvision.widget.MultiListView>
+        </LinearLayout>
+
+        <!-- 编辑对应的布局 -->
+
+        <include
+            layout="@layout/bottombar_vmain_edit"
+            android:visibility="gone"/>
+
+        <!-- 添加访客 -->
+
+        <include
+            layout="@layout/bottombar_vmain_addface"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+</LinearLayout>

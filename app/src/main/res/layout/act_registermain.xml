@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@android:style/Theme.NoTitleBar" >
+
+    <!-- actionbar -->
+
+    <include layout="@layout/topbar_rmain" />
+
+    <!-- 搜索-->
+	<include layout="@layout/topbar_vmain_search" />"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- list -->
+
+        <LinearLayout
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/title"
+            android:layout_marginBottom="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/OldEmployeeNameList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </ListView>
+        </LinearLayout>
+
+        <!-- 添加新人 -->
+
+        <include
+            layout="@layout/bottombar_rmain_add_newemployee"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</LinearLayout>

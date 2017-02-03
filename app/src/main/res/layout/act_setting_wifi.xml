@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mytopbar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yvision.widget.WifiTopbar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_topbar_height"
+        android:id="@+id/wifiTopbar"
+        mytopbar:leftBackground="@mipmap/back"
+        mytopbar:tileColor="#FFFFFF"
+        mytopbar:tileName="@string/wifiTitle"
+        mytopbar:tileSize="10sp"
+        mytopbar:rightTextName="@string/ceshi"
+        mytopbar:rightTextColor="#FFFFFF"
+        mytopbar:rightTextSize="8sp"
+       >
+    </com.yvision.widget.WifiTopbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_none"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+        <LinearLayout
+            android:id="@+id/layout_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_topbar_height"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:layout_below="@+id/tv_none"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:gravity="right|center_vertical"
+                android:paddingLeft="5dp"
+                android:text="@string/wifiDetailName"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default18" />
+
+            <TextView
+                android:id="@+id/tv_wifiDetailName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_weight="0.6"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center_vertical"
+                android:textColor="@color/textColor"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/common_textSize_default18" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_clientID"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_topbar_height"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:layout_below="@+id/layout_wifi"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:gravity="right|center_vertical"
+                android:padding="5dp"
+                android:text="@string/clientID"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default18"
+                android:id="@+id/textView" />
+
+            <TextView
+                android:id="@+id/tv_ID"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/common_edittext_height"
+                android:layout_centerVertical="true"
+                android:layout_weight="0.6"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textSize="@dimen/common_textSize_default18" >
+            </TextView>
+        </LinearLayout>
+        <include layout="@layout/bottombar_setting_wifi"/>
+    </RelativeLayout>
+
+</LinearLayout>

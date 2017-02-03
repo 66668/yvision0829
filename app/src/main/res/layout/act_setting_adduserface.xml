@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@android:style/Theme.NoTitleBar" >
+
+    <!-- actionBar -->
+
+    <include layout="@layout/topbar_setting_adduserface" />
+
+    <!-- 图片查看器和gallery -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- 大图 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_marginBottom="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:background="@drawable/login_input_bg" >
+
+                <ImageView
+                    android:id="@+id/imgSwitcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@mipmap/ic_launcher"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp" />
+            </LinearLayout>
+
+            <!-- 小图 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#979797"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="#9d9d9d" />
+
+                <Gallery
+                    android:id="@+id/gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:spacing="10dp"
+                    android:unselectedAlpha="0.8" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include layout="@layout/bottombar_setting_adduserface" />
+    </RelativeLayout>
+
+</LinearLayout>

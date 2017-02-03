@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    defaultConfig {
+        applicationId "com.yvision.yvision0829"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+
+        //参数说明
+        manifestPlaceholders = [
+                GETUI_APP_ID : "81NW0fXkm96iLav9XEzJf6",
+                GETUI_APP_KEY : "ATuFOELg446lGtbrQUDQ61",
+                GETUI_APP_SECRET : "2kh8c2304w6oIhezOfzXe3",
+                PACKAGE_NAME : applicationId
+        ]
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    compileOptions {
+        encoding "UTF-8"
+    }
+    packagingOptions {
+        exclude 'assets/getui_popup_bg.9.png'
+        exclude 'assets/getui_popup_close.png'
+
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-v4:24.2.0'
+
+    //face++人脸识别包
+    compile files('libs/faceppofflinesdk.jar')
+    compile files('libs/faceppsdk.jar')
+    //图片缓存包
+    compile files('libs/universal-image-loader-1.9.2.jar')
+    compile files('libs/gson-2.2.2.jar')
+    //个推包
+    compile 'com.getui:sdk:2.9.0.0'
+    compile files('libs/GetuiSDK2.9.0.0.jar')
+    compile files('libs/json_simple-1.1.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+}

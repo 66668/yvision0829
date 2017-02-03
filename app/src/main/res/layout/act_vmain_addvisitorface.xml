@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@android:style/Theme.NoTitleBar" >
+
+    <!-- 01：actionBar -->
+
+    <include layout="@layout/topbar_vmain_addvisitorface"
+             android:id="@+id/include"/>
+    <!-- 文本信息 总布局 -->
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f3f3f3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- 拍照 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical|right"
+                    android:padding="5dp"
+                    android:text="@string/visitorPicture"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:layout_gravity="right">
+
+                        <com.yvision.widget.CircleImageView
+                            android:id="@+id/imgPhoto"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="right"
+                            android:src="@mipmap/photo" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/getPic"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical|right" >
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="32dp"
+                        android:layout_marginRight="12dp"
+                        android:src="@mipmap/forword" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 灰色横线 -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="#9d9d9d" />
+            <!-- 姓名 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/name"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <EditText
+                    android:id="@+id/VisitorName"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.42"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default16" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05" />
+
+                <CheckBox
+                    android:id="@+id/isVip"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.24"
+                    android:button="@drawable/checked_style"
+                    android:text="  VIP"
+                    android:textColor="#282828"
+                    android:textSize="@dimen/common_textSize_default18" />
+            </LinearLayout>
+
+            <!-- 性别 -->
+
+
+            <!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="性别："
+                    android:textColor="#282828"
+                    android:textSize="24sp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.63"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="女士"
+                        android:textColor="#282828"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="先生"
+                        android:textColor="#282828"
+                        android:textSize="20sp" />
+                </RadioGroup>
+            </LinearLayout>
+            -->
+            <!-- 受访人 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/employeeName"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <Spinner
+                    android:id="@+id/RespondentID"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default14" >
+                </Spinner>
+            </LinearLayout>
+            <!-- 来访目的 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/aim"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <EditText
+                    android:id="@+id/Aim"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default16" >
+                </EditText>
+            </LinearLayout>
+            <!-- 预约到访时间 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/arrivalTime"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18"
+                    android:id="@+id/textView3" />
+
+                <TextView
+                    android:id="@+id/ArrivalTimePlan_date"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default14" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_weight="0.06" />
+
+                <TextView
+                    android:id="@+id/ArrivalTimePlan_time"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default14" >
+                </TextView>
+            </LinearLayout>
+            <!-- 预约离开时间 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/leaveTime"
+                    android:textColor="@color/textColor"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default18"
+                    android:id="@+id/textView4" />
+
+                <TextView
+                    android:id="@+id/LeaveTimePlan_date"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default14" >
+                </TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_weight="0.06" />
+
+                <TextView
+                    android:id="@+id/LeaveTimePlan_time"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" >
+                </TextView>
+            </LinearLayout>
+            <!-- 所属单位 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/Affilication"
+                    android:textColor="@color/textColor"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <EditText
+                    android:id="@+id/Affilication"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default16" />
+            </LinearLayout>
+            <!-- 联系方式 -->
+
+           <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/PhoneNumber"
+                    android:textColor="@color/textColor"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+               <EditText
+                   android:id="@+id/PhoneNumber"
+                   android:layout_width="0dp"
+                   android:layout_height="@dimen/common_edittext_height"
+                   android:layout_centerVertical="true"
+                   android:layout_weight="0.66"
+                   android:background="@drawable/edittext_bg"
+                   android:gravity="center_vertical"
+                   android:paddingLeft="11dp"
+                   android:singleLine="true"
+                   android:inputType="phone"
+                   android:textColor="@color/textColor"
+                   android:textSize="@dimen/common_textSize_default16" />
+           </LinearLayout>
+
+            <!-- 欢迎语 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/welcomeword"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <EditText
+                    android:id="@+id/tv_welcomeWord"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default16" />
+            </LinearLayout>
+            <!-- 备注 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/edit"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default18" />
+
+                <EditText
+                    android:id="@+id/Remark"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/common_textSize_default16" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

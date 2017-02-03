@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_login_face"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@android:style/Theme.NoTitleBar" >
+
+    <include layout="@layout/topbar_login_face" />
+    <!-- 公司编号 -->
+
+    <LinearLayout
+        android:id="@+id/layout_companyNum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_topbar_height"
+        android:layout_below="@+id/loginFaceTopbar"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_topbar_height"
+            android:layout_weight="0.26"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:text="@string/compangyNum"
+            android:textColor="#282828"
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/et_face_companyNum"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_topbar_height"
+            android:layout_centerVertical="true"
+            android:layout_weight="0.74"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:singleLine="true"
+            android:textSize="22sp" />
+
+        <requestFocus />
+    </LinearLayout>
+
+    <!-- 工号 -->
+
+    <LinearLayout
+        android:id="@+id/layout_employeeNum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_topbar_height"
+        android:layout_below="@+id/layout_companyNum"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_topbar_height"
+            android:layout_weight="0.26"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:text="@string/employeeNum"
+            android:textColor="#282828"
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/et_face_employeeNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.74"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textSize="22sp" />
+
+        <requestFocus />
+    </LinearLayout>
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_employeeNum"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@mipmap/facevar" />
+
+</RelativeLayout>

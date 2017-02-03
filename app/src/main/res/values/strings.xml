@@ -1,0 +1,130 @@
+<resources>
+    <string name="app_name">人像注册9011端口</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- login.xml / LoginActivity.java -->
+    <string name="companyName">登录界面的文字</string> <!-- 设置文字 -->
+    <string name="compangyNum">编号</string> <!-- 公司编号 -->
+    <string name="employeeNum">工号</string> <!-- 工号-->
+    <string name="psd">密码</string> <!-- 密码-->
+    <string name="byFace">人脸登录</string> <!-- 人脸登录-->
+    <string name="btn_Login">登录</string> <!-- 登录-->
+    <string name="LoginActivity_companyNum">请输入公司编号！</string> <!-- 请输入公司编号！-->
+    <string name="LoginActivity_employeeNum">请输入工号！</string> <!-- 请输入工号！-->
+    <string name="LoginActivity_psd">请输入密码！</string>
+    <string name="LoginActivity_error">登录信息有误，请再确认账号和密码!</string>
+
+    <!-- main_register.xml -->
+    <string name="visitorPicture">添加照片:</string>
+    <string name="name">姓名</string>
+    <string name="employeeName">受访人</string>
+    <string name="aim">来访目的</string>
+    <string name="arrivalTime">预约时间</string>
+    <string name="leaveTime">离开时间</string>
+    <string name="Affilication">所属单位</string>
+    <string name="PhoneNumber">联系方式</string>
+    <string name="welcomeword">欢迎语</string>
+    <string name="edit">备注</string>
+
+
+    <!-- SettingsActivity.xml -->
+    <string name="change_psd">密码修改</string>
+    <string name="change_face">人脸登记</string>
+    <string name="change_URL">URL配置</string>
+    <string name="help">帮助</string>
+    <string name="about">关于</string>
+    <string name="vission">当前版本</string>
+    <string name="exist">退出登录</string>
+
+    <!-- / ChangePassWordActivity.java -->
+    <string name="oldpsd">原密码</string>
+    <string name="newpsd">新密码</string>
+    <string name="newpsd_again">确认密码</string>
+    <string name="ChangePassWordActivity_oldpsd">请输入旧密码！</string>
+    <string name="ChangePassWordActivity_newpsd">请输入新密码！</string>
+    <string name="ChangePassWordActivity_newpsd_error">两次输入的新密码不一样！</string>
+    <string name="ChangePassWordActivity_newpsd_error_lenght">请检查密码长度，6-20位密码！</string>
+    <string name="ChangePassWordActivity_oldpsd_error">旧密码错误！</string>
+    <string name="requestForPsd">密码由6-20位英文字母、数字或"_"组成</string>
+    <string name="requestForPsd_error">密码不可以是 英文字母、数字 或 下划线 以外的字符！</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="update_tips">升级提示</string>
+    <string name="no_update_this_time">暂不升级</string>
+    <string name="last_version_already">已是最新版本</string>
+    <string name="update_now">立即升级</string>
+    <string name="wifisetting">wifi考勤设置</string>
+    <!-- LoginActivity.java -->
+
+    <!-- UserHelper.java -->
+    <string name="network_invalid">亲，您的网络不给力，请检查网络！</string>
+    <!-- HttpUtils.java -->
+    <!-- 访问服务端 -->
+    <string name="common_error">数据处理失败，请联系客服</string>
+    <string name="data_error">返回数据错误</string>
+    <string name="connect_host_fail">连接服务器失败</string>
+    <!-- act_main.xml -->
+    <string name="main_finish">完成</string>
+    <string name="main_edit">编辑</string>
+    <string name="add_customer_face">添加人脸</string>
+    <string-array name="user_date">
+        <item >全&#160;部</item>
+        <item >今&#160;天</item>
+    </string-array>
+    <!--url -->
+    <string name="urlTitle">URL配置</string>
+    <string name="urlBefore">当前URL名称：</string>
+    <string name="urlset">更改URL为：</string>
+    <string name="urlForm">url格式要求：</string>
+    <string name="Form">http://111.11.11.11:1111/  出错请刷新 查看结果</string>
+
+    <!-- WifiSettingActivity-->
+    <string name="wifiTitle">wifi设置</string>
+    <string name="wifiDetailName">无线网名称：</string>
+    <string name="clientID">设备ID：</string>
+    <string name="ceshi">刷新</string>
+    <string name="save">保存</string>
+    <!--MainUserActivity -->
+    <string name="addAttendance">地图签到</string>
+    <string name="addVisitor">添加访客</string>
+    <string name="style">方式：</string>
+    <string name="attendTile">考勤管理</string>
+    <string name="wifiAttend">wifi签到</string>
+    <string-array name="forTime">
+        <item>全&#160;部</item>
+        <item>今&#160;天</item>
+        <item>本&#160;周</item>
+        <item>本&#160;月</item>
+    </string-array>
+    <string-array name="forstyle">
+        <item>全&#160;部</item>
+        <item>普&#160;通</item>
+        <item>地&#160;图</item>
+        <item>wifi</item>
+    </string-array>
+    <!-- MapAttendedActivity-->
+    <string name="attendance">考勤</string>
+    <!-- UserInfoActivity-->
+    <string name="place">地点：</string>
+    <string name="time">时间：</string>
+    <string name="next">下一个</string>
+    <string name="previous">上一个</string>
+    <!-- RegisterActivity -->
+    <string name="RegisterActivity_et_name">请输入客户姓名</string>
+    <string name="RegisterActivity_et_id">请输入客户号</string>
+    <string name="radioBtn_male">男</string>
+    <string name="radioBtn_female">女</string>
+    <!--MainUserActivity -->
+    <string name="addnewEmployee">添加新员工</string>
+
+    <!-- 主界面-->
+    <string name="visitorManager">访客管理</string>
+    <string name="attendManager">考勤管理</string>
+    <string name="RegisterManager">人像注册</string>
+
+    <!-- 老员工注册-->
+    <string name="hint_Number">请输入客户号</string>
+
+
+</resources>

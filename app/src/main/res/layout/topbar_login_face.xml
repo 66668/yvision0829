@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loginFaceTopbar"
+    android:layout_width="match_parent"
+    android:background="@color/common_topbar_bgcolor"
+    android:layout_height="@dimen/common_topbar_height" >
+
+    <!--  -->
+<RelativeLayout
+    android:id="@+id/imgBack"
+    android:layout_width="@dimen/common_topbar_width"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_centerVertical="true">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/back" />
+</RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="人脸登录"
+        android:textColor="@color/common_title_color"
+        android:textSize="@dimen/common_textSize_default18" />
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="line">#b6b6b6</color> <!-- 分割线 -->
+    <color name="btn_bg">#1e72ee</color> <!-- 按钮背景色 -->
+    <color name="btn_bg_off">#1e82d2</color> <!-- 按钮背景色(失效状态) -->
+    <color name="topbar_bg">#173c6f</color> <!--  -->
+    <color name="white">#FFFFFF</color> <!--  -->
+    <color name="item_bg">#fafafa</color> <!-- item背景色 -->
+    <color name="common_title_color">#FFFFFF</color> <!-- topbar标题颜色 -->
+    <color name="btn_bg_on">#003399</color> <!-- 按钮背景色(按住) -->
+    <color name="bar_line">#bbbbbb</color> <!-- photo_choose.xml：导航条的灰色分割线 -->
+    <color name="darkTextColor">#656565</color>
+    <color name="login_text_color_no">#808080</color>
+    <color name="scrollView_bg">#f3f3f3</color>
+
+
+    <color name="whitegray">#caeae5e5</color>
+    <color name="common_bg_color">#1e82d2</color>
+    <color name="main_bg">#3a9cea</color>
+    <color name="textHintColor">#777777</color>
+    <color name="textColor">#000000</color><!-- 字体颜色-->
+    <color name="common_topbar_bgcolor">#2083d2</color><!-- topbar的背景色-->
+
+
+</resources>

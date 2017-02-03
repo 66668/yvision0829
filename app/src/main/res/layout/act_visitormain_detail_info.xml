@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:theme="@android:style/Theme.NoTitleBar" >
+
+    <!-- 01：actionBar -->
+
+    <include layout="@layout/topbar_vmain_visitor_detail_info" />
+    <!-- 文本信息 总布局 -->
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout1"
+        android:background="#f3f3f3" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- 拍照 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical|left"
+                    android:padding="5dp"
+                    android:text="@string/visitorPicture"
+                    android:textColor="#282828"
+                    android:textSize="24sp" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:layout_gravity="right">
+
+                    <com.yvision.widget.CircleImageView
+                        android:id="@+id/imgPhoto"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/photo" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/getPic"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical|right" >
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="12dp"
+                        android:src="@mipmap/forword" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 灰色横线 -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="#9d9d9d" />
+            <!-- 姓名 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_topbar_height"
+                    android:layout_weight="0.28"
+                    android:gravity="right|center_vertical"
+                    android:padding="5dp"
+                    android:text="姓名："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/VisitorName"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.46"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05" />
+
+                <CheckBox
+                    android:id="@+id/isVip"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:button="@drawable/checked_style"
+                    android:text="  V I P"
+                    android:textColor="#282828"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- 性别 -->
+
+
+            <!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="性别："
+                    android:textColor="#282828"
+                    android:textSize="24sp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.63"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="女士"
+                        android:textColor="#282828"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="先生"
+                        android:textColor="#282828"
+                        android:textSize="20sp" />
+                </RadioGroup>
+            </LinearLayout>
+            -->
+            <!-- 受访人 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="受访人："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/RespondentID"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" >
+                </Spinner>
+            </LinearLayout>
+            <!-- 来访目的 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="来访目的："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/Aim"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" >
+                </EditText>
+            </LinearLayout>
+            <!-- 预约到访时间 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="到访时间："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ArrivalTimePlan_date"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_weight="0.06" />
+
+                <TextView
+                    android:id="@+id/ArrivalTimePlan_time"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" >
+                </TextView>
+            </LinearLayout>
+            <!-- 预约离开时间 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="离开时间："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/LeaveTimePlan_date"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" >
+                </TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_weight="0.06" />
+
+                <TextView
+                    android:id="@+id/LeaveTimePlan_time"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" >
+                </TextView>
+            </LinearLayout>
+            <!-- 所属单位 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="所属单位："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/Affilication"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <!-- 联系方式 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="联系方式："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/PhoneNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:inputType="phone"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 欢迎语 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="欢迎语："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id = "@+id/tv_welcomeword"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <!-- 备注 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_topbar_height"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.28"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="备注："
+                    android:textColor="#282828"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/Remark"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/common_edittext_height"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.66"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="11dp"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

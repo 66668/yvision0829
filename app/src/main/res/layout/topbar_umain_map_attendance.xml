@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 图片剪裁中调用/photo_clip.xml调用 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/common_topbar_height"
+    android:background="@color/common_topbar_bgcolor" >
+ <!-- 50dp -->
+
+    <ImageView
+        android:id="@+id/tv_settings"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:background="@mipmap/back" />
+    <!--  -->
+
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_topbar_height"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:gravity="center"
+        android:text="@string/attendance"
+        android:textColor="#FFF"
+        android:textSize="24sp" />
+
+    <!-- 灰色横线 -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="#9d9d9d" />
+
+</RelativeLayout>

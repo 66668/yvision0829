@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/topbar_umain" />
+    <!--日期 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_edittext_height"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:paddingLeft="12dp"
+            android:text="@string/time"
+            android:textColor="#282828"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_edittext_height"
+            android:layout_weight="0.6"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:paddingLeft="12dp"
+            android:textColor="#282828"
+            android:textSize="22sp" />
+    </LinearLayout>
+    <!-- 灰色横线 -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="#9d9d9d" />
+    <!--时间 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_edittext_height"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:paddingLeft="12dp"
+            android:text="@string/place"
+            android:textColor="#282828"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_edittext_height"
+            android:layout_weight="0.6"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:paddingLeft="12dp"
+            android:textColor="#282828"
+            android:textSize="22sp" />
+    </LinearLayout>
+    <!-- 灰色横线 -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="#9d9d9d" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--本地方式-->
+        <include
+            layout="@layout/style_umain_detail_info_local"
+            android:visibility="visible" />
+        <!--地图方式-->
+        <include
+            layout="@layout/style_umain_detail_info_map"
+            android:visibility="gone" />
+        <!--wifi方式-->
+        <include
+            layout="@layout/style_umain_detail_info_wifi"
+            android:visibility="gone" />
+
+        <include layout="@layout/bottombar_umain_info" />
+    </RelativeLayout>
+</LinearLayout>

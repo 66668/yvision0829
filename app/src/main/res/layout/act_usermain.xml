@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/topbar_umain"/>
+
+    <include layout="@layout/topbar_umain_spinners"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/title"
+            android:layout_marginBottom="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/UserList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </ListView>
+        </LinearLayout>
+
+        <include layout="@layout/bottombar_umain"/>
+
+    </RelativeLayout>
+</LinearLayout>
