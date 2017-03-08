@@ -199,14 +199,13 @@ public class AddNewEmployeeActivity extends BaseActivity {
         });
     }
 
-    ;
 
     /**
      * 选择照片
      */
     public void btnSnapShot(View view) {
         ////自定义相机1
-        //        updateAvatarUtil.showChoosePhotoDialog(CameraGalleryUtils.IMG_TYPE_CAMERA);//-99
+        //        cameraGalleryUtils.showChoosePhotoDialog(CameraGalleryUtils.IMG_TYPE_CAMERA);//-99
 
         //自定义相机2
         Intent mCameraIntent = new Intent(this, MyChangeCameraActivity.class);

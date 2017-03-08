@@ -27,11 +27,11 @@
             android:gravity="center_vertical"
             android:orientation="vertical" >
 
-            <ListView
+            <com.yvision.widget.RefreshAndLoadListView
                 android:id="@+id/OldEmployeeNameList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-            </ListView>
+            </com.yvision.widget.RefreshAndLoadListView>
         </LinearLayout>
 
         <!-- 添加新人 -->

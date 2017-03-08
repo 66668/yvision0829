@@ -25,14 +25,14 @@ import java.io.FileInputStream;
  * 
  */
 public class CameraGalleryUtils {
-	public static final int REQUEST_CODE_PICK_PHOTO_FROM_MYCAMERA = 69;// 系统相机调用的常量
+	public static final int REQUEST_CODE_PICK_PHOTO_FROM_MYCAMERA = 69;// 自定义相机调用的常量
 	public static final int REQUEST_CODE_PICK_PHOTO_FROM_CAMERA = 70;// 系统相机调用的常量
 	public static final int REQUEST_CODE_PICK_PHOTO_FROM_ALBUMS = 71;// 相册常量
 	public static final int REQUEST_CODE_PICK_PHOTO_FINISH_HANDLED = 72;// 已处理图片显示常量
 	public static final int REQUEST_CODE_PICK_PHOTO_FINISH_UNHANDLED = 73;// 已处理图片显示常量
 
-	public static final int IMG_TYPE_CAMERA = -99;// RegisterActivity调用:拍照
-	public static final int IMG_TYPE_GALLERY = -98;// RegisterActivity调用:相册
+	public static final int IMG_TYPE_CAMERA = -99;// 拍照
+	public static final int IMG_TYPE_GALLERY = -98;// 相册
 	public static final int BACKBEFORE = -97;
 	private Activity context;
 	private int updateType;

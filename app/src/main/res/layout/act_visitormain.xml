@@ -24,11 +24,11 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <com.yvision.widget.MultiListView
+            <com.yvision.widget.RefreshAndLoadListView
                 android:id="@+id/visitorList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </com.yvision.widget.MultiListView>
+            </com.yvision.widget.RefreshAndLoadListView>
         </LinearLayout>
 
         <!-- 编辑对应的布局 -->

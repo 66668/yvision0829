@@ -17,7 +17,7 @@ import com.yvision.R;
 import com.yvision.utils.Utils;
 
 /**
- * UpdateAvatarUtil调用
+ * 相机Util调用
  * 
  * @author JackSong
  *

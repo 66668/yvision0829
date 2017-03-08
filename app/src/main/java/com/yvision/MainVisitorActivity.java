@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.yvision.adapter.CommonListAdapter.AdapterCallBack;
 import com.yvision.adapter.MainSpinnerAdapter;
 import com.yvision.adapter.VisitorListAdapter;
 import com.yvision.common.ImageLoadingConfig;
@@ -34,7 +33,7 @@ import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.VisitorBModel;
-import com.yvision.widget.MultiListView;
+import com.yvision.widget.RefreshAndLoadListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ import java.util.List;
  * 访客管理系统详细界面
  *
  */
-public class MainVisitorActivity extends BaseActivity implements MultiListView.IReflashListener {
+public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadListView.ILoadMoreListener,RefreshAndLoadListView.IReflashListener {
 
     // 返回
     @ViewInject(id = R.id.layout_Back, click = "forBack")
@@ -80,6 +79,11 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
     //删除按钮
     @ViewInject(id = R.id.btn_delete, click = "delete")
     Button btn_delete;
+
+    //listView
+    @ViewInject(id = R.id.visitorList, click = "delete")
+    RefreshAndLoadListView listView;
+
     // 常量
     private static final int GET_NEWDATA_SUCCESS = -40;// 刷新新数据 标志
     private static final int GET_DATA_SUCCESS = -39;// 获取所有数据列表 标志
@@ -94,7 +98,6 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
     private String[] mSpinnerArray;
     private boolean editFlag = false;// 编辑按钮标记
 
-    private MultiListView listView;
     private VisitorListAdapter vAdapter;//记录适配
     private boolean ifLoading = false;//标记
     private int pageSize = 20;
@@ -107,15 +110,9 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.act_visitormain);
-        MyApplication.getInstance().setCheckBoxStatus(false);//进入界面 设置checkBox不可见
-        context = this;
 
-        imgOption = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.photo);
         initMainView();// spinner监听/search监听
-        //list
-        listView = ((MultiListView) findViewById(R.id.visitorList));
-        listView.setInterFace(this);//下拉刷新使用
-        vAdapter = new VisitorListAdapter(this, adapterCallBack);// 加载全部数据
+        vAdapter = new VisitorListAdapter(this);// 加载全部数据
         listView.setAdapter(vAdapter);
 //		 点击一条记录后，跳转到登记时详细的信息
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -152,6 +149,9 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
 
     // 加载spinner,加载SearchView格式
     public void initMainView() {
+        MyApplication.getInstance().setCheckBoxStatus(false);//进入界面 设置checkBox不可见
+        context = this;
+        imgOption = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.photo);
         // searchView
         tv_forSearch.setIconifiedByDefault(true);
         tv_forSearch.setSubmitButtonEnabled(true);
@@ -168,7 +168,12 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
         spinner_date.setAdapter(mSpinnerAdapter);
         // 监听Item选中事件
         spinner_date.setOnItemSelectedListener(new SpinnerItemSelectedListener());
+
+        listView.setIRefreshListener(this);
+        listView.setILoadMoreListener(this);
     }
+
+
 
 
     /**
@@ -179,13 +184,13 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
         public void onItemSelected(AdapterView<?> parent, View view, int position, long arg3) {
             switch (position) {
                 case 0://全部
-                    vAdapter = new VisitorListAdapter(MainVisitorActivity.this, adapterCallBack);// 加载全部数据
+                    vAdapter = new VisitorListAdapter(MainVisitorActivity.this);// 加载全部数据
                     listView.setAdapter(vAdapter);
                     MyApplication.getInstance().setTimespan(0);
                     getData();
                     break;
                 case 1://今天
-                    vAdapter = new VisitorListAdapter(MainVisitorActivity.this, adapterCallBack);// 加载今天数据
+                    vAdapter = new VisitorListAdapter(MainVisitorActivity.this);// 加载今天数据
                     listView.setAdapter(vAdapter);
                     MyApplication.getInstance().setTimespan(1);
                     getData();
@@ -248,57 +253,52 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
         });
     }
 
-    // 上拉拼接旧记录
-    AdapterCallBack adapterCallBack = new AdapterCallBack() {
-        @Override
-        public void loadMore() {
-
-            if (ifLoading) {
-                return;
-            }
-
-            Loading.run(MainVisitorActivity.this, new Runnable() {
-
-                @Override
-                public void run() {
-                    ifLoading = true;//
-                    String storeID = UserHelper.getCurrentUser().getStoreID();
-                    try {
-                        List<VisitorBModel> visitorModelList = UserHelper.getVisitorRecordsByPageA(
-                                MainVisitorActivity.this,
-                                "",//iMaxTime
-                                MyApplication.getInstance().iMinTime,//iMinTime /获取前20条数据的最后后一条的iLastUpdateTime参数
-                                pageSize,
-                                MyApplication.getInstance().timespan,
-                                storeID);
-
-//                        Log.d("SJY", "loadmore=" + visitorModelList.toString());
-                        Log.d("SJY", "loadMore--min=" + MyApplication.getInstance().iMinTime);
-                        if(visitorModelList == null){
-                            vAdapter.IsEnd = true;
-                        }else if(visitorModelList.size() < pageSize){
-                            vAdapter.IsEnd = true;
-                        }
-
-                        if(visitorModelList != null){
-                            sendMessage(LOAD_MORE_SUCCESS, visitorModelList);
-                        }else{
-                            sendMessage(GET_NONE_NEWDATA,null);
-                        }
-                    } catch (MyException e) {
-                        Log.d("SJY", "异常=" + e.getMessage());
-                        sendToastMessage(e.getMessage());
-                        ifLoading = false;
-                    }
-                }
-            });
-
-        }
-    };
-
-    //下拉刷新数据（list拼接插入）
     @Override
-    public void onReflash() {
+    public void onLoadMore() {
+
+        if (ifLoading) {
+            return;
+        }
+
+        Loading.run(MainVisitorActivity.this, new Runnable() {
+
+            @Override
+            public void run() {
+                ifLoading = true;//
+                String storeID = UserHelper.getCurrentUser().getStoreID();
+                try {
+                    List<VisitorBModel> visitorModelList = UserHelper.getVisitorRecordsByPageA(
+                            MainVisitorActivity.this,
+                            "",//iMaxTime
+                            MyApplication.getInstance().iMinTime,//iMinTime /获取前20条数据的最后后一条的iLastUpdateTime参数
+                            pageSize,
+                            MyApplication.getInstance().timespan,
+                            storeID);
+
+                    //                        Log.d("SJY", "loadmore=" + visitorModelList.toString());
+                    Log.d("SJY", "loadMore--min=" + MyApplication.getInstance().iMinTime);
+                    if(visitorModelList == null){
+                        vAdapter.IsEnd = true;
+                    }else if(visitorModelList.size() < pageSize){
+                        vAdapter.IsEnd = true;
+                    }
+
+                    if(visitorModelList != null){
+                        sendMessage(LOAD_MORE_SUCCESS, visitorModelList);
+                    }else{
+                        sendMessage(GET_NONE_NEWDATA,null);
+                    }
+                } catch (MyException e) {
+                    Log.d("SJY", "异常=" + e.getMessage());
+                    sendToastMessage(e.getMessage());
+                    ifLoading = false;
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
         if (ifLoading) {
             return;
         }
@@ -337,7 +337,6 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
                 }
             }
         });
-
     }
 
     @Override
@@ -348,7 +347,7 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
                 vAdapter.insertEntityList(list);
                 //数据处理/只存最大值,做刷新新数据使用
                 setMaxTime(list);
-                listView.reflashComplete();
+                listView.loadAndFreshComplete();
                 ifLoading = false;
                 break;
             case GET_DATA_SUCCESS://进入页面加载最新
@@ -380,7 +379,7 @@ public class MainVisitorActivity extends BaseActivity implements MultiListView.I
                 break;
             case GET_NONE_NEWDATA://没有获取新数据
                 vAdapter.insertEntityList(null);
-                listView.reflashComplete();
+                listView.loadAndFreshComplete();
 
                 ifLoading = false;
                 break;

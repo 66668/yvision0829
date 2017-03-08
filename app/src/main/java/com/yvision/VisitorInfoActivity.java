@@ -23,7 +23,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.yvision.adapter.CommonListAdapter;
 import com.yvision.adapter.EmployeeListSpinnerAdapter;
 import com.yvision.common.ImageLoadingConfig;
 import com.yvision.common.MyException;
@@ -47,7 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class VisitorInfoActivity extends BaseActivity  implements CameraGalleryUtils.ChoosePicCallBack, CommonListAdapter.AdapterCallBack{
+public class VisitorInfoActivity extends BaseActivity  implements CameraGalleryUtils.ChoosePicCallBack{
 	// back
 	@ViewInject(id = R.id.imgBack, click = "forBack")
 	RelativeLayout imgBack;
@@ -467,12 +466,6 @@ public class VisitorInfoActivity extends BaseActivity  implements CameraGalleryU
 	@Override
 	// 实现UpdateAvatarUtil.ChoosePicCallBack的接口方法（3）
 	public void cancel() {
-
-	}
-
-	// CommonListAdapter.AdapterCallBack接口
-	@Override
-	public void loadMore() {
 
 	}
 

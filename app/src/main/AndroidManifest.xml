@@ -6,37 +6,37 @@
     <!-- wifi权限-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <!-- 个推SDK权限配置开始 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 存储权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- iBeancon功能与个推3.0电子围栏功能所需要的权限为非必需的可选择权限，可以选择性配置，以便使用个推3.0电子围栏功能 -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <!-- 个推3.0电子围栏功能所需权限 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 浮动通知权限 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <!-- 自定义权限 -->
-    <uses-permission android:name="getui.permission.GetuiService.com.yvision" />
-    <!--替换为第三方应用的包名-->
-    <permission
-        android:name="getui.permission.GetuiService.com.yvision"
-        android:protectionLevel="normal" >
-    </permission><!--替换为第三方应用的包名-->
-    <!-- 个推SDK权限配置结束 -->
 
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 极光权限设置开始-->
+    <!-- Required -->
+    <permission
+        android:name="com.yvision.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-permission android:name="com.yvision.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 极光权限设置结束-->
+
     <application
         android:name="com.yvision.common.MyApplication"
         android:allowBackup="true"
@@ -50,18 +50,18 @@
             android:screenOrientation="portrait"
             android:label="@string/app_name"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!-- 登录 LoginActivity-->
         <activity
             android:name="com.yvision.LoginActivity"
             android:screenOrientation="portrait"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- 人脸登录 LoginByFaceActivity -->
         <activity
@@ -176,97 +176,106 @@
             android:screenOrientation="portrait"
             >
         </activity>
-        <!-- 个推SDK配置开始 -->
-        <!-- 配置的第三方参数属性 -->
-        <meta-data
-            android:name="PUSH_APPID"
-            android:value="81NW0fXkm96iLav9XEzJf6" /> <!-- 替换为第三方应用的APPID -->
-        <meta-data
-            android:name="PUSH_APPKEY"
-            android:value="ATuFOELg446lGtbrQUDQ61" /> <!-- 替换为第三方应用的APPKEY -->
-        <meta-data
-            android:name="PUSH_APPSECRET"
-            android:value="2kh8c2304w6oIhezOfzXe3" /> <!-- 替换为第三方应用的APPSECRET -->
-        <!-- 配置SDK核心服务 -->
-        <service
-            android:name="com.igexin.sdk.PushService"
-            android:exported="true"
-            android:label="NotificationCenter"
-            android:process=":pushservice" >
-            <intent-filter>
-                <action android:name="com.igexin.sdk.action.service.message"/>
-            </intent-filter>
-        </service>
 
-        <service
-            android:name="com.igexin.sdk.PushServiceUser"
-            android:exported="true"
-            android:label="NotificationCenterUser">
-            <intent-filter>
-                <action android:name="com.igexin.sdk.action.user.message"/>
-            </intent-filter>
-        </service>
-        <receiver android:name="com.igexin.sdk.PushReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="com.igexin.sdk.action.refreshls" />
-                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.igexin.sdk.PushManagerReceiver"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.igexin.sdk.action.pushmanager" />
-            </intent-filter>
-        </receiver>
+        <!-- 极光application配置开始-->
+        <!-- Rich push 核心功能 since 2.0.6-->
         <activity
-            android:name="com.igexin.sdk.PushActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:process=":pushservice"
-            android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.igexin.sdk.GActivity"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:process=":pushservice"
-            android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <service
-            android:name="com.igexin.download.DownloadService"
-            android:process=":pushservice" />
-        <receiver android:name="com.igexin.download.DownloadReceiver" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        <provider
-            android:name="com.igexin.download.DownloadProvider"
-            android:authorities="downloads.com.yvision.yvision0829"
-            android:exported="true"
-            android:process=":pushservice" />
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:theme="@style/MyDialogStyle"
+            android:exported="false">
+        </activity>
 
-        <!-- 配置第三方Receiver -->
-        <receiver
-            android:name=".receiver.GetuiReceiver"
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.81NW0fXkm96iLav9XEzJf6" />
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.yvision" />
             </intent-filter>
-        </receiver><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+        </activity>
+        <!-- Required  SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
 
-        <!-- 个推SDK配置结束 -->
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":mult">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.yvision" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.yvision" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="com.yvision.receiver.MyReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.yvision" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="f2becb1c30528355b9b7a853" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+        <!-- 极光application配置结束-->
+
+
     </application>
 
 </manifest>

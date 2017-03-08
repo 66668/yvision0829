@@ -1,12 +1,9 @@
 package com.yvision;
 
 
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.igexin.sdk.PushManager;
 import com.yvision.common.MyApplication;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
@@ -25,6 +21,8 @@ import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.utils.ConfigUtil;
 import com.yvision.utils.PageUtil;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class LoginActivity extends BaseActivity {
     // 公司
@@ -57,7 +55,7 @@ public class LoginActivity extends BaseActivity {
     //变量
     boolean isLogin = false;// 是否登录
     private String storeId, workId, password;
-    private String clientId;
+    private String registRationID;//极光注册成功 会返回这个id
     /**
      * SDK服务是否启动
      */
@@ -68,6 +66,11 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.act_login_password);
+        //判断自动登录
+        if (MyApplication.getInstance().isLogin()) {
+            startActivity(MainActivity.class);
+            this.finish();
+        }
 
         // 人脸按钮变色监听
         et_storeId.addTextChangedListener(textCompanyListener);
@@ -80,46 +83,9 @@ public class LoginActivity extends BaseActivity {
         et_UserName.setText(configUtil.getworkId());
         et_Password.setText(configUtil.getPassword());
 
-        // SDK初始化，第三方程序启动时，都要进行SDK初始化工作
-        PackageManager pkgManager = getPackageManager();
-        // 读写 sd card 权限非常重要, android6.0默认禁止的, 建议初始化之前就弹窗让用户赋予该权限
-        boolean sdCardWritePermission =
-                pkgManager.checkPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, getPackageName()) == PackageManager.PERMISSION_GRANTED;
-
-
-        // read phone state用于获取  设备信息
-        boolean phoneSatePermission =
-                pkgManager.checkPermission(android.Manifest.permission.READ_PHONE_STATE, getPackageName()) == PackageManager.PERMISSION_GRANTED;
-
-        if (Build.VERSION.SDK_INT >= 23 && !sdCardWritePermission || !phoneSatePermission) {
-            requestPermission();
-        } else {
-            // SDK初始化，第三方程序启动时，都要进行SDK初始化工作
-            PushManager.getInstance().initialize(this.getApplicationContext());
-        }
-        //开始推送（需要clientID所以写在这里）
-        PushManager.getInstance().turnOnPush(this);
     }
 
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.READ_PHONE_STATE},
-                REQUEST_PERMISSION);
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSION) {
-            if ((grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-                PushManager.getInstance().initialize(this.getApplicationContext());
-            } else {
-                Log.e("SJY", "需要重新获取权限，否则一些功能无法正常使用");
-                PushManager.getInstance().initialize(this.getApplicationContext());
-            }
-        } else {
-            onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
 
     // 人脸登录监听
     public void loginByFace(View view) {
@@ -142,7 +108,7 @@ public class LoginActivity extends BaseActivity {
         storeId = et_storeId.getText().toString().trim();
         workId = et_UserName.getText().toString().trim();
         password = et_Password.getText().toString().trim();
-        clientId = MyApplication.getInstance().getClientID();
+        registRationID = JPushInterface.getRegistrationID(getApplicationContext());
         // 线程处理登录
         Loading.run(this, new Runnable() {
 
@@ -153,7 +119,8 @@ public class LoginActivity extends BaseActivity {
                             storeId, // 公司编号
                             workId, // 工号
                             password,// 密码
-                            clientId);
+                            registRationID);
+
                     // 访问服务端成功，消息处理
                     sendMessage(LOGIN_SUCESS);
                     //设置自动登录
@@ -176,6 +143,7 @@ public class LoginActivity extends BaseActivity {
                 startActivity(MainActivity.class);
                 break;
             case LOGIN_FAILED: // 1001
+                Log.d("SJY", (String) msg.obj);
                 PageUtil.DisplayToast((String)msg.obj);
                 break;
             default:

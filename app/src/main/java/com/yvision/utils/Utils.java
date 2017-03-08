@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 import com.yvision.common.MyApplication;
@@ -27,16 +28,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.security.MessageDigest;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -290,13 +297,26 @@ public class Utils {
 	}
 
 	/**
-	 * 获取手机型号
+	 * 获取手机厂商
+	 *
+	 * @return
+	 */
+	public static String getPhonePRODUCT() {
+		try {
+			return android.os.Build.PRODUCT;
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
+	/**
+	 * 获取手机版本
 	 *
 	 * @return
 	 */
 	public static String getPhoneModel() {
 		try {
-			return android.os.Build.PRODUCT;
+			return android.os.Build.MODEL;
 		} catch (Exception e) {
 			return "";
 		}
@@ -334,6 +354,82 @@ public class Utils {
 		}
 		return ProvidersName;
 
+	}
+	//获取本地IP
+	public static String getLocalIpAddress() {
+		try {
+			for (Enumeration<NetworkInterface> en = NetworkInterface
+					.getNetworkInterfaces(); en.hasMoreElements();) {
+				NetworkInterface intf = en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddr = intf
+						.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+					InetAddress inetAddress = enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress()) {
+						return inetAddress.getHostAddress().toString();
+					}
+				}
+			}
+		} catch (SocketException ex) {
+			Log.e("SJY", "获取ip异常="+ex.toString());
+		}
+
+
+		return null;
+	}
+
+	//获取本地Mac（最靠谱的用busybox）
+	public static String getLocalMacAddressFromBusybox(){
+		String result = "";
+		String Mac = "";
+		result = callCmd("busybox ifconfig","HWaddr");
+
+		//如果返回的result == null，则说明网络不可取
+		if(result==null){
+			return "网络出错，请检查网络";
+		}
+
+		//对该行数据进行解析
+		//例如：eth0      Link encap:Ethernet  HWaddr 00:16:E8:3E:DF:67
+		if(result.length()>0 && result.contains("HWaddr")==true){
+			Mac = result.substring(result.indexOf("HWaddr")+6, result.length()-1);
+			Log.i("test","Mac:"+Mac+" Mac.length: "+Mac.length());
+
+             /*if(Mac.length()>1){
+                 Mac = Mac.replaceAll(" ", "");
+                 result = "";
+                 String[] tmp = Mac.split(":");
+                 for(int i = 0;i<tmp.length;++i){
+                     result +=tmp[i];
+                 }
+             }*/
+			result = Mac;
+			Log.i("test",result+" result.length: "+result.length());
+		}
+		return result;
+	}
+
+	//getLocalMacAddressFromBusybox上调用
+	private static String callCmd(String cmd,String filter) {
+		String result = "";
+		String line = "";
+		try {
+			Process proc = Runtime.getRuntime().exec(cmd);
+			InputStreamReader is = new InputStreamReader(proc.getInputStream());
+			BufferedReader br = new BufferedReader (is);
+
+			//执行命令cmd，只取结果中含有filter的这一行
+			while ((line = br.readLine ()) != null && line.contains(filter)== false) {
+				//result += line;
+				Log.i("test","line: "+line);
+			}
+
+			result = line;
+			Log.i("test","result: "+result);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**

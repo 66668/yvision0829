@@ -23,7 +23,7 @@ public class ConfigUtil {
     private static final String PSD = "password";//密码
     private static final String URL = "url";//URL
     private static final String AUTO_LOGIN = "auto_login";
-    private static final String MEMBER_ENTITY = "user_entity";
+    private static final String USER_ENTITY = "user_entity";
     private static final String PUSH_CLIENTID = "push_clientId";//个推clientID
     private static final String WIFINAME = "WIFI_NAME";//wifi名称
     private static final String MACADRESS = "WIFI_MAXADRESS";//wifi的mac地址
@@ -77,8 +77,8 @@ public class ConfigUtil {
      * 获取所有当前用户的信息
      */
     public UserEntity getUserEntity() {
-        //返回member_entity的信息，没有就返回null
-        String string = sp.getString(MEMBER_ENTITY, null);
+        //返回USER_ENTITY的信息，没有就返回null
+        String string = sp.getString(USER_ENTITY, null);
         if (string != null && string.length() > 0) {
             try {
                 return new Gson().fromJson(string, UserEntity.class);
@@ -90,9 +90,8 @@ public class ConfigUtil {
     }
 
     //保存对象，转换成js格式保存，需要调用外部jar包
-    //CreateUserActivity--UserHelper--ConfigUtil该方法
-    public void setUserEntity(UserEntity userManagers) {
-        editor.putString(MEMBER_ENTITY, new Gson().toJson(userManagers));//"member_entity"
+    public void setUserEntity(UserEntity userEntity) {
+        editor.putString(USER_ENTITY, userEntity.toJSON().toString());//"USER_ENTITY"
         editor.commit();
     }
 

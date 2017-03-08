@@ -16,13 +16,13 @@ import com.yvision.widget.CircleImageView;
 /**
  * Created by JackSong on 2016/9/12.
  */
-public class UserListAdapter extends CommonListAdapter{
+public class UserListAdapter extends BaseListAdapter{
     // 图片缓存
     private DisplayImageOptions imgOption;
     private ImageLoader imgLoader;
 
-    public UserListAdapter(Context context, AdapterCallBack callBack) {
-        super(context, callBack);
+    public UserListAdapter(Context context) {
+        super(context);
         // 图片缓存实例化
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));

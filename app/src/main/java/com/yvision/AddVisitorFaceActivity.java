@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.yvision.adapter.CommonListAdapter;
 import com.yvision.adapter.EmployeeListSpinnerAdapter;
 import com.yvision.common.MyException;
 import com.yvision.db.entity.UserEntity;
@@ -52,7 +51,7 @@ import java.util.Date;
  *
  */
 
-public class AddVisitorFaceActivity extends BaseActivity implements CommonListAdapter.AdapterCallBack {
+public class AddVisitorFaceActivity extends BaseActivity {
 	// back
 	@ViewInject(id = R.id.imgBack, click = "forBack")
 	ImageView imgBack;
@@ -410,11 +409,7 @@ public class AddVisitorFaceActivity extends BaseActivity implements CommonListAd
 //
 //	}
 
-	// CommonListAdapter.AdapterCallBack接口
-	@Override
-	public void loadMore() {
 
-	}
 
 	// 设置日期
 	private final int DATE_START_DATA = 0;

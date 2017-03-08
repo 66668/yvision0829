@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -26,13 +25,14 @@ import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.OldEmployeeModel;
 import com.yvision.utils.PageUtil;
+import com.yvision.widget.RefreshAndLoadListView;
 
 import java.util.ArrayList;
 
 /**
  * 员工注册系统详细界面
  */
-public class MainRegisterActivity extends BaseActivity {
+public class MainRegisterActivity extends BaseActivity implements RefreshAndLoadListView.ILoadMoreListener,RefreshAndLoadListView.IReflashListener{
 
     // 返回
     @ViewInject(id = R.id.layout_Back, click = "forBack")
@@ -52,7 +52,7 @@ public class MainRegisterActivity extends BaseActivity {
 
     //listVew
     @ViewInject(id = R.id.OldEmployeeNameList)
-    ListView listView;
+    RefreshAndLoadListView listView;
 
     //listVew
     @ViewInject(id = R.id.tv_right, click = "refresh")
@@ -79,7 +79,8 @@ public class MainRegisterActivity extends BaseActivity {
         setContentView(R.layout.act_registermain);
         this.context = this;
 
-        initMainView();// spinner监听/search监听
+        initMyView();// spinner监听/search监听
+
         employeeNameListAdapter = new EmployeeNameListAdapter(context);// null--没有上拉加载功能
         listView.setAdapter(employeeNameListAdapter);
 
@@ -111,8 +112,7 @@ public class MainRegisterActivity extends BaseActivity {
         getData();
     }
 
-    // 加载spinner,加载SearchView格式
-    public void initMainView() {
+    public void initMyView() {
         tv_right.setText("刷新");
         // searchView
         tv_forSearch.setIconifiedByDefault(true);
@@ -125,8 +125,20 @@ public class MainRegisterActivity extends BaseActivity {
         mSpinnerAdapter = new MainSpinnerAdapter(this, mSpinnerArray);
         // 设置下拉列表风格()
         mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        listView.setIRefreshListener(this);
+        listView.setILoadMoreListener(this);
     }
 
+    @Override
+    public void onLoadMore() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
     // 获取全部记录
     private void getData() {
         if (ifLoading) {
@@ -277,6 +289,7 @@ public class MainRegisterActivity extends BaseActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
 
 }

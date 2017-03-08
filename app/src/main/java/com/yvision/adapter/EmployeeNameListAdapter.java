@@ -14,7 +14,7 @@ import com.yvision.model.OldEmployeeModel;
  * @author
  */
 
-public class EmployeeNameListAdapter extends SimpleListAdapter {
+public class EmployeeNameListAdapter extends BaseListAdapter {
 
     public class WidgetHolder {
         public TextView tvName;

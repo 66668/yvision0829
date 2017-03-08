@@ -9,25 +9,19 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
-public abstract class CommonListAdapter extends BaseAdapter{
+public abstract class BaseListAdapter extends BaseAdapter{
 
 	public Context context;
 	public LayoutInflater inflater;
-	public AdapterCallBack callBack; 
 	public ArrayList entityList = new ArrayList();
 	public boolean IsEnd=false;//翻页设置
 	public static ArrayList<Boolean> isCheckedList = null;//用于标记checkBox值
 
-	public CommonListAdapter(Context context,AdapterCallBack callBack){
+	public BaseListAdapter(Context context){
 		this.context = context;
-		this.callBack = callBack;
 		inflater = LayoutInflater.from(context);
 	}
-	
-	public interface AdapterCallBack{
-		void loadMore();
-	}
-	
+
 	@Override
 	public int getCount() {
 		if(entityList != null){
@@ -45,10 +39,7 @@ public abstract class CommonListAdapter extends BaseAdapter{
 	public long getItemId(int position) {
 		return position;
 	} 
-	
-	public ArrayList getEntityList() {
-		return entityList;
-	}
+
 
 	public void setEntityList(ArrayList entityList) {
 //		this.entityList = entityList;//
@@ -66,7 +57,7 @@ public abstract class CommonListAdapter extends BaseAdapter{
 	public void insertEntityList(ArrayList entityList){
 		Log.d("SJY","父类--CommonListAdapter--insert-entityList="+entityList);
 		if(entityList != null){
-			this.entityList.addAll(0,entityList);
+			this.entityList.add(0,entityList);
 		}
 		notifyDataSetChanged();
 
@@ -87,10 +78,6 @@ public abstract class CommonListAdapter extends BaseAdapter{
 		} 
 		Log.d("SJY", "CommonListAdapter--position="+position);//
 		initViewData(position, convertView);
-		//加载数据
-		if(position == getCount() - 1  && !IsEnd){//19行加载
-			callBack.loadMore();
-		} 
 		return convertView;
 	}
 

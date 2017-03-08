@@ -1,13 +1,13 @@
 package com.yvision.db;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
  
 public class EntityBase{
 	
@@ -92,14 +92,13 @@ public class EntityBase{
 		return sb;
 	}
 	
-	public JSONObject toJSON(){
+	public  JSONObject toJSON(){
 		JSONObject jsonObject = new JSONObject();
 		for (ColumnInfo column : _tableSchema.GetAllColumnInfo()) {
 			Object obj = GetData(column.ColumnName);
 			try {
 				jsonObject.put(column.ColumnName, obj);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

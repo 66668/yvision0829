@@ -1,22 +1,29 @@
 package com.yvision;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
-import com.yvision.common.MyApplication;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.EmployeeInfoModel;
+import com.yvision.utils.JPushUtil;
 import com.yvision.utils.PageUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * 界面：
@@ -43,7 +50,7 @@ public class MainActivity extends BaseActivity {
     //变量
     private SimpleDateFormat formatter;
     private Date curDate;
-
+    public static boolean isForeground = false;//推送 判断
     //常量
     private static final int TO_REGISTER = -96;
     private static final int TO_VISITOR = -92;
@@ -56,12 +63,15 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.act_main);
-        //判断自动登录
-        if (!MyApplication.getInstance().isLogin() && (MyApplication.getInstance().getClientID() == null)) {
-            startActivity(LoginActivity.class);
-            this.finish();
-        }
-        Log.d("SJY", "clientID=" + MyApplication.getInstance().getClientID());
+
+        initJpush();
+    }
+
+    private void initJpush() {
+        JPushInterface.init(getApplicationContext());
+        registerMessageReceiver();  // used for receive msg
+        //推送设置别名
+        setAlias(UserHelper.getCurrentUser().getworkId());
     }
 
     /**
@@ -96,7 +106,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent2);
                 break;
             case TO_ATTENDANCE_FAILED://考勤返回数据失败
-                PageUtil.DisplayToast((String)msg.obj);
+                PageUtil.DisplayToast((String) msg.obj);
                 break;
             default:
                 break;
@@ -131,6 +141,27 @@ public class MainActivity extends BaseActivity {
         sendMessage(TO_SETTINGS);
     }
 
+    @Override
+    protected void onResume() {
+        isForeground = true;
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        isForeground = false;
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMessageReceiver != null) {
+            unregisterReceiver(mMessageReceiver);
+        }
+    }
+
     //	// 双击退出
     //	private static Boolean isExit = false;
     //
@@ -155,4 +186,61 @@ public class MainActivity extends BaseActivity {
     //		}
     //		return false;
     //	}
+
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        registerReceiver(mMessageReceiver, filter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                String messge = intent.getStringExtra(KEY_MESSAGE);
+                String extras = intent.getStringExtra(KEY_EXTRAS);
+                StringBuilder showMsg = new StringBuilder();
+                showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                if (!JPushUtil.isEmpty(extras)) {
+                    showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                }
+                Log.d("JPush", "rid=" + JPushInterface.getRegistrationID(MainActivity.this) + "\n--showMsg" + showMsg);
+            }
+        }
+    }
+
+    /**
+     * jpush 绑定别名
+     */
+    private void setAlias(String workid) {
+        JPushInterface.setAliasAndTags(getApplicationContext(), workid, null, new TagAliasCallback() {
+
+            @Override
+            public void gotResult(int code, String s, Set<String> set) {
+                String logs;
+                switch (code) {
+                    case 0:
+                        Log.i("JPush", "Set tag and alias success极光推送别名设置成功");
+                        break;
+                    case 6002:
+                        Log.i("JPush", "极光推送别名设置失败，Code = 6002");
+                        break;
+                    default:
+                        Log.e("JPush", "极光推送设置失败，Code = " + code);
+                        break;
+                }
+            }
+        });
+    }
 }

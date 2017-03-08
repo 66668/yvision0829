@@ -16,13 +16,11 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.yvision.adapter.CommonListAdapter;
 import com.yvision.adapter.MainSpinnerAdapter;
 import com.yvision.adapter.UserListAdapter;
 import com.yvision.common.MyApplication;
@@ -35,6 +33,7 @@ import com.yvision.model.AttendParModel3;
 import com.yvision.model.EmployeeInfoModel;
 import com.yvision.utils.ConfigUtil;
 import com.yvision.utils.PageUtil;
+import com.yvision.widget.RefreshAndLoadListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ import java.util.List;
 /**
  * 考勤系统主界面
  */
-public class MainUserActivity extends BaseActivity{
+public class MainUserActivity extends BaseActivity implements RefreshAndLoadListView.IReflashListener,RefreshAndLoadListView.ILoadMoreListener{
     //back
     @ViewInject(id = R.id.img_back, click = "forBack")
     RelativeLayout img_back;
@@ -63,7 +62,7 @@ public class MainUserActivity extends BaseActivity{
     @ViewInject(id = R.id.spinner_style)
     Spinner spinner_style;
     //变量
-    private ListView listView;
+    private RefreshAndLoadListView listView;
     private UserListAdapter uAdapter;
     private ArrayAdapter<String> spinnerTimeAdapter;//time spinner
     private String[] spinnerArrayTime;
@@ -102,8 +101,8 @@ public class MainUserActivity extends BaseActivity{
         employeeID = employeeInfoModel.getEmployeeID();//获取员工ID
         storeID = UserHelper.getCurrentUser().getStoreID();
 
-        initVariaies();//控件实例化
-        uAdapter = new UserListAdapter(this, adapterCallBack);
+        initMyView();//控件实例化
+        uAdapter = new UserListAdapter(this);
         listView.setAdapter(uAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -121,8 +120,8 @@ public class MainUserActivity extends BaseActivity{
         getData();
     }
 
-    public void initVariaies() {
-        listView = (ListView) findViewById(R.id.UserList);
+    public void initMyView() {
+        listView = (RefreshAndLoadListView) findViewById(R.id.UserList);
 
         //time spinner
         spinnerArrayTime = getResources().getStringArray(R.array.forTime);
@@ -137,7 +136,12 @@ public class MainUserActivity extends BaseActivity{
         spinnerStyleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);// 设置下拉列表风格()
         spinner_style.setAdapter(spinnerStyleAdapter);
         spinner_style.setOnItemSelectedListener(new SpinnerStyleItemSelectedListener());
+
+        listView.setILoadMoreListener(this);
+        listView.setIRefreshListener(this);
     }
+
+
 
     /**
      * time spinner
@@ -147,25 +151,25 @@ public class MainUserActivity extends BaseActivity{
         public void onItemSelected(AdapterView<?> parent, View view, int position, long arg3) {
             switch (position) {
                 case 0://全部
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载全部数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载全部数据
                     listView.setAdapter(uAdapter);
                     timeForAll();
                     getData();
                     break;
                 case 1://今天
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载今天数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载今天数据
                     listView.setAdapter(uAdapter);
                     timeForToday();
                     getData();
                     break;
                 case 2://本周
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载今天数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载今天数据
                     listView.setAdapter(uAdapter);
                     timeForWekend();
                     getData();
                     break;
                 case 3://本月
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载今天数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载今天数据
                     listView.setAdapter(uAdapter);
                     timeForMonth();
                     getData();
@@ -189,25 +193,25 @@ public class MainUserActivity extends BaseActivity{
         public void onItemSelected(AdapterView<?> parent, View view, int position, long arg3) {
             switch (position) {
                 case 0://全部
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载全部数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载全部数据
                     listView.setAdapter(uAdapter);
                     styleForAll();
                     getData();
                     break;
                 case 1://local
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载今天数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载今天数据
                     listView.setAdapter(uAdapter);
                     styleForLocal();
                     getData();
                     break;
                 case 2://地图
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载今天数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载今天数据
                     listView.setAdapter(uAdapter);
                     styleForMap();
                     getData();
                     break;
                 case 3://wifi
-                    uAdapter = new UserListAdapter(MainUserActivity.this, adapterCallBack);// 加载今天数据
+                    uAdapter = new UserListAdapter(MainUserActivity.this);// 加载今天数据
                     listView.setAdapter(uAdapter);
                     styleForWifi();
                     getData();
@@ -223,51 +227,54 @@ public class MainUserActivity extends BaseActivity{
         }
     }
 
-    // 上拉拼接旧记录
-    CommonListAdapter.AdapterCallBack adapterCallBack = new CommonListAdapter.AdapterCallBack() {
-        @Override
-        public void loadMore() {
-
-            if (ifLoading) {
-                return;
-            }
-
-            Loading.run(MainUserActivity.this, new Runnable() {
-                @Override
-                public void run() {
-                    ifLoading = true;//
-                    try {
-                        Log.d("SJY", "上拉拼接minTime=" + minTime);
-                        List<AttendModel> userModelList = UserHelper.GetAttendanceRecordByPage(
-                                MainUserActivity.this,
-                                "",
-                                minTime,
-                                pageSize,
-                                timespan,
-                                storeID,
-                                employeeID,
-                                attendType);
-
-                        if (userModelList == null) {
-                            uAdapter.IsEnd = true;
-                        } else if (userModelList.size() < pageSize) {
-                            uAdapter.IsEnd = true;
-                        }
-                        sendMessage(LOAD_MORE_ATTEND_SUCCESS, userModelList);
-                        if (userModelList.size() > 0) {
-
-                        } else {
-
-                        }
-                    } catch (MyException e) {
-                        sendMessage(GET_NONE_ATTENDDATA, e.getMessage());
-                        ifLoading = false;
-                    }
-                }
-            });
-
+    /**
+     * 加载
+     */
+    @Override
+    public void onLoadMore() {
+        if (ifLoading) {
+            return;
         }
-    };
+
+        Loading.run(MainUserActivity.this, new Runnable() {
+            @Override
+            public void run() {
+                ifLoading = true;//
+                try {
+                    Log.d("SJY", "上拉拼接minTime=" + minTime);
+                    List<AttendModel> userModelList = UserHelper.GetAttendanceRecordByPage(
+                            MainUserActivity.this,
+                            "",
+                            minTime,
+                            pageSize,
+                            timespan,
+                            storeID,
+                            employeeID,
+                            attendType);
+
+                    if (userModelList == null) {
+                        uAdapter.IsEnd = true;
+                    } else if (userModelList.size() < pageSize) {
+                        uAdapter.IsEnd = true;
+                    }
+                    sendMessage(LOAD_MORE_ATTEND_SUCCESS, userModelList);
+                    if (userModelList.size() > 0) {
+
+                    } else {
+
+                    }
+                } catch (MyException e) {
+                    sendMessage(GET_NONE_ATTENDDATA, e.getMessage());
+                    ifLoading = false;
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
 
     @Override
     protected void handleMessage(Message msg) {
@@ -319,6 +326,7 @@ public class MainUserActivity extends BaseActivity{
         }
         setMaxTime("");
         setMinTime("");
+
         Loading.run(MainUserActivity.this, new Runnable() {
             @Override
             public void run() {

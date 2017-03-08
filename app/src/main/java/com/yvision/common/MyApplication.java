@@ -3,6 +3,7 @@ package com.yvision.common;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -13,6 +14,8 @@ import com.yvision.model.VisitorBModel;
 import com.yvision.utils.Utils;
 
 import java.io.File;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * 定义MyApplication/<application>需要修改权限:
@@ -27,7 +30,6 @@ public class MyApplication extends Application {
 	boolean isLogin = false;
 	public Boolean checkBoxStatus = false;//记录checkBox
 	private final static String sdcardDirName = "YUEVISION";
-	public String ClientID = null;
 	public VisitorBModel visitorBModel = null;
 	public int timespan = 0;//默认获取访客记录是全部数据
 	public String iMinTime = "";
@@ -42,8 +44,10 @@ public class MyApplication extends Application {
 		instance = this;
 		currentContext = this.getApplicationContext();
 
-		// SDK初始化，第三方程序启动时，都要进行SDK初始化工作
-//		PushManager.getInstance().initialize(this.getApplicationContext());
+		// 极光推送 SDK初始化
+		JPushInterface.setDebugMode(true);//设置打印日志，测试用
+		JPushInterface.init(this);
+		Log.d("JPush", "rid=" + JPushInterface.getRegistrationID(getApplicationContext()));
 
 		//图片缓存初始化设置
 		initImageLoader(this);
@@ -159,14 +163,6 @@ public class MyApplication extends Application {
 
 	public void setCheckBoxStatus(Boolean status){
 		this.checkBoxStatus = status;
-	}
-
-	public String getClientID() {
-		return ClientID;
-	}
-
-	public void setClientID(String clientID) {
-		ClientID = clientID;
 	}
 
 	//访客数据的（全部/今天）标记

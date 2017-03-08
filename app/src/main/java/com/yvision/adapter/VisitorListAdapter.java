@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * @author
  */
 
-public class VisitorListAdapter extends CommonListAdapter {
+public class VisitorListAdapter extends BaseListAdapter {
     private ImageLoader imgLoader;
     private DisplayImageOptions imgOptions;
 
@@ -37,8 +37,8 @@ public class VisitorListAdapter extends CommonListAdapter {
         public TextView tvStatus;//接待状态
     }
 
-    public VisitorListAdapter(Context context, AdapterCallBack callBack) {
-        super(context, callBack);
+    public VisitorListAdapter(Context context) {
+        super(context);
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));
         imgOptions = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.photo);
@@ -115,25 +115,25 @@ public class VisitorListAdapter extends CommonListAdapter {
     }
 
     public void initData() {
-        Log.d("SJY", "VisitorAdapter--创建加载--entitylist长度=" + getEntityList().size());
-        if (isCheckedList == null) {
-            isCheckedList = new ArrayList<Boolean>();
-            Log.d("SJY", "VisitorListAdapter--List长度=" + isCheckedList.size());
-        }
-        //getView回调，list长度不断增加，做不增加处理
-        if (getEntityList().size() == isCheckedList.size()) {
-            for (int i = 0; i < getEntityList().size(); i++) {
-                isCheckedList.set(i, false);//赋值(避免长度增长)
-
-            }
-        } else {
-            isCheckedList.clear();
-            for (int i = 0; i < getEntityList().size(); i++) {
-                isCheckedList.add(i, false);
-
-            }
-        }
-        setisCheckedList(isCheckedList);
+//        Log.d("SJY", "VisitorAdapter--创建加载--entitylist长度=" + getEntityList().size());
+//        if (isCheckedList == null) {
+//            isCheckedList = new ArrayList<Boolean>();
+//            Log.d("SJY", "VisitorListAdapter--List长度=" + isCheckedList.size());
+//        }
+//        //getView回调，list长度不断增加，做不增加处理
+//        if (getEntityList().size() == isCheckedList.size()) {
+//            for (int i = 0; i < getEntityList().size(); i++) {
+//                isCheckedList.set(i, false);//赋值(避免长度增长)
+//
+//            }
+//        } else {
+//            isCheckedList.clear();
+//            for (int i = 0; i < getEntityList().size(); i++) {
+//                isCheckedList.add(i, false);
+//
+//            }
+//        }
+//        setisCheckedList(isCheckedList);
     }
 
     public void destroy() {

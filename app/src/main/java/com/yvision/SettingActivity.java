@@ -12,13 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.igexin.sdk.PushManager;
 import com.yvision.common.MyException;
 import com.yvision.dialog.UpdateAppDialog;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.UpgradeModel;
-import com.yvision.receiver.GetuiReceiver;
 import com.yvision.utils.IntentUtil;
 import com.yvision.utils.PageUtil;
 
@@ -103,10 +101,7 @@ public class SettingActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.setAction(EXIT_APP_ACTION);
         sendBroadcast(intent);//发送退出的广播
-        //个推关闭
-        PushManager.getInstance().turnOffPush(this);
-        PushManager.getInstance().stopService(this.getApplicationContext());
-        GetuiReceiver.payloadData.delete(0, GetuiReceiver.payloadData.length());
+
         try {
             UserHelper.logout(this);
         } catch (MyException e) {

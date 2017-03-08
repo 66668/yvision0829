@@ -21,6 +21,7 @@ import com.yvision.model.VisitorBModel;
 import com.yvision.utils.APIUtils;
 import com.yvision.utils.ConfigUtil;
 import com.yvision.utils.JSONUtils;
+import com.yvision.utils.Utils;
 import com.yvision.utils.WebUrl;
 
 import org.json.JSONArray;
@@ -99,7 +100,6 @@ public class UserHelper {
             configUtil.setAutoLogin(false);
             //修改自动登录的判断
             MyApplication.getInstance().setIsLogin(false);
-            MyApplication.getInstance().setClientID(null);
         } finally {
             mCurrentUser = null;
         }
@@ -113,17 +113,24 @@ public class UserHelper {
             throw new MyException(R.string.network_invalid);
         HttpResult httpResult = APIUtils.postForObject(WebUrl.LOGIN_POST,
                 HttpParameter.create().
-                        add("storeId", storeId).
-                        add("workId", workId).
+                        add("adminUserName", storeId).//storeid
+                        add("userName", workId).//workid
                         add("password", password).
-                        add("ClientID", clientID + "@1001"));//clientId@1001
+
+                        add("MAC", Utils.getPhoneModel()).//手机mac
+                        add("IP", Utils.getLocalIpAddress()).//手机ip
+                        add("deviceType", Utils.getPhoneModel()).//手机设备类型
+                        add("deviceName", Utils.getPhonePRODUCT()).//手机设备名称
+
+                        add("Remark", "").//
+                        add("DeviceSN", "").//
+                        add("DeviceInfo", clientID + "@1001"));//
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
         }
 
-        // Gson.jar包,js解析给UserEntity（EmployeeID-StoreID-StoreUserId）
-//        UserEntity userEntity = new Gson().fromJson(httpResult.jsonObject.toString(), UserEntity.class);// js解析"result"的value值
+
         UserEntity userEntity = new UserEntity();
         userEntity.setEmployeeID(JSONUtils.getString(httpResult.jsonObject,"EmployeeID"));
         userEntity.setStoreID(JSONUtils.getString(httpResult.jsonObject,"StoreID"));
