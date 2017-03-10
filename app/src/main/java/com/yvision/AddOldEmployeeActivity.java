@@ -251,7 +251,7 @@ public class AddOldEmployeeActivity extends BaseActivity
                                     add("IsAttend", IsAttend).
                                     add("IsVip", IsVip).
                                     add("IsDoorAccess", IsDoorAccess).
-                                    add("operatorName", UserHelper.getCurrentUser().getstoreId()),
+                                    add("operatorName", UserHelper.getCurrentUser().getStoreUserId()),
                             picPath);
                     // 消息处理
                     sendMessage(SUCCESS_REGISTER, result);

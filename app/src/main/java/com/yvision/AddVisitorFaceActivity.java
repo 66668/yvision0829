@@ -257,9 +257,8 @@ public class AddVisitorFaceActivity extends BaseActivity {
 		// 将当前登返回值的EmployeeID显示到spinner上
 		try {
 			userEntity = UserHelper.getCurrentUser();
-			Log.d("SJY", "userEntity = "+userEntity.getEmployeeID());//
 			// 将id显示到spinner上
-			et_RespondentSpinner.setSelection(getEmployeeListIndex(userEntity.getEmployeeID()));//暂时 无用
+			et_RespondentSpinner.setSelection(getEmployeeListIndex(userEntity.getStoreUserId()));//暂时 无用
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -4,7 +4,7 @@ package com.yvision;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yvision.common.MyException;
+import com.yvision.dialog.Loading;
 import com.yvision.dialog.UpdateAppDialog;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
@@ -101,18 +102,17 @@ public class SettingActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.setAction(EXIT_APP_ACTION);
         sendBroadcast(intent);//发送退出的广播
-
-        try {
-            UserHelper.logout(this);
-        } catch (MyException e) {
-            e.printStackTrace();
-            if (TextUtils.isEmpty(e.getMessage())) {
-                sendToastMessage("注销失败!");
-            } else {
-                sendToastMessage(e.getMessage());
+        Loading.run(this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UserHelper.logout(getApplicationContext());
+                } catch (MyException e) {
+                    Log.d("SJY", "异常=" + e.getMessage());
+                }
             }
+        });
 
-        }
     }
 
     /**

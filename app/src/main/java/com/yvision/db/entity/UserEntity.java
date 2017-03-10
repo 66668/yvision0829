@@ -13,22 +13,21 @@ public class UserEntity extends EntityBase {
     }
 
     //
-    public String getworkId() {
-        return (String) GetData(UserTable.C_workId);
+    public String getUserName() {
+        return (String) GetData(UserTable.C_userName);
     }
 
-    public void setworkId(String value) {
-        SetData(UserTable.C_workId, value);
+    public void setUserName(String value) {
+        SetData(UserTable.C_userName, value);
     }
 
 
-    //
-    public String getstoreId() {
-        return (String) GetData(UserTable.C_storeId);
+    //公司编号
+    public String getAdminUserName() {
+        return (String) GetData(UserTable.C_adminUserName);
     }
-
-    public void setstoreId(String value) {
-        SetData(UserTable.C_storeId, value);
+    public void setAdminUserName(String value) {
+        SetData(UserTable.C_adminUserName, value);
     }
 
     //
@@ -49,16 +48,16 @@ public class UserEntity extends EntityBase {
         SetData(UserTable.C_URL, value);
     }
 
-    //
-    public String getEmployeeID() {
-        return (String) GetData(UserTable.C_employeeID);
+    //设备id
+    public String getDeviceId() {
+        return (String) GetData(UserTable.C_DeviceId);
     }
 
-    public void setEmployeeID(String value) {
-        SetData(UserTable.C_employeeID, value);
+    public void setDeviceId(String value) {
+        SetData(UserTable.C_DeviceId, value);
     }
 
-    //
+    //用户id
     public String getStoreUserId() {
         return (String) GetData(UserTable.C_StoreUserId);
     }
@@ -67,8 +66,18 @@ public class UserEntity extends EntityBase {
         SetData(UserTable.C_StoreUserId, value);
     }
 
+    //员工id
+    public String getEmployeeId() {
+        return (String) GetData(UserTable.C_EmployeeId);
+    }
 
-    //编号
+    public void setEmployeeId(String value) {
+        SetData(UserTable.C_EmployeeId, value);
+    }
+
+
+    //公司编号 id
+    //公司编号 id
     public String getStoreID() {
         return (String) GetData(UserTable.C_StoreID);
     }

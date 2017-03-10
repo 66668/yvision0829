@@ -236,7 +236,7 @@ public class AddNewEmployeeActivity extends BaseActivity {
         Log.d("SJY", "注册1");
         UUID guid = UUID.randomUUID();
         employeeID = guid.toString();//员工编号
-        operatorName = UserHelper.getCurrentUser().getworkId();//操作人姓名/登录时的工号
+        operatorName = UserHelper.getCurrentUser().getUserName();//操作人姓名/登录时的工号
         companyID = UserHelper.getCurrentUser().getStoreID();//storeID公司编号
         name = etName.getText().toString().trim();//姓名
         gender = group_gender.getCheckedRadioButtonId() == R.id.radioBtn_male ? "1" : "0";//性别

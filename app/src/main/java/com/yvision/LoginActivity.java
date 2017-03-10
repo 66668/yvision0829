@@ -79,8 +79,8 @@ public class LoginActivity extends BaseActivity {
 
         //中断保存
         ConfigUtil configUtil = new ConfigUtil(this);
-        et_storeId.setText(configUtil.getstoreId());
-        et_UserName.setText(configUtil.getworkId());
+        et_storeId.setText(configUtil.getAdminUserName());
+        et_UserName.setText(configUtil.getUserName());
         et_Password.setText(configUtil.getPassword());
 
     }

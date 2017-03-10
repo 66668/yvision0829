@@ -69,8 +69,8 @@
     <string name="main_edit">编辑</string>
     <string name="add_customer_face">添加人脸</string>
     <string-array name="user_date">
-        <item >全&#160;部</item>
-        <item >今&#160;天</item>
+        <item>全&#160;部</item>
+        <item>今&#160;天</item>
     </string-array>
     <!--url -->
     <string name="urlTitle">URL配置</string>
@@ -122,9 +122,12 @@
     <string name="visitorManager">访客管理</string>
     <string name="attendManager">考勤管理</string>
     <string name="RegisterManager">人像注册</string>
+    <string name="text_vip">VIP</string>
+    <string name="text_door">门禁</string>
 
     <!-- 老员工注册-->
     <string name="hint_Number">请输入客户号</string>
 
-
+    <!-- vip-->
+    <string name="title_vip">VIP</string>
 </resources>

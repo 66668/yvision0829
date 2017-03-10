@@ -18,8 +18,8 @@ public class ConfigUtil {
     protected SharedPreferences.Editor editor;
 
 
-    private static final String STOREID = "storeId";//
-    private static final String WORKID = "workId";//工号
+    private static final String ADMIUSERNAME = "adminUserName";//
+    private static final String USERNAME = "userName";//工号
     private static final String PSD = "password";//密码
     private static final String URL = "url";//URL
     private static final String AUTO_LOGIN = "auto_login";
@@ -45,8 +45,8 @@ public class ConfigUtil {
 
     //
     public void resetConfig() {
-        setworkId(null);
-        setstoreId("");
+        setUserName("");
+        setAdminUserName("");
         setAutoLogin(true);
     }
 
@@ -116,23 +116,23 @@ public class ConfigUtil {
 //    }
 
     //
-    public String getworkId() {
-        return sp.getString(WORKID, null);//userid
+    public String getUserName() {
+        return sp.getString(USERNAME, null);//userid
     }
 
     //
-    public void setworkId(String id) {
-        editor.putString(WORKID, id);
+    public void setUserName(String id) {
+        editor.putString(USERNAME, id);
         editor.commit();
     }
 
     //
-    public String getstoreId() {
-        return sp.getString(STOREID, "");
+    public String getAdminUserName() {
+        return sp.getString(ADMIUSERNAME, "");
     }
 
-    public void setstoreId(String account) {
-        editor.putString(STOREID, account);
+    public void setAdminUserName(String account) {
+        editor.putString(ADMIUSERNAME, account);
         editor.commit();
     }
 

@@ -17,6 +17,7 @@ import com.yvision.model.AttendModel;
 import com.yvision.model.EmployeeInfoModel;
 import com.yvision.model.OldEmployeeModel;
 import com.yvision.model.UpgradeModel;
+import com.yvision.model.VipModel;
 import com.yvision.model.VisitorBModel;
 import com.yvision.utils.APIUtils;
 import com.yvision.utils.ConfigUtil;
@@ -40,7 +41,7 @@ import java.util.List;
  * @author JackSong
  */
 public class UserHelper {
-    static UserEntity mCurrentUser = null;
+    static UserEntity mCurrentUser;
     static String configUserManager = null;//
 
     /**
@@ -51,7 +52,7 @@ public class UserHelper {
     public static String getCongfigworkId() {
         if (workId == null) {
             ConfigUtil config = new ConfigUtil(MyApplication.getInstance());
-            workId = config.getworkId();
+            workId = config.getUserName();
         }
         return workId;
     }
@@ -71,7 +72,7 @@ public class UserHelper {
         if (mCurrentUser == null && isAutoLoad) {// 判断MemberModel类是否为空
             // 中断保存
             ConfigUtil config = new ConfigUtil(MyApplication.getInstance());// 中断保存获取信息
-            String workId = config.getworkId();
+            String workId = config.getUserName();
             if (!"".equals(workId)) {
                 // 获取所有当前用户信息，保存到mCurrentUser对象中
                 mCurrentUser = config.getUserEntity();
@@ -95,11 +96,26 @@ public class UserHelper {
      * 退出登录
      */
     public static void logout(Context context) throws MyException {
+        if (!NetworkManager.isNetworkAvailable(context))
+            throw new MyException(R.string.network_invalid);
         try {
+
+            HttpResult httpResult = APIUtils.postForObject(WebUrl.User.QUIT_OUT,
+                    HttpParameter.create()
+                            .add("storeId", UserHelper.getCurrentUser().getStoreID().trim())
+                            .add("userName", UserHelper.getCurrentUser().getUserName().trim())
+                            .add("deviceId", UserHelper.getCurrentUser().getDeviceId().trim()));
+
+            if (httpResult.hasError()) {
+                throw httpResult.getError();
+            }
+
             ConfigUtil configUtil = new ConfigUtil(context);
             configUtil.setAutoLogin(false);
             //修改自动登录的判断
             MyApplication.getInstance().setIsLogin(false);
+        } catch (Exception e) {
+            throw new MyException(e.getMessage());
         } finally {
             mCurrentUser = null;
         }
@@ -108,19 +124,19 @@ public class UserHelper {
     /**
      * 01 密码登录
      */
-    public static void loginByPs(Context context, String storeId, String workId, String password, String clientID) throws MyException {
+    public static void loginByPs(Context context, String adminUserName, String userName, String password, String clientID) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context))
             throw new MyException(R.string.network_invalid);
         HttpResult httpResult = APIUtils.postForObject(WebUrl.LOGIN_POST,
                 HttpParameter.create().
-                        add("adminUserName", storeId).//storeid
-                        add("userName", workId).//workid
+                        add("adminUserName", adminUserName).//storeid
+                        add("userName", userName).//workid
                         add("password", password).
 
-                        add("MAC", Utils.getPhoneModel()).//手机mac
-                        add("IP", Utils.getLocalIpAddress()).//手机ip
+                        add("MAC", Utils.getMacByWifi()).//手机mac
+                        add("IP", Utils.getIPAddress(context)).//手机ip
                         add("deviceType", Utils.getPhoneModel()).//手机设备类型
-                        add("deviceName", Utils.getPhonePRODUCT()).//手机设备名称
+                        add("deviceName", userName).//手机设备名称
 
                         add("Remark", "").//
                         add("DeviceSN", "").//
@@ -132,17 +148,21 @@ public class UserHelper {
 
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setEmployeeID(JSONUtils.getString(httpResult.jsonObject,"EmployeeID"));
-        userEntity.setStoreID(JSONUtils.getString(httpResult.jsonObject,"StoreID"));
-        userEntity.setStoreUserId(JSONUtils.getString(httpResult.jsonObject,"StoreUserId"));
-        userEntity.setworkId(workId);
+        //返回值
+        userEntity.setDeviceId(JSONUtils.getString(httpResult.jsonObject, "DeviceId"));//设备id
+        userEntity.setStoreID(JSONUtils.getString(httpResult.jsonObject, "StoreId"));//公司id
+        userEntity.setEmployeeId(JSONUtils.getString(httpResult.jsonObject, "EmployeeId"));//员工id
+        userEntity.setStoreUserId(JSONUtils.getString(httpResult.jsonObject, "StoreUserId"));//用户id
+
+        userEntity.setUserName(userName);
         userEntity.setPassword(password);
-        userEntity.setstoreId(storeId);
+        userEntity.setAdminUserName(adminUserName);
         userEntity.setClientID(clientID);
+
         // ConfigUtil中断保存，在退出后重新登录用getAccount()调用
         ConfigUtil config = new ConfigUtil(MyApplication.getInstance());
-        config.setstoreId(storeId);// 保存公司编号
-        config.setworkId(workId);// 保存工号
+        config.setAdminUserName(adminUserName);// 保存公司编号
+        config.setUserName(userName);// 保存用户名
         config.setPassword(password);
         config.setUserEntity(userEntity);// 保存已经登录成功的对象信息
         mCurrentUser = userEntity;// 将登陆成功的对象信息，赋值给全局变量
@@ -159,7 +179,7 @@ public class UserHelper {
         // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
         if (!NetworkManager.isNetworkAvailable(context))
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
-//        String newUrl = new String(WebUrl.UserManager.GET_RESPONDENTS + storeId + "/" + typeN);
+        //        String newUrl = new String(WebUrl.UserManager.GET_RESPONDENTS + storeId + "/" + typeN);
         String newUrl = new String(WebUrl.GET_RESPONDENTS + storeId + "/" + typeN);
         HttpResult httpResult = APIUtils.getForObject(newUrl);
         /**
@@ -220,7 +240,7 @@ public class UserHelper {
         }
 
         HttpResult httpResult = APIUtils.postForObject(WebUrl.CHANGE_PASSWORD,
-                HttpParameter.create().add("storeUserID", getCurrentUser().getstoreId() + "").// 登录时，返回的storeUserID ??
+                HttpParameter.create().add("storeUserID", getCurrentUser().getStoreUserId() + "").// 登录时，返回的storeUserID ??
                         add("oldUserPassword", oldUserPassword).
                         add("newUserPassword", newUserPassword));
         if (httpResult.hasError()) {
@@ -541,7 +561,7 @@ public class UserHelper {
      * @throws IOException
      */
 
-    public static int registerNew(Context context, HttpParameter params, File picPath) throws MyException{
+    public static int registerNew(Context context, HttpParameter params, File picPath) throws MyException {
         // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
@@ -565,7 +585,7 @@ public class UserHelper {
      * @throws IOException
      */
 
-    public static String registerOld(Context context, HttpParameter params, File picPath) throws MyException{
+    public static String registerOld(Context context, HttpParameter params, File picPath) throws MyException {
         // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
@@ -588,7 +608,7 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        Log.d("SJY","获取老员工列表" + WebUrl.GET_OLD_EMPLOYEE_LIST+"--公司编号："+mCurrentUser.getStoreID());
+        Log.d("SJY", "获取老员工列表" + WebUrl.GET_OLD_EMPLOYEE_LIST + "--公司编号：" + mCurrentUser.getStoreID());
         HttpResult httpResult = APIUtils.getForObject(WebUrl.GET_OLD_EMPLOYEE_LIST + mCurrentUser.getStoreID());
 
         if (httpResult.hasError()) {
@@ -618,4 +638,33 @@ public class UserHelper {
         return (new Gson()).fromJson(httpResult.jsonObject.toString(), OldEmployeeModel.class);
     }
 
-}
+    /**
+     * vip记录
+     */
+    public static List<VipModel> getViPList(Context context
+            , String maxTime
+            , String minTime
+            , String timespan) throws MyException {
+
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);
+        }
+        HttpResult httpResult = APIUtils.postForObject(WebUrl.GET_VIP_LIST
+                , HttpParameter.create()
+                        .add("maxTime", maxTime)
+                        .add("minTime", minTime)
+                        .add("pageSize", "30")
+                        .add("employeeId", UserHelper.getCurrentUser().getEmployeeId())
+                        .add("storeId", UserHelper.getCurrentUser().getStoreID())
+                        .add("timespan", timespan));
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        return (new Gson()).fromJson(httpResult.jsonArray.toString(),
+                new TypeToken<List<VipModel>>() {
+                }.getType());
+    }
+
+    }

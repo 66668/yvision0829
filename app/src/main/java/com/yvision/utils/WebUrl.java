@@ -33,7 +33,12 @@ public class WebUrl {
      *
      * @author JackSong
      */
-    public static class UserManager {
+    public static class User{
+        /**
+         * 退出
+         *
+         */
+        public static final String QUIT_OUT = LOGIN_URL + USER + "AppDeviceLogoutByPassword";
     }
 
     /**
@@ -212,5 +217,11 @@ public class WebUrl {
      */
     //		public static final String GET_OLD_EMPLOYEE_DETAILS = REGISTER_URL+API+"Employee/GetEmployeeByID/";
     public static final String GET_OLD_EMPLOYEE_DETAILS = LOGIN_URL + API + "Employee/GetEmployeeByID/";
+
+
+    /**
+     * 获取老员工详细信息
+     */
+    public static final String GET_VIP_LIST = LOGIN_URL + API + "VIP/GetVIPRecordByPage";
 
 }

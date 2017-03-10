@@ -12,77 +12,142 @@
         android:id="@+id/title"
         layout="@layout/topbar_main"/>
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- 访客管理系统 -->
+        <RelativeLayout
+            android:id="@+id/visitorManager"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:background="@drawable/manager"
+            android:gravity="center_vertical">
 
-            <!-- 访客管理系统 -->
-            <RelativeLayout
-                android:id="@+id/visitorManager"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="20dp"
-                android:padding="12dp"
-                android:background="@drawable/manager"
-                android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="34dp"
+                android:text="@string/visitorManager"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default24"/>
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="34dp"
-                    android:text="@string/visitorManager"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default24"/>
-            </RelativeLayout>
+        <!-- 用户管理系统 -->
+        <RelativeLayout
+            android:id="@+id/attendanceManager"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/manager"
+            android:padding="12dp"
+            android:gravity="center_vertical">
 
-            <!-- 用户管理系统 -->
-            <RelativeLayout
-                android:id="@+id/attendanceManager"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/manager"
-                android:padding="12dp"
-                android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="34dp"
+                android:text="@string/attendManager"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default24"/>
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="34dp"
-                    android:text="@string/attendManager"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default24"/>
-            </RelativeLayout>
+        <!-- 人员管理系统 -->
+        <RelativeLayout
+            android:id="@+id/employeeRegisterManager"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:background="@drawable/manager"
+            android:gravity="center_vertical">
 
-            <!-- 人员管理系统 -->
-            <RelativeLayout
-                android:id="@+id/employeeRegisterManager"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="20dp"
-                android:padding="12dp"
-                android:background="@drawable/manager"
-                android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="34dp"
+                android:text="@string/RegisterManager"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default24"/>
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="34dp"
-                    android:text="@string/RegisterManager"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default24"/>
-            </RelativeLayout>
+        <!-- VIP -->
+        <RelativeLayout
+            android:id="@+id/layout_vip"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:background="@drawable/manager"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="34dp"
+                android:text="@string/text_vip"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default24"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_door"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:background="@drawable/manager"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="34dp"
+                android:text="@string/text_door"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/common_textSize_default24"/>
+        </RelativeLayout>  <!-- 人员管理系统 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+
 
 </LinearLayout>

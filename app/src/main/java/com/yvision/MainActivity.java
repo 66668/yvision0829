@@ -43,6 +43,14 @@ public class MainActivity extends BaseActivity {
     @ViewInject(id = R.id.employeeRegisterManager, click = "toRegister")
     RelativeLayout employeeRegisterManager;
 
+    //vip
+    @ViewInject(id = R.id.layout_vip, click = "toVip")
+    RelativeLayout layout_vip;
+
+    //门禁
+    @ViewInject(id = R.id.layout_door, click = "toDoor")
+    RelativeLayout layout_door;
+
     // 设置按钮
     @ViewInject(id = R.id.tv_settings, click = "toSetting")
     RelativeLayout tv_settings;
@@ -52,11 +60,12 @@ public class MainActivity extends BaseActivity {
     private Date curDate;
     public static boolean isForeground = false;//推送 判断
     //常量
-    private static final int TO_REGISTER = -96;
-    private static final int TO_VISITOR = -92;
-    private static final int TO_SETTINGS = -93;
-    private static final int TO_ATTENDANCE = -94;
-    private static final int TO_ATTENDANCE_FAILED = -97;
+    private static final int TO_REGISTER = -97;//注册
+    private static final int TO_ATTENDANCE_FAILED = -96;
+    private static final int TO_ATTENDANCE = -94;//考勤
+    private static final int TO_SETTINGS = -93;//设置
+    private static final int TO_VISITOR = -92;//访客
+    private static final int TO_VIP = -91;//VIP
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +80,7 @@ public class MainActivity extends BaseActivity {
         JPushInterface.init(getApplicationContext());
         registerMessageReceiver();  // used for receive msg
         //推送设置别名
-        setAlias(UserHelper.getCurrentUser().getworkId());
+        setAlias(UserHelper.getCurrentUser().getUserName());
     }
 
     /**
@@ -88,36 +97,13 @@ public class MainActivity extends BaseActivity {
         sendMessage(TO_REGISTER);
     }
 
-    @Override
-    protected void handleMessage(android.os.Message msg) {
-        switch (msg.what) {
-            case TO_VISITOR://访客
-                startActivity(MainVisitorActivity.class);
-                break;
-            case TO_SETTINGS://设置
-                startActivity(SettingActivity.class);
-                break;
-            case TO_REGISTER://注册
-                startActivity(MainRegisterActivity.class);
-                break;
-            case TO_ATTENDANCE://考勤
-                Intent intent2 = new Intent(MainActivity.this, MainUserActivity.class);
-                intent2.putExtra("EmployeeInfoModel", (EmployeeInfoModel) msg.obj);
-                startActivity(intent2);
-                break;
-            case TO_ATTENDANCE_FAILED://考勤返回数据失败
-                PageUtil.DisplayToast((String) msg.obj);
-                break;
-            default:
-                break;
-        }
-    }
+
 
     /**
      * 考勤系统
      */
     public void toUser(View view) {
-        final String employeID = UserHelper.getCurrentUser().getEmployeeID();
+        final String employeID = UserHelper.getCurrentUser().getStoreUserId();
         Loading.run(MainActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -134,6 +120,55 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    /**
+     * vip系统
+     */
+    public void toVip(View view) {
+        final String employeID = UserHelper.getCurrentUser().getStoreUserId();
+        Loading.run(MainActivity.this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    EmployeeInfoModel employeeInfoModel = UserHelper.GetEmployeeInfoByID(MainActivity.this, employeID);
+
+                    sendMessage(TO_VIP, employeeInfoModel);
+                } catch (MyException e) {
+                    sendToastMessage(e.getMessage());
+                    Log.d("SJY", "空异常：" + e.getMessage());
+                    sendMessage(TO_ATTENDANCE_FAILED, e.getMessage());
+                }
+            }
+        });
+    }
+    @Override
+    protected void handleMessage(android.os.Message msg) {
+        switch (msg.what) {
+            case TO_VISITOR://访客
+                startActivity(MainVisitorActivity.class);
+                break;
+            case TO_SETTINGS://设置
+                startActivity(SettingActivity.class);
+                break;
+            case TO_REGISTER://注册
+                startActivity(MainRegisterActivity.class);
+                break;
+
+            case TO_VIP://vip
+                startActivity(MainRegisterActivity.class);
+                break;
+            case TO_ATTENDANCE://考勤
+                Intent intent2 = new Intent(MainActivity.this, MainUserActivity.class);
+                intent2.putExtra("EmployeeInfoModel", (EmployeeInfoModel) msg.obj);
+                startActivity(intent2);
+                break;
+            case TO_ATTENDANCE_FAILED://考勤返回数据失败
+                PageUtil.DisplayToast((String) msg.obj);
+                break;
+            default:
+                break;
+        }
+    }
     /**
      * 设置
      */

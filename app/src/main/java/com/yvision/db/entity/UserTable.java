@@ -6,13 +6,14 @@ import com.yvision.db.TableInfo;
 public class UserTable extends TableInfo {
     public static String C_TableName = "user";
 
-    public static String C_workId = "workId";//
-    public static String C_storeId = "storeId";//
-    public static String C_StoreID = "Store_ID";////公司编号
+    public static String C_userName = "workId";//登录的用户名
+    public static String C_adminUserName = "adminUserName";//adminUserName 登录公司name
+    public static String C_StoreID = "Store_ID";////公司name对应的id
+    public static String C_StoreUserId = "StoreUserId";//用户名id
+    public static String C_EmployeeId = "EmployeeId";//员工id
     public static String C_ClientID = "ClientID";//
     public static String C_URL = "url";//
-    public static String C_StoreUserId = "StoreUserId";//
-    public static String C_employeeID = "employeeID";//
+    public static String C_DeviceId = "DeviceId";//
 
     public static String C_UserId = "user_id";
     public static String C_Fullname = "fullname";
@@ -37,13 +38,14 @@ public class UserTable extends TableInfo {
     private static void Initial() {
         _current = new UserTable();
 
-        _current.Add(C_workId, new ColumnInfo(C_workId, "workId", false, "String"));
-        _current.Add(C_storeId, new ColumnInfo(C_storeId, "storeId", false, "String"));
-        _current.Add(C_ClientID, new ColumnInfo(C_ClientID, "ClientID", false, "String"));
+        _current.Add(C_userName, new ColumnInfo(C_userName, "userName", false, "String"));
         _current.Add(C_StoreID, new ColumnInfo(C_StoreID, "Store_ID", false, "String"));
-        _current.Add(C_URL, new ColumnInfo(C_URL, "url", false, "String"));
+        _current.Add(C_adminUserName, new ColumnInfo(C_adminUserName, "adminUserName", false, "String"));
         _current.Add(C_StoreUserId, new ColumnInfo(C_StoreUserId, "StoreUserId", false, "String"));
-        _current.Add(C_employeeID, new ColumnInfo(C_employeeID, "employeeID", false, "String"));
+        _current.Add(C_EmployeeId, new ColumnInfo(C_EmployeeId, "EmployeeId", false, "String"));
+        _current.Add(C_DeviceId, new ColumnInfo(C_DeviceId, "DeviceId", false, "String"));
+        _current.Add(C_ClientID, new ColumnInfo(C_ClientID, "ClientID", false, "String"));
+        _current.Add(C_URL, new ColumnInfo(C_URL, "url", false, "String"));
 
 
         _current.Add(C_UserId, new ColumnInfo(C_UserId, "UserId", true, "String"));
@@ -56,18 +58,23 @@ public class UserTable extends TableInfo {
     }
 
     //
-    public ColumnInfo workId() {
-        return GetColumnInfoByName(C_workId);
+    public ColumnInfo userName() {
+        return GetColumnInfoByName(C_userName);
     }
 
     //
-    public ColumnInfo storeId() {
-        return GetColumnInfoByName(C_storeId);
+    public ColumnInfo adminUserName() {
+        return GetColumnInfoByName(C_adminUserName);
     }
 
     //
     public ColumnInfo StoreID() {
         return GetColumnInfoByName(C_StoreID);
+    }
+
+    //
+    public ColumnInfo EmployeeId() {
+        return GetColumnInfoByName(C_EmployeeId);
     }
 
     //
@@ -81,8 +88,8 @@ public class UserTable extends TableInfo {
     }
 
     //
-    public ColumnInfo employeeID() {
-        return GetColumnInfoByName(C_employeeID);
+    public ColumnInfo DeviceId() {
+        return GetColumnInfoByName(C_DeviceId);
     }
 
     //
