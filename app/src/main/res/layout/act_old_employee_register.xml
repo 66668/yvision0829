@@ -1,9 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
     >
     <!-- topbar-->
+    <include layout="@layout/topbar_common_itt"/>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -165,8 +167,8 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.5"
-                        android:paddingLeft="20dp"
                         android:background="@drawable/edittext_bg"
+                        android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColor="#494949"
                         android:textSize="@dimen/common_textSize_default12"/>
@@ -280,59 +282,5 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:background="@color/common_topbar_bgcolor"
-        android:src="@mipmap/back"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
 
-
-        <RelativeLayout
-            android:id="@+id/layout_Back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/view2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="12sp"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@mipmap/back"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignBottom="@+id/tv_back"
-                android:layout_alignTop="@+id/tv_back"/>
-
-            <TextView
-                android:id="@+id/tv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/img_back"
-                android:singleLine="true"
-                android:text="返回"
-                android:textColor="@color/white"
-                android:textSize="@dimen/common_textSize_default12"/>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="老客户图片添加"
-            android:textColor="#FFF"
-            android:textSize="12sp"/>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

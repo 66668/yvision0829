@@ -43,9 +43,20 @@ import java.util.ArrayList;
  * Created by sjy on 2016/11/11.
  */
 
-public class AddOldEmployeeActivity extends BaseActivity
-        //        implements CameraGalleryUtils.ChoosePicCallBack
-{
+public class AddOldEmployeeActivity extends BaseActivity {
+
+    //back
+    @ViewInject(id = R.id.layout_back, click = "forBack")
+    RelativeLayout layout_back;
+
+    //
+    @ViewInject(id = R.id.tv_title)
+    TextView tv_title;
+
+    //
+    @ViewInject(id = R.id.tv_right, click = "refresh")
+    TextView tv_right;
+
     // 注册
     @ViewInject(id = R.id.Register_btn_register, click = "btnRegister")
     Button btnRegister;
@@ -73,9 +84,6 @@ public class AddOldEmployeeActivity extends BaseActivity
     @ViewInject(id = R.id.spinnerType)
     Spinner spinnerType;
 
-    //返回登录界面
-    @ViewInject(id = R.id.layout_Back, click = "forBack")
-    RelativeLayout forBack;
 
     //常量
     public static final int FACE_DATABASE_SUCCESS = -29;// 人脸库
@@ -108,7 +116,8 @@ public class AddOldEmployeeActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_old_employee_register);
-
+        tv_title.setText("注册图片");
+        tv_right.setText("");
         //获取跳转值
         Intent intent = getIntent();
         OldEmployeeModel model = (OldEmployeeModel) intent.getSerializableExtra("OldEmployeeModel");
@@ -120,8 +129,8 @@ public class AddOldEmployeeActivity extends BaseActivity
         tvWrokId.setText(WrokId);
         tvDepartment.setText(model.getDeptName());
         tvGender.setText(model.getGender());
-        Log.d("SJY", "创建==employeeID=" + employeeID + "\nEmployeeName=" + EmployeeName + "\nWrokId=" + WrokId+
-                "\n部门="+model.getDeptName()+"\n性别="+model.getGender());
+        Log.d("SJY", "创建==employeeID=" + employeeID + "\nEmployeeName=" + EmployeeName + "\nWrokId=" + WrokId +
+                "\n部门=" + model.getDeptName() + "\n性别=" + model.getGender());
 
         //        // 图片处理工具类
         //        cameraGalleryUtils = new CameraGalleryUtils(this, this);// 实例化
@@ -243,7 +252,7 @@ public class AddOldEmployeeActivity extends BaseActivity
             @Override
             public void run() {
                 try {
-                   String result = UserHelper.registerOld(AddOldEmployeeActivity.this,
+                    String result = UserHelper.registerOld(AddOldEmployeeActivity.this,
                             HttpParameter.create().
                                     add("employeeID", employeeID).
                                     add("groupID", groupID).
@@ -257,7 +266,7 @@ public class AddOldEmployeeActivity extends BaseActivity
                     // 消息处理
                     sendMessage(SUCCESS_REGISTER, result);
                 } catch (MyException e) {
-                    sendMessage(FAILED_REGISTER,e.getMessage());
+                    sendMessage(FAILED_REGISTER, e.getMessage());
                 }
             }
         });
@@ -270,7 +279,7 @@ public class AddOldEmployeeActivity extends BaseActivity
                 PageUtil.DisplayToast((String) msg.obj);
                 break;
             case FAILED_REGISTER:
-                PageUtil.DisplayToast((String)msg.obj);
+                PageUtil.DisplayToast((String) msg.obj);
                 break;
             case FACE_DATABASE_SUCCESS:
                 Log.d("SJY", "已连接人脸库");
@@ -319,6 +328,7 @@ public class AddOldEmployeeActivity extends BaseActivity
 
     /**
      * 打开摄像头
+     *
      * @param view
      */
     public void btnSnapShot(View view) {
