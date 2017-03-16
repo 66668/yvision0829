@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import com.yvision.MainActivity;
+import com.yvision.view.MainActivity;
 import com.yvision.utils.JPushUtil;
 
 import org.json.JSONException;

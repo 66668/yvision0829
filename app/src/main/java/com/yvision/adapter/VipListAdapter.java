@@ -2,6 +2,7 @@ package com.yvision.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,6 +25,7 @@ public class VipListAdapter extends BaseListAdapter {
         public TextView tv_Title;
         public TextView tvTime;
         public TextView tvState;
+        public ImageView imageView;
     }
 
     public VipListAdapter(Context context) {
@@ -43,6 +45,7 @@ public class VipListAdapter extends BaseListAdapter {
         holder.tv_Title = (TextView) view.findViewById(R.id.tv_procurementTitle);
         holder.tvTime = (TextView) view.findViewById(R.id.tv_time);
         holder.tvState = (TextView) view.findViewById(R.id.tv_state);
+        holder.imageView = (ImageView) view.findViewById(R.id.imageView);
         view.setTag(holder);
         return view;
     }
@@ -53,11 +56,11 @@ public class VipListAdapter extends BaseListAdapter {
 
         VipModel model = (VipModel) entityList.get(position);
         //获取一条信息
-        holder.tvTime.setText(model.getEmployeeName());
+        holder.tvTime.setText(model.getCompanyName());
         holder.tv_Title.setText(model.getCapTime());
 
+        imgLoader.displayImage(model.getSmallCapImagePath(), holder.imageView, imgOptions);
     }
-
 
     public void destroy() {
         imgLoader.clearMemoryCache();

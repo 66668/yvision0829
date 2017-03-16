@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class AttendModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int AttendID;//考勤编号
+    private String AttendID;//考勤编号
     private String AttendType;// 考勤类型--1:local/ 2:map/3:wifi
     private String CapImagePath;//  采集图像相对路径(大图)
     private String CapTime;// 采集时间
@@ -24,8 +24,8 @@ public class AttendModel implements Serializable {
 
     private String SmallCapImagePath;//  采集图像相对路径(小图)
     private String CompanyID;//公司ID
-    private int ImageID;//注册图像ID
-    private int CapImageID;//采集图像ID
+    private String ImageID;//注册图像ID
+    private String CapImageID;//采集图像ID
     private String WrokId;//员工号
     private String DepartmentID;//员工部门ID
     private String ImagePath;//注册图像相对路径(大图)
@@ -33,9 +33,11 @@ public class AttendModel implements Serializable {
     private String DepartmentName;// 员工部门名称
     private String CompanyName;// 员工公司名称
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-
-    public int getAttendID() {
+    public String getAttendID() {
         return AttendID;
     }
 
@@ -79,7 +81,7 @@ public class AttendModel implements Serializable {
         return EmployeeCardNo;
     }
 
-    public void setAttendID(int attendID) {
+    public void setAttendID(String attendID) {
         AttendID = attendID;
     }
 
@@ -132,11 +134,11 @@ public class AttendModel implements Serializable {
         return CompanyID;
     }
 
-    public int getImageID() {
+    public String getImageID() {
         return ImageID;
     }
 
-    public int getCapImageID() {
+    public String getCapImageID() {
         return CapImageID;
     }
 
@@ -172,11 +174,11 @@ public class AttendModel implements Serializable {
         CompanyID = companyID;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(String imageID) {
         ImageID = imageID;
     }
 
-    public void setCapImageID(int capImageID) {
+    public void setCapImageID(String capImageID) {
         CapImageID = capImageID;
     }
 

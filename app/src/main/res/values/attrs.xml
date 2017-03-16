@@ -31,4 +31,12 @@
         <attr name="rightTextSize" format="dimension"/>
         <attr name="rightBackground" format="reference|color"/>
     </declare-styleable>
+
+    <!-- niceSpinner-->
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="backgroundSelector" format="integer"/>
+        <attr name="textTint" format="color"/>
+    </declare-styleable>
 </resources>

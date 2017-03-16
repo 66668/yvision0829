@@ -7,7 +7,7 @@
 
     <!-- 01：actionBar -->
 
-    <include layout="@layout/topbar_vmain_addvisitorface"
+    <include layout="@layout/topbar_common_itt"
              android:id="@+id/include"/>
     <!-- 文本信息 总布局 -->
 
@@ -41,7 +41,7 @@
                     android:padding="5dp"
                     android:text="@string/visitorPicture"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -65,8 +65,8 @@
                     android:gravity="center_vertical|right" >
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="32dp"
+                        android:layout_width="10dp"
+                        android:layout_height="20dp"
                         android:layout_marginRight="12dp"
                         android:src="@mipmap/forword" />
                 </LinearLayout>
@@ -97,7 +97,7 @@
                     android:singleLine="true"
                     android:text="@string/name"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <EditText
                     android:id="@+id/VisitorName"
@@ -124,7 +124,7 @@
                     android:button="@drawable/checked_style"
                     android:text="  VIP"
                     android:textColor="#282828"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
             </LinearLayout>
 
             <!-- 性别 -->
@@ -192,7 +192,7 @@
                     android:singleLine="true"
                     android:text="@string/employeeName"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <Spinner
                     android:id="@+id/RespondentID"
@@ -225,7 +225,7 @@
                     android:text="@string/aim"
                     android:singleLine="true"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <EditText
                     android:id="@+id/Aim"
@@ -258,7 +258,7 @@
                     android:text="@string/arrivalTime"
                     android:singleLine="true"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18"
+                    android:textSize="@dimen/common_textSize_default12"
                     android:id="@+id/textView3" />
 
                 <TextView
@@ -310,7 +310,7 @@
                     android:text="@string/leaveTime"
                     android:textColor="@color/textColor"
                     android:singleLine="true"
-                    android:textSize="@dimen/common_textSize_default18"
+                    android:textSize="@dimen/common_textSize_default12"
                     android:id="@+id/textView4" />
 
                 <TextView
@@ -364,7 +364,7 @@
                     android:text="@string/Affilication"
                     android:textColor="@color/textColor"
                     android:singleLine="true"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <EditText
                     android:id="@+id/Affilication"
@@ -397,7 +397,7 @@
                     android:text="@string/PhoneNumber"
                     android:textColor="@color/textColor"
                     android:singleLine="true"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                <EditText
                    android:id="@+id/PhoneNumber"
@@ -432,7 +432,7 @@
                     android:text="@string/welcomeword"
                     android:singleLine="true"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <EditText
                     android:id="@+id/tv_welcomeWord"
@@ -465,7 +465,7 @@
                     android:text="@string/edit"
                     android:singleLine="true"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/common_textSize_default18" />
+                    android:textSize="@dimen/common_textSize_default12" />
 
                 <EditText
                     android:id="@+id/Remark"

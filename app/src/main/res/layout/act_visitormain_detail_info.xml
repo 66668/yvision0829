@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -7,13 +7,13 @@
 
     <!-- 01：actionBar -->
 
-    <include layout="@layout/topbar_vmain_visitor_detail_info" />
+    <include layout="@layout/topbar_common_itt"/>
     <!-- 文本信息 总布局 -->
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout1"
         android:background="#f3f3f3" >
 
@@ -37,7 +37,7 @@
                     android:padding="5dp"
                     android:text="@string/visitorPicture"
                     android:textColor="#282828"
-                    android:textSize="24sp" />
+                    android:textSize="14sp" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -61,8 +61,8 @@
                     android:gravity="center_vertical|right" >
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="10dp"
+                        android:layout_height="20dp"
                         android:layout_marginRight="12dp"
                         android:src="@mipmap/forword" />
                 </LinearLayout>
@@ -92,7 +92,7 @@
                     android:padding="5dp"
                     android:text="姓名："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/VisitorName"
@@ -117,9 +117,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.15"
                     android:button="@drawable/checked_style"
-                    android:text="  V I P"
+                    android:text=" VIP"
                     android:textColor="#282828"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <!-- 性别 -->
@@ -186,7 +186,7 @@
                     android:padding="5dp"
                     android:text="受访人："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <Spinner
                     android:id="@+id/RespondentID"
@@ -218,7 +218,7 @@
                     android:padding="5dp"
                     android:text="来访目的："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/Aim"
@@ -250,7 +250,7 @@
                     android:padding="5dp"
                     android:text="到访时间："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/ArrivalTimePlan_date"
@@ -299,7 +299,7 @@
                     android:padding="5dp"
                     android:text="离开时间："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/LeaveTimePlan_date"
@@ -349,7 +349,7 @@
                     android:padding="5dp"
                     android:text="所属单位："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/Affilication"
@@ -380,7 +380,7 @@
                     android:padding="5dp"
                     android:text="联系方式："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/PhoneNumber"
@@ -413,7 +413,7 @@
                     android:padding="5dp"
                     android:text="欢迎语："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id = "@+id/tv_welcomeword"
@@ -444,7 +444,7 @@
                     android:padding="5dp"
                     android:text="备注："
                     android:textColor="#282828"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/Remark"
@@ -461,4 +461,4 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

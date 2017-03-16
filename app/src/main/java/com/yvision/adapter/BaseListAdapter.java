@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseListAdapter extends BaseAdapter{
 
@@ -41,31 +42,24 @@ public abstract class BaseListAdapter extends BaseAdapter{
 	} 
 
 
-	public void setEntityList(ArrayList entityList) {
+	public void setEntityList(List entityList) {
 //		this.entityList = entityList;//
-		Log.d("SJY", "父类--CommonListAdapter--set-entityList="+entityList);
 		this.entityList.clear();
 		this.entityList.addAll(entityList);
 		notifyDataSetChanged();
 	}
 	
-	public void addEntityList(ArrayList entityList) { 
-		Log.d("SJY", "父类--CommonListAdapter--add-entityList="+entityList);
+	public void addEntityList(List entityList) {
 		this.entityList.addAll(entityList);
 		notifyDataSetChanged();
 	}
-	public void insertEntityList(ArrayList entityList){
-		Log.d("SJY","父类--CommonListAdapter--insert-entityList="+entityList);
+	public void insertEntityList(List entityList){
 		if(entityList != null){
 			this.entityList.add(0,entityList);
 		}
 		notifyDataSetChanged();
 
 	}
-    public void addEntity(Object entity){
-        this.entityList.add(entity);
-        notifyDataSetChanged();
-    }
 	
 	protected abstract View inflateConvertView();
 	

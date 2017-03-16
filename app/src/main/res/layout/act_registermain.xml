@@ -7,10 +7,10 @@
 
     <!-- actionbar -->
 
-    <include layout="@layout/topbar_rmain" />
+    <include layout="@layout/topbar_common_itt" />
 
     <!-- 搜索-->
-	<include layout="@layout/topbar_vmain_search" />"
+	<!--<include layout="@layout/topbar_vmain_search" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -20,7 +20,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="14dp"
+                android:layout_height="12dp"
                 android:background="@color/whitegray"/>
 
             <LinearLayout
@@ -76,7 +76,7 @@
                         android:singleLine="true"
                         android:text="客户号"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default18"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
 
                     <TextView
                         android:id="@+id/tvWrokId"
@@ -90,7 +90,7 @@
                         android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default14"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
 
                 <View
@@ -116,7 +116,7 @@
                         android:singleLine="true"
                         android:text="姓    名"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default18"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
 
                     <TextView
                         android:id="@+id/tvName"
@@ -129,7 +129,7 @@
                         android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default16"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
 
                 <View
@@ -157,7 +157,7 @@
                         android:singleLine="true"
                         android:text="人像库"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default18"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
 
                     <Spinner
                         android:id="@+id/spinnerType"
@@ -169,7 +169,7 @@
                         android:background="@drawable/edittext_bg"
                         android:singleLine="true"
                         android:textColor="#494949"
-                        android:textSize="@dimen/common_textSize_default16"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
 
                 <View
@@ -195,7 +195,7 @@
                         android:singleLine="true"
                         android:text="部    门"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default18"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
 
                     <TextView
                         android:id="@+id/tvDepartment"
@@ -208,7 +208,7 @@
                         android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default16"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
 
                 <View
@@ -234,7 +234,7 @@
                         android:singleLine="true"
                         android:text="性    别"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default18"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
 
                     <TextView
                         android:id="@+id/tvGender"
@@ -247,7 +247,7 @@
                         android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default16"/>
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
 
                 <View
@@ -272,7 +272,7 @@
                     android:background="@drawable/btn_style"
                     android:text="添加"
                     android:textColor="#ffffff"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     />
             </RelativeLayout>
 
@@ -298,7 +298,7 @@
             android:layout_above="@+id/view2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="14sp"
+            android:layout_marginLeft="12sp"
             android:gravity="center_vertical">
 
             <ImageView
@@ -320,7 +320,7 @@
                 android:singleLine="true"
                 android:text="返回"
                 android:textColor="@color/white"
-                android:textSize="@dimen/common_textSize_default18"/>
+                android:textSize="@dimen/common_textSize_default12"/>
         </RelativeLayout>
 
         <TextView
@@ -331,7 +331,7 @@
             android:layout_centerVertical="true"
             android:text="老客户图片添加"
             android:textColor="#FFF"
-            android:textSize="18sp"/>
+            android:textSize="12sp"/>
 
     </RelativeLayout>
 

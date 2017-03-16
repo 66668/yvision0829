@@ -14,6 +14,7 @@
     <color name="darkTextColor">#656565</color>
     <color name="login_text_color_no">#808080</color>
     <color name="scrollView_bg">#f3f3f3</color>
+    <color name="cl_text_common">#333333</color>
 
 
     <color name="whitegray">#caeae5e5</color>

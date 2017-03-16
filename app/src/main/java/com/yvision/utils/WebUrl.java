@@ -33,10 +33,9 @@ public class WebUrl {
      *
      * @author JackSong
      */
-    public static class User{
+    public static class User {
         /**
          * 退出
-         *
          */
         public static final String QUIT_OUT = LOGIN_URL + USER + "AppDeviceLogoutByPassword";
     }
@@ -71,6 +70,7 @@ public class WebUrl {
      * @author JackSong
      */
     public class VisitorManager {
+
     }
 
     /**
@@ -124,28 +124,67 @@ public class WebUrl {
 
 
     /**
-     * 考勤管理
+     * 02考勤管理
      */
+    public static class Attend {
+        /**
+         * 01获取考勤记录
+         * <p>
+         * http://101.201.72.112:9016/openapi/Main/GetAttendanceRecordByPage
+         * httppost
+         */
 
-    public class AttendManager {
+        public static final String GET_ATTENDANCE_BYPAGE = LOGIN_URL + API + "Attend/GetAttendanceRecordByPage";
+
+        /**
+         * 02 根据employeeID查看登录人信息
+         * <p>
+         * httpget
+         */
+        public static final String GET_ONE＿EMPLOYEE_INFO = LOGIN_URL + MAIN + "GetEmployeeInfoByID/";
+
+        /**
+         * 03 获取详细考勤记录
+         * <p>
+         * httpget
+         */
+        public static final String EMPLOYEE_DETAIL = LOGIN_URL + API + "Attend/GetOneAttendanceRecordByID/";
+
     }
 
     /**
-     * 01获取全部记录
-     * <p>
-     * http://101.201.72.112:9016/openapi/Main/GetAttendanceRecordByPage
-     * httppost
+     * 04vip管理
      */
+    public static class Vip {
+        /**
+         * VIP记录
+         */
+        public static final String GET_VIP_LIST = LOGIN_URL + API + "VIP/GetVIPRecordByPage";
 
-    public static final String GET_ATTENDANCE_BYPAGE = LOGIN_URL + MAIN + "GetAttendanceRecordByPage";
+        /**
+         * 获取详细vip
+         * <p>
+         * httpget
+         */
+        public static final String VIP_DETAIL = LOGIN_URL + API + "VIP/GetVipRecordByID/";
+    }
 
     /**
-     * 02 根据employeeID查看登录人信息
-     * <p>
-     * http://101.201.72.112:9016/openapi/Main/GetEmployeeInfoByID
-     * httpget
+     * 05门禁管理
      */
-    public static final String GET_ONE＿EMPLOYEE_INFO = LOGIN_URL + MAIN + "GetEmployeeInfoByID";
+    public static class DoorAccess {
+        /**
+         *  门禁记录
+         */
+        public static final String GET_DOOR_ACCESS_LIST = LOGIN_URL + API + "DoorAccess/GetDoorAccessRecordByPage";
+        /**
+         * 获取门禁详细
+         * <p>
+         * httpget
+         */
+        public static final String DOORACCESS_DETAIL = LOGIN_URL + API + "DoorAccess/GetOneDoorAccessRecordByID/";
+    }
+
 
     /**
      * 03 添加一条地图考勤记录
@@ -161,16 +200,6 @@ public class WebUrl {
      */
     public static final String ADD_ONE＿WIFI_ATTENDANCE = LOGIN_URL + MAIN + "AddOneWIFIAttendanceRecord";
 
-    /**
-     *
-     */
-
-
-    /**
-     * 因设置get/set功能public static final String-->public  final String
-     */
-    public class RegisterManager {
-    }
 
     /**
      * 获取人脸库
@@ -219,9 +248,6 @@ public class WebUrl {
     public static final String GET_OLD_EMPLOYEE_DETAILS = LOGIN_URL + API + "Employee/GetEmployeeByID/";
 
 
-    /**
-     * 获取老员工详细信息
-     */
-    public static final String GET_VIP_LIST = LOGIN_URL + API + "VIP/GetVIPRecordByPage";
+
 
 }

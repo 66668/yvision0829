@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.yvision.MyChangeCameraActivity;
+import com.yvision.view.MyChangeCameraActivity;
 import com.yvision.R;
 import com.yvision.utils.ImageUtils;
 

@@ -47,7 +47,7 @@
         android:theme="@style/AppTheme">
         <!-- 管理界面  MainActivity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             >
@@ -55,7 +55,7 @@
         </activity>
         <!-- 登录 LoginActivity-->
         <activity
-            android:name="com.yvision.LoginActivity"
+            android:name="com.yvision.view.LoginActivity"
             android:screenOrientation="portrait"
             >
             <intent-filter>
@@ -66,20 +66,20 @@
         </activity>
         <!-- 人脸登录 LoginByFaceActivity -->
         <activity
-            android:name="com.yvision.LoginByFaceActivity"
+            android:name="com.yvision.view.LoginByFaceActivity"
             android:screenOrientation="portrait"
             >
         </activity>
         <!-- MyCameraActivity -->
         <activity
-            android:name="com.yvision.MyCameraActivity"
+            android:name="com.yvision.view.MyCameraActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
         <!-- MyChangeCameraActivity 无标题-->
         <activity
-            android:name="com.yvision.MyChangeCameraActivity"
+            android:name="com.yvision.view.MyChangeCameraActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Anim_style3"
             >
@@ -87,19 +87,19 @@
 
         <!-- PhotoClipPictureActivity -->
         <activity
-            android:name="com.yvision.PhotoClipPictureActivity"
+            android:name="com.yvision.view.PhotoClipPictureActivity"
             android:screenOrientation="portrait"
             >
         </activity>
         <!-- 人脸登记 -->
         <activity
-            android:name="com.yvision.AddMyFaceActivity"
+            android:name="com.yvision.view.AddMyFaceActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         <!--wifi考勤设置 -->
         <activity
-            android:name="com.yvision.WifiSettingActivity"
+            android:name="com.yvision.view.WifiSettingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
@@ -107,45 +107,58 @@
 
         <!--新员工注册界面 -->
         <activity
-            android:name="com.yvision.AddNewEmployeeActivity"
+            android:name="com.yvision.view.AddNewEmployeeActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!--老员工注册界面 -->
         <activity
-            android:name="com.yvision.AddOldEmployeeActivity"
+            android:name="com.yvision.view.AddOldEmployeeActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 修改密码 -->
         <activity
-            android:name="com.yvision.ChangePassWordActivity"
+            android:name="com.yvision.view.ChangePassWordActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 设置 -->
         <activity
-            android:name="com.yvision.SettingActivity"
+            android:name="com.yvision.view.SettingActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <!-- 访客系统主界面 -->
+        <!-- 01访客系统主界面 -->
         <activity
-            android:name="com.yvision.MainVisitorActivity"
+            android:name="com.yvision.view.MainVisitorActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
-        <!-- 注册系统系统主界面 -->
+
+        <!-- 02考勤系统主界面 -->
         <activity
-            android:name="com.yvision.MainRegisterActivity"
+            android:name="com.yvision.view.MainAttendActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <!-- 03注册系统系统主界面 -->
+        <activity
+            android:name="com.yvision.view.MainRegisterActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
-        <!-- 考勤系统主界面 -->
+        <!-- 04Vip主界面 -->
         <activity
-            android:name="com.yvision.MainUserActivity"
+            android:name="com.yvision.view.MainVipActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <!-- 05门禁主界面 -->
+        <activity
+            android:name="com.yvision.view.MainDoorAccessActivity"
             android:screenOrientation="portrait"
             >
         </activity>
@@ -153,40 +166,45 @@
 
         <!-- 考勤详细界面 -->
         <activity
-            android:name="com.yvision.UserInfoActivity"
+            android:name="com.yvision.view.AttendInfoActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
-        <!-- Vip主界面 -->
+        <!-- vip详细界面 -->
         <activity
-            android:name="com.yvision.MainVipActivity"
+            android:name="com.yvision.view.VipInfoActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+        <!-- 门禁详细界面 -->
+        <activity
+            android:name="com.yvision.view.DoorAccessInfoActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
         <!-- 添加访客 -->
         <activity
-            android:name="com.yvision.AddVisitorFaceActivity"
+            android:name="com.yvision.view.AddVisitorFaceActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
         <!-- 地图考勤 -->
         <activity
-            android:name="com.yvision.MapAttendedActivity"
+            android:name="com.yvision.view.MapAttendedActivity"
             android:screenOrientation="portrait"
             >
         </activity>
 
         <!-- 访客详情 -->
         <activity
-            android:name="com.yvision.VisitorInfoActivity"
+            android:name="com.yvision.view.VisitorInfoActivity"
             android:screenOrientation="portrait"
             >
         </activity>
-
-
 
 
         <!-- 极光application配置开始-->

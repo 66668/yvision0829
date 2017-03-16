@@ -19,4 +19,8 @@
     <dimen name="common_textSize_default24">24sp</dimen>
     <dimen name="common_textSize_default26">26sp</dimen>
     <dimen name="common_textSize_default28">28sp</dimen>
+
+    <!-- NiceSpinner-->
+    <dimen name="three_grid_unit">24dp</dimen>
+    <dimen name="one_and_a_half_grid_unit">12dp</dimen>
 </resources>

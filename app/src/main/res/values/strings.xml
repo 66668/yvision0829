@@ -90,19 +90,8 @@
     <string name="addVisitor">添加访客</string>
     <string name="style">方式：</string>
     <string name="attendTile">考勤管理</string>
+    <string name="attendTile_detail">考勤详情</string>
     <string name="wifiAttend">wifi签到</string>
-    <string-array name="forTime">
-        <item>全&#160;部</item>
-        <item>今&#160;天</item>
-        <item>本&#160;周</item>
-        <item>本&#160;月</item>
-    </string-array>
-    <string-array name="forstyle">
-        <item>全&#160;部</item>
-        <item>普&#160;通</item>
-        <item>地&#160;图</item>
-        <item>wifi</item>
-    </string-array>
     <!-- MapAttendedActivity-->
     <string name="attendance">考勤</string>
     <!-- UserInfoActivity-->
@@ -123,11 +112,23 @@
     <string name="attendManager">考勤管理</string>
     <string name="RegisterManager">人像注册</string>
     <string name="text_vip">VIP</string>
+    <string name="text_vip_title">VIP详情</string>
     <string name="text_door">门禁</string>
+    <string name="text_door_title">门禁详情</string>
 
     <!-- 老员工注册-->
     <string name="hint_Number">请输入客户号</string>
-
     <!-- vip-->
     <string name="title_vip">VIP</string>
+    <string name="vip_id">VIP号</string>
+    <!-- 考勤详情-->
+    <string name="at_EmployeeName">姓名</string>
+    <string name="at_CompanyName">公司</string>
+    <string name="at_ImageID">注册图像ID</string>
+    <string name="at_EmployeeGender">性别</string>
+    <string name="at_WrokId">工号</string>
+    <string name="at_DepartmentName">部门</string>
+    <string name="at_CapTime">时间</string>
+    <string name="at_Score">对比分数</string>
+
 </resources>

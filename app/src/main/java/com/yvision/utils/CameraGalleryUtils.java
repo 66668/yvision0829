@@ -8,8 +8,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Toast;
 
-import com.yvision.MyCameraActivity;
-import com.yvision.PhotoClipPictureActivity;
+import com.yvision.view.MyCameraActivity;
+import com.yvision.view.PhotoClipPictureActivity;
 import com.yvision.common.MyApplication;
 import com.yvision.dialog.ChooseItemDialog;
 import com.yvision.dialog.ChooseItemDialog.ChooseItemDialogCallBack;

@@ -29,6 +29,29 @@ public class Loading {
 		}).start();
 		return loadingDialog;
 	}
+
+	//无弹窗的登录样式
+	public static LoadingNoDialog noDialogRun(Context context, final Runnable runnalbe){
+		return noDialogRun(context, true, runnalbe);
+	}
+
+	//登陆的耗时操作
+	public static LoadingNoDialog noDialogRun(Context context, boolean cancelable, final Runnable runnable){
+		//弹窗显示登录状态
+		final LoadingNoDialog loadingNoDialog = new LoadingNoDialog(context);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try{
+					runnable.run();
+				} finally{
+
+				}
+			}
+		}).start();
+
+		return loadingNoDialog;
+	}
 	/*
 	 * 添加接口
 	 */

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/topbar_umain"/>
+    <include layout="@layout/topbar_common_itt"/>
 
-    <include layout="@layout/topbar_umain_spinners"/>
+    <include layout="@layout/topbar_umain_ss"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <include layout="@layout/topbar_common_itt"/>
+    <include layout="@layout/topbar_common_ist"/>
 
     <com.yvision.widget.RefreshAndLoadListView
 

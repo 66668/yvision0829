@@ -14,6 +14,7 @@ import com.yvision.common.MyException;
 import com.yvision.common.NetworkManager;
 import com.yvision.db.entity.UserEntity;
 import com.yvision.model.AttendModel;
+import com.yvision.model.DoorAccessModel;
 import com.yvision.model.EmployeeInfoModel;
 import com.yvision.model.OldEmployeeModel;
 import com.yvision.model.UpgradeModel;
@@ -419,28 +420,26 @@ public class UserHelper {
     }
 
     /**
-     * 11 GetAttendanceRecordByPage
-     * 获取用户所有考勤数据
+     * 11
+     * 获取考勤
      */
     public static ArrayList<AttendModel> GetAttendanceRecordByPage(Context context,
                                                                    String maxTime,
                                                                    String minTime,
                                                                    int pageSize,
                                                                    int timespan,
-                                                                   String storeID,
-                                                                   String employeeID,
                                                                    int attendType) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络
         }
-        HttpResult hr = APIUtils.postForObject(WebUrl.GET_ATTENDANCE_BYPAGE,
+        HttpResult hr = APIUtils.postForObject(WebUrl.Attend.GET_ATTENDANCE_BYPAGE,
                 HttpParameter.create().
                         add("minTime", minTime).
                         add("maxTime", maxTime).
                         add("pageSize", pageSize + "").
                         add("timespan", timespan + "").
-                        add("storeID", storeID).
-                        add("employeeID", employeeID).
+                        add("storeID", UserHelper.getCurrentUser().getStoreID()).
+                        add("employeeID", UserHelper.getCurrentUser().getEmployeeId()).
                         add("attendType", attendType + ""));
         if (hr.hasError()) {
             throw hr.getError();
@@ -458,20 +457,19 @@ public class UserHelper {
     /**
      * 12获取登录人信息
      */
-    public static EmployeeInfoModel GetEmployeeInfoByID(Context context, String employeeID) throws MyException {
+    public static EmployeeInfoModel GetEmployeeInfoByID(Context context) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络
         }
-        String url = WebUrl.GET_ONE＿EMPLOYEE_INFO + "/" + employeeID;
+        String url = WebUrl.Attend.GET_ONE＿EMPLOYEE_INFO + UserHelper.getCurrentUser().getEmployeeId();
         HttpResult hr = APIUtils.getForObject(url);
+
         if (hr.hasError()) {
             throw hr.getError();
         }
-        if (hr.jsonObject != null) {
-            return (new Gson()).fromJson(hr.jsonObject.toString(), EmployeeInfoModel.class);
-        } else {
-            throw new MyException("未获取返回信息！");
-        }
+
+        return (new Gson()).fromJson(hr.jsonObject.toString(), EmployeeInfoModel.class);
+
     }
 
     /**
@@ -649,7 +647,11 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        HttpResult httpResult = APIUtils.postForObject(WebUrl.GET_VIP_LIST
+
+        Log.d("SJY", "打印vip:" + "maxTime=" + maxTime + "\nminTime=" + minTime + "\nemployeeId=" + UserHelper.getCurrentUser().getEmployeeId()
+                + "\nstoreId" + UserHelper.getCurrentUser().getStoreID() + "\ntimespan=" + timespan);
+
+        HttpResult httpResult = APIUtils.postForObject(WebUrl.Vip.GET_VIP_LIST
                 , HttpParameter.create()
                         .add("maxTime", maxTime)
                         .add("minTime", minTime)
@@ -667,4 +669,90 @@ public class UserHelper {
                 }.getType());
     }
 
+    /**
+     * 门禁记录
+     */
+    public static List<DoorAccessModel> getDoorAccessList(Context context
+            , String maxTime
+            , String minTime
+            , String timespan) throws MyException {
+
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);
+        }
+        HttpResult httpResult = APIUtils.postForObject(WebUrl.DoorAccess.GET_DOOR_ACCESS_LIST
+                , HttpParameter.create()
+                        .add("maxTime", maxTime)
+                        .add("minTime", minTime)
+                        .add("pageSize", "20")
+                        .add("employeeId", UserHelper.getCurrentUser().getEmployeeId())
+                        .add("storeId", UserHelper.getCurrentUser().getStoreID())
+                        .add("timespan", timespan));
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        return (new Gson()).fromJson(httpResult.jsonArray.toString(),
+                new TypeToken<List<DoorAccessModel>>() {
+                }.getType());
     }
+
+    /**
+     * 获取考勤详情
+     * get
+     */
+    public static AttendModel getAttendDetail(Context context, String attendId)
+            throws MyException {
+
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);
+        }
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.Attend.EMPLOYEE_DETAIL  + attendId);
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        return (new Gson()).fromJson(httpResult.jsonObject.toString(), AttendModel.class);
+    }
+
+    /**
+     * 获取VIP详情
+     * get
+     */
+    public static VipModel getVIPDetail(Context context, String attendId)
+            throws MyException {
+
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);
+        }
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.Vip.VIP_DETAIL  + attendId);
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        return (new Gson()).fromJson(httpResult.jsonObject.toString(), VipModel.class);
+    }
+
+
+    /**
+     * 获取门禁详情
+     * get
+     */
+    public static DoorAccessModel getDoorAccessDetail(Context context, String attendId)
+            throws MyException {
+
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);
+        }
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.DoorAccess.DOORACCESS_DETAIL  + attendId);
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        return (new Gson()).fromJson(httpResult.jsonObject.toString(), DoorAccessModel.class);
+    }
+}

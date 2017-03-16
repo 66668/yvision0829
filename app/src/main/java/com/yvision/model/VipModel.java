@@ -21,9 +21,81 @@ public class VipModel implements Serializable {
     public String CapTime;
     /// 对比分数
     public String Score;
-
     public String CompanyName;
 
+    //
+    public String EmployeeID;
+    public String CompanyID;
+    public String ImageID;
+    public String CapImageID;
+    public String EmployeeGender;
+    public String ImagePath;
+    public String SmallImagePath;
+    public String CapImagePath;
+
+    public String getEmployeeID() {
+        return EmployeeID;
+    }
+
+    public void setEmployeeID(String employeeID) {
+        EmployeeID = employeeID;
+    }
+
+    public String getCompanyID() {
+        return CompanyID;
+    }
+
+    public void setCompanyID(String companyID) {
+        CompanyID = companyID;
+    }
+
+    public String getImageID() {
+        return ImageID;
+    }
+
+    public void setImageID(String imageID) {
+        ImageID = imageID;
+    }
+
+    public String getCapImageID() {
+        return CapImageID;
+    }
+
+    public void setCapImageID(String capImageID) {
+        CapImageID = capImageID;
+    }
+
+    public String getEmployeeGender() {
+        return EmployeeGender;
+    }
+
+    public void setEmployeeGender(String employeeGender) {
+        EmployeeGender = employeeGender;
+    }
+
+    public String getImagePath() {
+        return ImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        ImagePath = imagePath;
+    }
+
+    public String getSmallImagePath() {
+        return SmallImagePath;
+    }
+
+    public void setSmallImagePath(String smallImagePath) {
+        SmallImagePath = smallImagePath;
+    }
+
+    public String getCapImagePath() {
+        return CapImagePath;
+    }
+
+    public void setCapImagePath(String capImagePath) {
+        CapImagePath = capImagePath;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

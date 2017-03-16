@@ -2,7 +2,7 @@ package com.yvision.helper;
 
 import java.lang.reflect.Field;
 
-import com.yvision.BaseActivity.Method;
+import com.yvision.view.BaseActivity.Method;
 import com.yvision.inject.EventListener;
 import com.yvision.inject.Select;
 import com.yvision.inject.ViewInject;
