@@ -51,9 +51,6 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(id = R.id.btn_changeFace, click = "changeFace")
     LinearLayout btn_changeFace;
 
-    //wifi考勤设置
-    @ViewInject(id = R.id.btn_WIFISetting, click = "wifiSetting")
-    LinearLayout btn_WIFISetting;
 
     //点击升级版本
     @ViewInject(id = R.id.layout_version, click = "getVersion")
@@ -97,14 +94,6 @@ public class SettingActivity extends BaseActivity {
         this.finish();
     }
 
-    /**
-     * wifi设置
-     */
-
-    public void wifiSetting(View view) {
-//        startActivity(WifiSettingActivity.class);
-        PageUtil.DisplayToast("该功能模块不可用");
-    }
 
 
     /**

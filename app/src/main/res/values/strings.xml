@@ -101,6 +101,7 @@
     <string name="previous">上一个</string>
     <!-- RegisterActivity -->
     <string name="RegisterActivity_et_name">请输入客户姓名</string>
+    <string name="RegisterActivity_employee_id">请输入员工编号</string>
     <string name="RegisterActivity_et_id">请输入客户号</string>
     <string name="radioBtn_male">男</string>
     <string name="radioBtn_female">女</string>
@@ -130,5 +131,8 @@
     <string name="at_DepartmentName">部门</string>
     <string name="at_CapTime">时间</string>
     <string name="at_Score">对比分数</string>
+
+    <string name="mapAttendance">地图签到</string>
+    <string name="forAttend">签到</string>
 
 </resources>

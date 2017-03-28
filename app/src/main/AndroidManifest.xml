@@ -11,6 +11,16 @@
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!-- dialog权限-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于提高GPS定位速度-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
 
     <!-- 极光权限设置开始-->
     <!-- Required -->
@@ -97,17 +107,18 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
-        <!--wifi考勤设置 -->
-        <activity
-            android:name="com.yvision.view.WifiSettingActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
+
         <!--url设置 -->
 
         <!--新员工注册界面 -->
         <activity
             android:name="com.yvision.view.AddNewEmployeeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--新Vip注册界面 -->
+        <activity
+            android:name="com.yvision.view.AddNewViperActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -143,6 +154,7 @@
             android:screenOrientation="portrait"
             >
         </activity>
+
         <!-- 03注册系统系统主界面 -->
         <activity
             android:name="com.yvision.view.MainRegisterActivity"
@@ -156,6 +168,7 @@
             android:screenOrientation="portrait"
             >
         </activity>
+
         <!-- 05门禁主界面 -->
         <activity
             android:name="com.yvision.view.MainDoorAccessActivity"

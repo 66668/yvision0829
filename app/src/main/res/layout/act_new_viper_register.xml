@@ -99,46 +99,7 @@
                         android:textSize="@dimen/common_textSize_default12">
                     </EditText>
                 </LinearLayout>
-                <!-- 部门 -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:background="@color/bar_line"/>
 
-                <LinearLayout
-                    android:id="@+id/layoutDepartment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/tvDepartment"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:gravity="right|center_vertical"
-                        android:padding="5dp"
-                        android:singleLine="true"
-                        android:text="部    门"
-                        android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default12"/>
-
-                    <Spinner
-                        android:id="@+id/spinnerDepartment"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/edittext_bg"
-                        android:gravity="center"
-                        android:paddingLeft="20dp"
-                        android:singleLine="true"
-                        android:textColor="#494949"
-                        android:textSize="@dimen/common_textSize_default12"/>
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -204,7 +165,7 @@
                         android:gravity="right|center_vertical"
                         android:padding="5dp"
                         android:singleLine="true"
-                        android:text="员工编号"
+                        android:text="客户号"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/common_textSize_default12"/>
 
@@ -217,7 +178,7 @@
                         android:layout_weight="0.66"
                         android:background="@drawable/corner_white_bg"
                         android:gravity="center_vertical"
-                        android:hint="@string/RegisterActivity_employee_id"
+                        android:hint="@string/RegisterActivity_et_id"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColorHint="@color/textHintColor"

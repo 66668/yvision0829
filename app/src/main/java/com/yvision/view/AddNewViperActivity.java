@@ -22,14 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.yvision.R;
-import com.yvision.adapter.DepartmentSpinnerAdapter;
 import com.yvision.adapter.GroupSpinnerAdapter;
 import com.yvision.common.HttpParameter;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
-import com.yvision.model.DepartmentModel;
 import com.yvision.model.GroupModel;
 import com.yvision.utils.ImageUtils;
 import com.yvision.utils.PageUtil;
@@ -44,7 +42,7 @@ import java.util.UUID;
  * Created by sjy on 2016/11/11.
  */
 
-public class AddNewEmployeeActivity extends BaseActivity {
+public class AddNewViperActivity extends BaseActivity {
     //back
     @ViewInject(id = R.id.layout_back, click = "forBack")
     RelativeLayout layout_back;
@@ -90,9 +88,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
     @ViewInject(id = R.id.spinnerType)
     Spinner spinnerType;
 
-    // 部门库
-    @ViewInject(id = R.id.spinnerDepartment)
-    Spinner spinnerDepartment;
 
     //常量
     public static final int FACE_DATABASE_SUCCESS = -29;// 人脸库
@@ -117,11 +112,7 @@ public class AddNewEmployeeActivity extends BaseActivity {
     String operatorName = "";//操作者工号
     String employeeID = "";//员工编号
     String companyID = "";//公司编号storeID
-    String type = "1";//默认 1为考勤，3 为vip，4为门禁，必填
-    //部门库
-    ArrayList<DepartmentModel> departmentList;//部门库
-    DepartmentSpinnerAdapter departmentSpinnerAdapter;
-    String deptID = "";//部门ID
+    String type = "3";//默认 1为考勤，3 为vip，4为门禁，必填
     String name = "";//姓名
     String gender = "0";//1表示男，0表示女
     String workID = "";
@@ -129,9 +120,9 @@ public class AddNewEmployeeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_new_employee_register);
+        setContentView(R.layout.act_new_viper_register);
 
-        tv_title.setText("注册考勤");
+        tv_title.setText("注册VIP");
         tv_right.setText("");
 
         //获取屏幕像素尺寸
@@ -149,11 +140,9 @@ public class AddNewEmployeeActivity extends BaseActivity {
             public void run() {
                 try {
                     //获取人像库信息
-                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddNewEmployeeActivity.this);
+                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddNewViperActivity.this);
                     sendMessage(FACE_DATABASE_SUCCESS, jsonArrayGroupID);
-                    //获取部门库
-                    JSONArray jsonArrayDepartment = UserHelper.getDataDepartment(AddNewEmployeeActivity.this);
-                    sendMessage(DEPARTMENT_DATABASE_SECCESS, jsonArrayDepartment);
+
                 } catch (MyException e) {
                     Log.d("SJY", "异常=" + e.getMessage());
                 }
@@ -188,26 +177,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
             }
         });
 
-
-        //部门库类别
-        spinnerDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    if (departmentList == null) {
-                        return;
-                    }
-                    deptID = departmentSpinnerAdapter.getItem(position).getDeptID() + "";
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
 
@@ -269,9 +238,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
         if (TextUtils.isEmpty(groupID.trim())) {
             PageUtil.DisplayToast("请选择人像库");
             return;
-        } if (TextUtils.isEmpty(deptID.trim())) {
-            PageUtil.DisplayToast("请选择部门");
-            return;
         }
 
         Loading.run(this, new Runnable() {
@@ -279,15 +245,15 @@ public class AddNewEmployeeActivity extends BaseActivity {
             public void run() {
                 try {
                     // 对数据处理
-                    int code = UserHelper.registerNew(AddNewEmployeeActivity.this,
+                    int code = UserHelper.registerNew(AddNewViperActivity.this,
                             HttpParameter.create().add("operatorName", operatorName).
                                     add("employeeID", employeeID).
                                     add("groupID", groupID).
                                     add("storeID", UserHelper.getCurrentUser().getStoreID()).
                                     add("name", name).
-                                    add("operatorName",UserHelper.getCurrentUser().getUserName()).
-                                    add("departmentID", deptID).
+                                    add("operatorName", UserHelper.getCurrentUser().getUserName()).
                                     add("gender", gender).
+                                    add("departmentID", " ").
                                     add("type", type).
                                     add("workID", workID),
                             picPath);
@@ -333,11 +299,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
                 Log.d("SJY", "已连接人脸库");
                 bindFaceData((JSONArray) msg.obj);
                 break;
-            case DEPARTMENT_DATABASE_SECCESS:
-                Log.d("SJY", "已连接部门库");
-                //绑定数据
-                bindDepartmentData((JSONArray) msg.obj);
-                break;
             default:
                 break;
         }
@@ -379,52 +340,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
         //        }
 
     }
-
-    //    private int getGroupIDIndex(int provinceId) {
-    //        for (int i = 0; i < groupIDList.size(); i++) {
-    //            if (provinceId == groupIDList.get(i).getGroupID()) {
-    //                return i;
-    //            }
-    //        }
-    //        return 0;
-    //    }
-
-
-    private void bindDepartmentData(JSONArray jsonArray) {
-        departmentList = new ArrayList<DepartmentModel>();
-        try {
-            for (int i = 0; i < jsonArray.length(); i++) {
-                deptID = jsonArray.getJSONObject(i).getString("DeptID");
-                String deptName = jsonArray.getJSONObject(i).getString("DeptName");
-                DepartmentModel departmentModel = new DepartmentModel();
-                departmentModel.setDeptID(deptID);
-                departmentModel.setDeptName(deptName);
-                Log.d("SJY", "deptID=" + deptID + ",deptName" + deptName);
-                departmentList.add(departmentModel);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        departmentSpinnerAdapter = new DepartmentSpinnerAdapter(this, departmentList);
-        spinnerDepartment.setAdapter(departmentSpinnerAdapter);
-
-        //获取登录人model,并将登录人中的信息获取出来（不适合本app要求）
-        //        try {
-        //            spinnerType.setSelection(getGroupIDIndex(vfaceMemberModel.getProvinceId()));
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //        }
-
-    }
-
-    //    private int getGroupIDIndex(int provinceId) {
-    //        for (int i = 0; i < groupIDList.size(); i++) {
-    //            if (provinceId == groupIDList.get(i).getGroupID()) {
-    //                return i;
-    //            }
-    //        }
-    //        return 0;
-    //    }
 
 
     /**

@@ -1,14 +1,9 @@
 package com.yvision.view;
 
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.yvision.R;
 import com.yvision.adapter.AttendListAdapter;
 import com.yvision.common.MyApplication;
@@ -30,7 +24,6 @@ import com.yvision.inject.ViewInject;
 import com.yvision.model.AttendModel;
 import com.yvision.model.AttendParModel3;
 import com.yvision.model.EmployeeInfoModel;
-import com.yvision.utils.ConfigUtil;
 import com.yvision.utils.PageUtil;
 import com.yvision.widget.NiceSpinner;
 import com.yvision.widget.RefreshAndLoadListView;
@@ -135,7 +128,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         tv_title.setText(getResources().getString(R.string.attendTile));
         //        tv_right.setText(getResources().getString(R.string.wifiAttend));
         tv_right.setText("");
-        layout_addAttendance.setVisibility(View.GONE);
         //spinner绑定数据
         spinnerTimeData = new LinkedList<>(Arrays.asList("全部", "今日", "本周", "本月"));
         spinnerTime.attachDataSource(spinnerTimeData);//绑定数据
@@ -452,66 +444,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
      */
     public void addAtendanceByMap(View view) {
         startActivity(MapAttendedActivity.class);
-    }
-
-    /**
-     * 添加wifi考勤
-     */
-    public void addAttendByWifi(View view) {
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        wifiInfo = wifiManager.getConnectionInfo();
-        ConfigUtil configUtil = new ConfigUtil(MyApplication.getInstance());
-        if (wifiInfo.getRssi() == -200) {//没联网
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainAttendActivity.this);
-            builder.setTitle("消息提示：").
-                    setMessage("请检查设备，无法连接wifi").
-                    setNegativeButton("取消", null).setPositiveButton("确定", null).show();
-            return;
-        } else {
-            currentSSID = wifiInfo.getSSID();//
-        }
-
-        if (configUtil.getWifiName().equals(currentSSID)) {
-            Loading.run(this, new Runnable() {
-                @TargetApi(Build.VERSION_CODES.N)
-                @Override
-                public void run() {
-                    attendParModel3 = AttendParModel3.getInstance();//单例模式
-                    //capTime
-                    Time time = new Time();//"GMT+8"
-                    time.setToNow();
-                    int year = time.year;
-                    int month = time.month + 1;
-                    int day = time.monthDay;
-                    int minute = time.minute;
-                    int hour = time.hour;
-                    int sec = time.second;
-                    String capTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + sec;
-
-                    //Builder模式
-                    attendParModel3.buildCapTime(capTime).
-                            buildCompanyID(employeeInfoModel.getStoreID()).
-                            buildDepartmentID(employeeInfoModel.getDepartmentID()).
-                            buildEmployeeName(employeeInfoModel.getEmployeeName()).
-                            buildEmployeeID(employeeInfoModel.getEmployeeID()).
-                            buildWrokId(employeeInfoModel.getWrokId()).
-                            create();
-                    final String jsonStr = new Gson().toJson(attendParModel3);
-                    try {
-                        String msg = UserHelper.addOneWIFIAttendanceRecord(MainAttendActivity.this, jsonStr);
-                        sendMessage(ADDONEWIFI_SUCCESS, msg);
-                        Log.d("SJY", "wifi签到msg=" + msg);
-                    } catch (MyException e) {
-                        sendMessage(ADDONEWIFI_FAILED, e.getMessage());
-                    }
-
-                }
-            });
-        } else {
-            PageUtil.toastInMiddle("请到主界面设置中配置-wifi信息");
-            return;
-        }
-
     }
 
     public void styleForAll() {

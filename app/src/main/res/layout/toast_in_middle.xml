@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
     <TextView
+        android:background="@android:color/black"
         android:id="@+id/toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/common_textSize_default18"
-        android:textColor="#282828"
+        android:textColor="#FFF"
         />
 </RelativeLayout>

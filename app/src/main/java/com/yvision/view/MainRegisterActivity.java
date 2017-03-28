@@ -1,6 +1,8 @@
 package com.yvision.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -12,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,14 +28,13 @@ import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.OldEmployeeModel;
 import com.yvision.utils.PageUtil;
-import com.yvision.widget.RefreshAndLoadListView;
 
 import java.util.ArrayList;
 
 /**
  * 员工注册系统详细界面
  */
-public class MainRegisterActivity extends BaseActivity implements RefreshAndLoadListView.ILoadMoreListener, RefreshAndLoadListView.IReflashListener {
+public class MainRegisterActivity extends BaseActivity {
     //back
     @ViewInject(id = R.id.layout_back, click = "forBack")
     RelativeLayout layout_back;
@@ -59,7 +61,7 @@ public class MainRegisterActivity extends BaseActivity implements RefreshAndLoad
 
     //listVew
     @ViewInject(id = R.id.OldEmployeeNameList)
-    RefreshAndLoadListView listView;
+    ListView listView;
 
 
     // 常量
@@ -70,6 +72,8 @@ public class MainRegisterActivity extends BaseActivity implements RefreshAndLoad
     private Context context;
     private ArrayAdapter<String> mSpinnerAdapter;
     private String[] mSpinnerArray;
+    private String minTime = "";
+    private String maxTime = "";
 
     private EmployeeNameListAdapter employeeNameListAdapter;//记录适配
     private boolean ifLoading = false;//标记
@@ -131,18 +135,6 @@ public class MainRegisterActivity extends BaseActivity implements RefreshAndLoad
         // 设置下拉列表风格()
         mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
-        listView.setIRefreshListener(this);
-        listView.setILoadMoreListener(this);
-    }
-
-    @Override
-    public void onLoadMore() {
-
-    }
-
-    @Override
-    public void onRefresh() {
-
     }
 
     // 获取全部记录
@@ -185,6 +177,7 @@ public class MainRegisterActivity extends BaseActivity implements RefreshAndLoad
         switch (msg.what) {
             case GET_DATA_SUCCESS://加载全部/今天
                 list = (ArrayList) msg.obj;
+
                 employeeNameListAdapter.setEntityList(list);
                 //数据处理，只存最小值
                 ifLoading = false;
@@ -200,30 +193,28 @@ public class MainRegisterActivity extends BaseActivity implements RefreshAndLoad
         super.handleMessage(msg);
     }
 
-    //    /**
-    //     * 获取minTime，上拉加载应用
-    //     */
-    //    private void setMinTime(ArrayList list) {
-    //        if (list.size() > 0) {
-    //            OldEmployeeModel model = (OldEmployeeModel) list.get(list.size() - 1);//获取最后一条记录
-    //            MyApplication.getInstance().setiMinTime(model.getiLastUpdateTime());
-    //        }
-    //    }
-    //
-    //    /**
-    //     * 获取maxTime,下拉刷新使用
-    //     */
-    //    private void setMaxTime(ArrayList list) {
-    //        if (list.size() > 0) {
-    //            VisitorBModel model = (VisitorBModel) list.get(0);//获取第一条记录
-    //            MyApplication.getInstance().setiMaxTime(model.getiLastUpdateTime());
-    //        }
-    //    }
-
 
     // 添加新员工
     public void addNewEmployee(View view) {
-        startActivity(AddNewEmployeeActivity.class);
+        new AlertDialog.Builder(MainRegisterActivity.this)
+                .setCancelable(false)    //不响应back按钮
+                .setTitle("选择注册类型：")
+                .setItems(new String[]{"考勤", "VIP"},  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                startActivity(AddNewEmployeeActivity.class);
+                                dialog.dismiss();
+                                break;
+                            case 1:
+                                startActivity(AddNewViperActivity.class);
+                                dialog.dismiss();
+                                break;
+                        }
+                    }
+                })
+                .create().show();
     }
 
     // 搜索
@@ -274,6 +265,8 @@ public class MainRegisterActivity extends BaseActivity implements RefreshAndLoad
     }
 
     public void refresh(View view) {
+        employeeNameListAdapter = new EmployeeNameListAdapter(context);// null--没有上拉加载功能
+        listView.setAdapter(employeeNameListAdapter);
         getData();
     }
 
