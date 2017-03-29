@@ -170,11 +170,4 @@ public class MyApplication extends Application {
 		this.timespan = timespan;
 	}
 
-	//加载数据的标记
-	public void setiMaxTime(String iMaxTime) {
-		this.iMaxTime = iMaxTime;
-	}
-	public void setiMinTime(String iMinTime) {
-		this.iMinTime = iMinTime;
-	}
 }

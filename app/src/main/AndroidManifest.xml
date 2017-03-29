@@ -11,16 +11,21 @@
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <!-- dialog权限-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
+    <!-- 高德权限-->
+
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--用于提高GPS定位速度-->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
 
     <!-- 极光权限设置开始-->
     <!-- Required -->
@@ -51,10 +56,19 @@
     <application
         android:name="com.yvision.common.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- 高德设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="8f73162053a4dfedc8f41e891f9b1273"/>
+
+        <!-- 高德定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService"/>
+
         <!-- 管理界面  MainActivity -->
         <activity
             android:name=".view.MainActivity"

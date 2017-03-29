@@ -26,26 +26,36 @@ public class UserEntity extends EntityBase {
     public String getAdminUserName() {
         return (String) GetData(UserTable.C_adminUserName);
     }
+
     public void setAdminUserName(String value) {
         SetData(UserTable.C_adminUserName, value);
     }
 
-    //
-    public String getClientID() {
-        return (String) GetData(UserTable.C_ClientID);
+    //部门
+    public String getDepartmentID() {
+        return (String) GetData(UserTable.C_DepartmentID);
     }
 
-    public void setClientID(String value) {
-        SetData(UserTable.C_ClientID, value);
+    public void setDepartmentID(String value) {
+        SetData(UserTable.C_DepartmentID, value);
     }
 
-    //
-    public String getURL() {
-        return (String) GetData(UserTable.C_URL);
+    /**
+     * 员工编号，登录返回值
+     *
+     * @return
+     */
+    public String getWorkId() {
+        return (String) GetData(UserTable.C_WrokId);
     }
 
-    public void setURL(String value) {
-        SetData(UserTable.C_URL, value);
+    /**
+     * 员工编号，登录返回值
+     *
+     * @return
+     */
+    public void setWorkId(String value) {
+        SetData(UserTable.C_WrokId, value);
     }
 
     //设备id
@@ -86,28 +96,37 @@ public class UserEntity extends EntityBase {
         SetData(UserTable.C_StoreID, value);
     }
 
-    public String getUserId() {
-        return (String) GetData(UserTable.C_UserId);
+    /**
+     * 激光别名
+     * @return
+     */
+    public String getregistRationID() {
+        return (String) GetData(UserTable.C_registRationID);
     }
 
-    public void setUserId(String value) {
-        SetData(UserTable.C_UserId, value);
+    /**
+     * 极光别名
+     * @param value
+     */
+
+    public void setregistRationID(String value) {
+        SetData(UserTable.C_registRationID, value);
     }
 
-    public String getFullname() {
-        return (String) GetData(UserTable.C_Fullname);
+    public String getEmployeeName() {
+        return (String) GetData(UserTable.C_EmployeeName);
     }
 
-    public void setFullname(String value) {
-        SetData(UserTable.C_Fullname, value);
+    public void setEmployeeName(String value) {
+        SetData(UserTable.C_EmployeeName, value);
     }
 
-    public String getStoreName() {
-        return (String) GetData(UserTable.C_StoreName);
+    public String getEmployeeGender() {
+        return (String) GetData(UserTable.C_EmployeeGender);
     }
 
-    public void setStoreName(String value) {
-        SetData(UserTable.C_StoreName, value);
+    public void setEmployeeGender(String value) {
+        SetData(UserTable.C_EmployeeGender, value);
     }
 
 

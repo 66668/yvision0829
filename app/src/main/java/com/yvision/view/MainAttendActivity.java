@@ -1,9 +1,8 @@
 package com.yvision.view;
 
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,7 +21,6 @@ import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.AttendModel;
-import com.yvision.model.AttendParModel3;
 import com.yvision.model.EmployeeInfoModel;
 import com.yvision.utils.PageUtil;
 import com.yvision.widget.NiceSpinner;
@@ -46,7 +44,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     TextView tv_title;
 
     //
-    @ViewInject(id = R.id.tv_right, click = "addAttendByWifi")
+    @ViewInject(id = R.id.tv_right)
     TextView tv_right;
 
     //listView
@@ -80,7 +78,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     //spinner
     private List<String> spinnerTimeData;
     private List<String> spinnerTypeData;
-    private AttendParModel3 attendParModel3;
 
     private boolean ifLoading = false;//标记
     private static int pageSize = 20;//返回数据个数
@@ -88,15 +85,11 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     private static int timespan = 4;//时间筛选方式--1:today 3:this month 2:this week 4: all
     private List<AttendModel> list = null;
 
-    //wifi考勤使用
+    //地图考勤使用
     private EmployeeInfoModel employeeInfoModel = null;
 
     private String minTime = "";
     private String maxTime = "";
-
-    private WifiManager wifiManager;
-    private WifiInfo wifiInfo;
-    private String currentSSID;
 
     //常量
     private static final int ADDONEWIFI_SUCCESS = 30;
@@ -245,9 +238,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         }
         maxTime = "";
         minTime = "";
-        Log.d("SJY", "maxTime=" + maxTime + "\nminTime=" + minTime + "\npageSize=" + pageSize
-                + "\ntimespan=" + timespan + "\nattendType" + attendType + "\nemployeeid=" + UserHelper.getCurrentUser().getEmployeeId()
-                + "\nstoreid=" + UserHelper.getCurrentUser().getStoreID());
 
         Loading.run(MainAttendActivity.this, new Runnable() {
             @Override
@@ -416,6 +406,12 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     }
 
     private void getEmployeeDate() {
+        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeId())) {
+            Log.d("SJY", "获取employeeid = null");
+            return;
+        }
+        Log.d("SJY", "获取employeeid != null");
+
         Loading.run(MainAttendActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -443,7 +439,14 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
      * 添加地图考勤
      */
     public void addAtendanceByMap(View view) {
-        startActivity(MapAttendedActivity.class);
+        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeId())) {
+            Log.d("SJY", "employeeid=" + UserHelper.getCurrentUser().getEmployeeId());
+            PageUtil.DisplayToast("非员工不可地图考勤");
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("EmployeeInfoModel", employeeInfoModel);
+            startActivity(MapAttendedActivity.class, bundle);
+        }
     }
 
     public void styleForAll() {

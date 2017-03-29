@@ -60,6 +60,7 @@ public class SettingActivity extends BaseActivity {
     TextView tv_Version;
 
     private static final int SUCCESS = -40;// 获取所有数据列表 标志
+    private static final int QUIT_SCCESS = -39;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +102,12 @@ public class SettingActivity extends BaseActivity {
      */
 
     public void quit(View view) {
-        Intent intent = new Intent();
-        intent.setAction(EXIT_APP_ACTION);
-        sendBroadcast(intent);//发送退出的广播
         Loading.run(this, new Runnable() {
             @Override
             public void run() {
                 try {
                     UserHelper.logout(getApplicationContext());
+                    sendMessage(QUIT_SCCESS);
                 } catch (MyException e) {
                     Log.d("SJY", "异常=" + e.getMessage());
                 }
@@ -161,6 +160,12 @@ public class SettingActivity extends BaseActivity {
 
                     }
                 }).show();
+                break;
+
+            case QUIT_SCCESS:
+                Intent intent = new Intent();
+                intent.setAction(EXIT_APP_ACTION);
+                sendBroadcast(intent);//发送退出的广播
                 break;
         }
     }

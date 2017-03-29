@@ -3,8 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:theme="@android:style/Theme.NoTitleBar"
-    android:background="@color/main_bg">
+              android:theme="@android:style/Theme.NoTitleBar">
 
     <!-- actionbar -->
 
@@ -76,19 +75,8 @@
             android:layout_marginRight="14dp"
             android:layout_marginTop="20dp"
             android:padding="12dp"
-            android:background="@drawable/manager"
+            android:background="@mipmap/main_vip"
             android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="34dp"
-                android:text="@string/RegisterManager"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/common_textSize_default24"/>
         </RelativeLayout>
 
         <!-- VIP -->

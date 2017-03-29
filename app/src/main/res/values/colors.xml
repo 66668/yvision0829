@@ -19,6 +19,7 @@
 
     <color name="whitegray">#caeae5e5</color>
     <color name="common_bg_color">#1e82d2</color>
+    <color name="btn_login_text_color">#1e94d4</color>
     <color name="main_bg">#3a9cea</color>
     <color name="textHintColor">#777777</color>
     <color name="textColor">#000000</color><!-- 字体颜色-->

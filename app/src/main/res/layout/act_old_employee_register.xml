@@ -87,7 +87,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.7"
-                        android:background="@drawable/corner_white_bg"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:singleLine="true"

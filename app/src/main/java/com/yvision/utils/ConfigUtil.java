@@ -21,7 +21,6 @@ public class ConfigUtil {
     private static final String ADMIUSERNAME = "adminUserName";//
     private static final String USERNAME = "userName";//工号
     private static final String PSD = "password";//密码
-    private static final String URL = "url";//URL
     private static final String AUTO_LOGIN = "auto_login";
     private static final String USER_ENTITY = "user_entity";
     private static final String PUSH_CLIENTID = "push_clientId";//个推clientID

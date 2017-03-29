@@ -11,13 +11,13 @@ public class UserTable extends TableInfo {
     public static String C_StoreID = "Store_ID";////公司name对应的id
     public static String C_StoreUserId = "StoreUserId";//用户名id
     public static String C_EmployeeId = "EmployeeId";//员工id
-    public static String C_ClientID = "ClientID";//
-    public static String C_URL = "url";//
+    public static String C_DepartmentID = "DepartmentID";//部门
+    public static String C_WrokId = "WrokId";//
     public static String C_DeviceId = "DeviceId";//
+    public static String C_EmployeeName = "C_EmployeeName";//返回值 姓名
+    public static String C_EmployeeGender = "EmployeeGender";
+    public static String C_registRationID = "registRationID";//极光别名
 
-    public static String C_UserId = "user_id";
-    public static String C_Fullname = "fullname";
-    public static String C_StoreName = "store_name";
     public static String C_Account = "account";
     public static String C_Password = "password";
     public static String C_UserPicture = "userPicture";
@@ -44,13 +44,11 @@ public class UserTable extends TableInfo {
         _current.Add(C_StoreUserId, new ColumnInfo(C_StoreUserId, "StoreUserId", false, "String"));
         _current.Add(C_EmployeeId, new ColumnInfo(C_EmployeeId, "EmployeeId", false, "String"));
         _current.Add(C_DeviceId, new ColumnInfo(C_DeviceId, "DeviceId", false, "String"));
-        _current.Add(C_ClientID, new ColumnInfo(C_ClientID, "ClientID", false, "String"));
-        _current.Add(C_URL, new ColumnInfo(C_URL, "url", false, "String"));
-
-
-        _current.Add(C_UserId, new ColumnInfo(C_UserId, "UserId", true, "String"));
-        _current.Add(C_Fullname, new ColumnInfo(C_Fullname, "Fullname", false, "String"));
-        _current.Add(C_StoreName, new ColumnInfo(C_StoreName, "StoreName", false, "String"));
+        _current.Add(C_DepartmentID, new ColumnInfo(C_DepartmentID, "DepartmentID", false, "String"));
+        _current.Add(C_WrokId, new ColumnInfo(C_WrokId, "WrokId", false, "String"));
+        _current.Add(C_EmployeeName, new ColumnInfo(C_EmployeeName, "EmployeeName", false, "String"));
+        _current.Add(C_EmployeeGender, new ColumnInfo(C_EmployeeGender, "EmployeeGender", false, "String"));
+        _current.Add(C_registRationID, new ColumnInfo(C_registRationID, "registRationID", true, "String"));
 
         _current.Add(C_Account, new ColumnInfo(C_Account, "Account", false, "String"));
         _current.Add(C_Password, new ColumnInfo(C_Password, "Password", false, "String"));
@@ -78,13 +76,13 @@ public class UserTable extends TableInfo {
     }
 
     //
-    public ColumnInfo ClientID() {
-        return GetColumnInfoByName(C_ClientID);
+    public ColumnInfo DepartmentID() {
+        return GetColumnInfoByName(C_DepartmentID);
     }
 
     //
-    public ColumnInfo url() {
-        return GetColumnInfoByName(C_URL);
+    public ColumnInfo WrokId() {
+        return GetColumnInfoByName(C_WrokId);
     }
 
     //
@@ -97,16 +95,16 @@ public class UserTable extends TableInfo {
         return GetColumnInfoByName(C_StoreUserId);
     }
 
-    public ColumnInfo UserId() {
-        return GetColumnInfoByName(C_UserId);
+    public ColumnInfo registRationID() {
+        return GetColumnInfoByName(C_registRationID);
     }
 
-    public ColumnInfo Fullname() {
-        return GetColumnInfoByName(C_Fullname);
+    public ColumnInfo EmployeeName() {
+        return GetColumnInfoByName(C_EmployeeName);
     }
 
-    public ColumnInfo StoreName() {
-        return GetColumnInfoByName(C_StoreName);
+    public ColumnInfo EmployeeGender() {
+        return GetColumnInfoByName(C_EmployeeGender);
     }
 
     public ColumnInfo Account() {

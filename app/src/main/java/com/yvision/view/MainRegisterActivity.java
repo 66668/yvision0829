@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.yvision.R;
 import com.yvision.adapter.EmployeeNameListAdapter;
 import com.yvision.adapter.MainSpinnerAdapter;
-import com.yvision.common.MyApplication;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
@@ -147,9 +146,6 @@ public class MainRegisterActivity extends BaseActivity {
             @Override
             public void run() {
                 ifLoading = true;
-                //清除数据处理
-                MyApplication.getInstance().setiMaxTime("");
-                MyApplication.getInstance().setiMinTime("");
                 try {
                     employeeNameListAdapter.IsEnd = false;
 

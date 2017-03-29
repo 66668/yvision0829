@@ -70,9 +70,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.act_main);
-
         initJpush();
     }
+
+
 
     private void initJpush() {
         JPushInterface.init(getApplicationContext());
@@ -95,7 +96,7 @@ public class MainActivity extends BaseActivity {
     public void toUser(View view) {
         startActivity(MainAttendActivity.class);
 
-//
+        //
     }
 
     /**

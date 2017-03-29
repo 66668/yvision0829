@@ -96,6 +96,8 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
     private ArrayAdapter<String> mSpinnerAdapter;
     private String[] mSpinnerArray;
     private boolean editFlag = false;// 编辑按钮标记
+    private String IminTime = "";
+    private String ImaxTime = "";
 
     private VisitorListAdapter vAdapter;//记录适配
     private boolean ifLoading = false;//标记
@@ -217,9 +219,6 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
             public void run() {
                 ifLoading = true;
                 String storeID = UserHelper.getCurrentUser().getStoreID();
-                //清除数据处理
-                MyApplication.getInstance().setiMaxTime("");
-                MyApplication.getInstance().setiMinTime("");
                 try {
                     vAdapter.IsEnd = false;
 
@@ -232,7 +231,6 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
                             storeID);
 
                     //                  Log.d("SJY", "MainVisitorActivity--getData=" + visitorModelList.toString());//
-                    Log.d("SJY", "max=" + MyApplication.getInstance().iMaxTime + ",min=" + MyApplication.getInstance().iMinTime);
                     if (visitorModelList == null) {
                         vAdapter.IsEnd = true;
                     } else if (visitorModelList.size() < pageSize) {
@@ -270,7 +268,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
                     List<VisitorBModel> visitorModelList = UserHelper.getVisitorRecordsByPageA(
                             MainVisitorActivity.this,
                             "",//iMaxTime
-                            MyApplication.getInstance().iMinTime,//iMinTime /获取前20条数据的最后后一条的iLastUpdateTime参数
+                            IminTime,//iMinTime /获取前20条数据的最后后一条的iLastUpdateTime参数
                             pageSize,
                             MyApplication.getInstance().timespan,
                             storeID);
@@ -304,7 +302,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
 
                     ArrayList<VisitorBModel> visitorModelList = UserHelper.getVisitorRecordsByPageA(
                             MainVisitorActivity.this,
-                            MyApplication.getInstance().iMaxTime,//iMaxTime
+                            ImaxTime,//iMaxTime
                             "",//iMinTime
                             pageSize,
                             MyApplication.getInstance().timespan,
@@ -380,7 +378,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
     private void setMinTime(ArrayList list) {
         if (list.size() > 0) {
             VisitorBModel model = (VisitorBModel) list.get(list.size() - 1);//获取最后一条记录
-            MyApplication.getInstance().setiMinTime(model.getiLastUpdateTime());
+            IminTime = model.getiLastUpdateTime();
         }
     }
 
@@ -390,7 +388,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
     private void setMaxTime(ArrayList list) {
         if (list.size() > 0) {
             VisitorBModel model = (VisitorBModel) list.get(0);//获取第一条记录
-            MyApplication.getInstance().setiMaxTime(model.getiLastUpdateTime());
+            ImaxTime = model.getiLastUpdateTime();
         }
     }
 

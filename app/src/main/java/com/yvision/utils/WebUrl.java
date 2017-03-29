@@ -16,16 +16,6 @@ public class WebUrl {
      */
     public static final String API = "openapi/";
 
-    /**
-     * 管理根目录
-     */
-    public static final String USER = "openapi/User/";
-
-
-    /**
-     * 访客根目录
-     */
-    public static final String MAIN = "openapi/Main/";
 
 
     /**
@@ -37,21 +27,26 @@ public class WebUrl {
         /**
          * 退出
          */
-        public static final String QUIT_OUT = LOGIN_URL + USER + "AppDeviceLogoutByPassword";
+        public static final String QUIT_OUT = LOGIN_URL + API + "User/AppDeviceLogoutByPassword";
     }
 
     /**
      * 01 密码登录
      * 测试url:http://192.168.1.127:9012/openapi/User/LoginByPassword
      */
-    public static final String LOGIN_POST = LOGIN_URL + USER + "AppDeviceLoginByPassword";
+    public static final String LOGIN_POST = LOGIN_URL + API + "User/AppDeviceLoginByPassword";
 
 
     /**
      * 02 修改登录密码
      * http://192.168.1.127:9012/openapi/User/ChangePasswordN
      */
-    public static final String CHANGE_PASSWORD = LOGIN_URL + USER + "ChangePasswordN";
+    public static final String CHANGE_PASSWORD = LOGIN_URL + API + "User/ChangePasswordN";
+
+  /**
+     * 获取登录人信息
+     */
+    public static final String GET_PERSON_MESSAGE= LOGIN_URL + API + "User/Main/GetEmployeeInfoByID/";
 
 
     /**
@@ -61,7 +56,7 @@ public class WebUrl {
      * <p>
      * http://192.168.1.127:9012/openapi/Main/GetEmployeeListByStoreID/{storeID}/{typeN}
      */
-    public static final String GET_RESPONDENTS = LOGIN_URL + MAIN + "GetEmployeeListByStoreID/";
+    public static final String GET_RESPONDENTS = LOGIN_URL + API + "Main/GetEmployeeListByStoreID/";
 
 
     /**
@@ -77,50 +72,50 @@ public class WebUrl {
      * 01 获取所有信息列表 GetVisitorRecordsByPage 0819之前使用接口
      * http://192.168.1.127:9012/openapi/Main/GetVisitorRecordsByPage
      */
-    public static final String GET_RRECORD_BYPAGE = LOGIN_URL + MAIN + "GetVisitorRecordsByPage";
+    public static final String GET_RRECORD_BYPAGE = LOGIN_URL + API + "Main/GetVisitorRecordsByPage";
 
     /**
      * 02获取特定时间的记录 GetVisitorRecordsByPageA 0819以后使用的接口
      */
-    public static final String GET_RRECORD_BYPAGEA = LOGIN_URL + MAIN + "GetVisitorRecordsByPageA";
+    public static final String GET_RRECORD_BYPAGEA = LOGIN_URL + API + "Main/GetVisitorRecordsByPageA";
     /**
      * 03 添加访客
      * http://192.168.1.127:9012/openapi/Main/AddOneVisitorRecord
      */
-    public static final String ADD_VISITORRECORD = LOGIN_URL + MAIN + "AddOneVisitorRecord";
+    public static final String ADD_VISITORRECORD = LOGIN_URL + API + "Main/AddOneVisitorRecord";
 
 
     /**
      * 04 删除一条记录
      * http://192.168.1.127:9012/openapi/Main/DeleteVisitorRecordsByIDList
      */
-    public static final String DELET_VISITORRECORD = LOGIN_URL + MAIN + "DeleteVisitorRecordsByIDList";
+    public static final String DELET_VISITORRECORD = LOGIN_URL + API + "Main/DeleteVisitorRecordsByIDList";
 
 
     /**
      * 05 获取一条记录的详细信息
      * http://192.168.1.127:9012/openapi/Main/GetOneVisitorRecordByID/{recordID}/{storeId}
      */
-    public static final String GET_ONE＿VISITORRECORD = LOGIN_URL + MAIN + "GetOneVisitorRecordByID";
+    public static final String GET_ONE＿VISITORRECORD = LOGIN_URL + API + "Main/GetOneVisitorRecordByID";
 
     /**
      * 06 搜索 GetVisitorWithSameName
      * 获取同名访客信息
      * http://192.168.1.127:9012/openapi/Main/GetVisitorWithSameName
      */
-    public static final String GET_VISITOR_WITH_SAME_NAME = LOGIN_URL + MAIN + "GetVisitorWithSameName";
+    public static final String GET_VISITOR_WITH_SAME_NAME = LOGIN_URL + API + "Main/GetVisitorWithSameName";
 
 
     /**
      * 07 修改  UpdateOneVisitorRecord 
      * http://192.168.1.127:9012/openapi/Main/UpdateOneVisitorRecord
      */
-    public static final String UPDATE_ONE_VISITORRECORD = LOGIN_URL + MAIN + "UpdateOneVisitorRecord";
+    public static final String UPDATE_ONE_VISITORRECORD = LOGIN_URL + API + "Main/UpdateOneVisitorRecord";
 
     /**
      * 08 更新版本 CheckVersion 
      */
-    public static final String CLIENT_UPGRADE_URL = LOGIN_URL + MAIN + "CheckVersion";
+    public static final String CLIENT_UPGRADE_URL = LOGIN_URL + API + "Main/CheckVersion";
 
 
     /**
@@ -137,11 +132,16 @@ public class WebUrl {
         public static final String GET_ATTENDANCE_BYPAGE = LOGIN_URL + API + "Attend/GetAttendanceRecordByPage";
 
         /**
+         * 地图签到
+         */
+        public static final String POST_ATTENDANCE_MAP = LOGIN_URL + API + "Attend/AddOneMapAttendanceRecord";
+
+        /**
          * 02 根据employeeID查看登录人信息
          * <p>
          * httpget
          */
-        public static final String GET_ONE＿EMPLOYEE_INFO = LOGIN_URL + MAIN + "GetEmployeeInfoByID/";
+        public static final String GET_ONE＿EMPLOYEE_INFO = LOGIN_URL + API + "Main/GetEmployeeInfoByID/";
 
         /**
          * 03 获取详细考勤记录
@@ -191,14 +191,14 @@ public class WebUrl {
      * http://101.201.72.112:9016/openapi/Main/AddOneMapAttendanceRecord
      * httppost
      */
-    public static final String ADD_ONE＿MAP_ATTENDANCE = LOGIN_URL + MAIN + "AddOneMapAttendanceRecord";
+    public static final String ADD_ONE＿MAP_ATTENDANCE = LOGIN_URL + API + "Main/AddOneMapAttendanceRecord";
 
     /**
      * 04 五、添加一条地wifi考勤记录
      * http://101.201.72.112:9016/openapi/Main/AddOneWIFIAttendanceRecord
      * httppost
      */
-    public static final String ADD_ONE＿WIFI_ATTENDANCE = LOGIN_URL + MAIN + "AddOneWIFIAttendanceRecord";
+    public static final String ADD_ONE＿WIFI_ATTENDANCE = LOGIN_URL + API + "Main/AddOneWIFIAttendanceRecord";
 
 
     /**

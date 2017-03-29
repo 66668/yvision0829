@@ -1,6 +1,47 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        /**
+         * 设置你的keystore相关
+         * demo中只是一个示例，使用时请根据实际情况进行配置
+         */
+//        debug {
+//            //keystore中key的别名
+//            keyAlias 'androiddebugkey'
+//            //keystore中key的密码
+//            keyPassword 'android'
+//            //keystore的文件路径，可以是绝对路径也可以是相对路径
+//            storeFile file('D:/keystore/debug_loc.keystore')
+//            //keystore的密码
+//            storePassword 'android'
+//        }
+
+        /**
+         * 高德地图配置
+         */
+        debug {
+            //keystore中key的别名
+            keyAlias 'debug.keystore'
+            //keystore中key的密码
+            keyPassword '778744'
+            //keystore的文件路径，可以是绝对路径也可以是相对路径
+            storeFile file('D:/Android_keystore/debug.keystore.jks')
+            //keystore的密码
+            storePassword '778744'
+        }
+
+        //发布版的keystore
+        release {
+            storeFile file("D:/Android_keystore/debug.keystore.jks")
+            //keystore的密码
+            storePassword "778744"
+            //keystore中key的别名
+            keyAlias "debug.keystore"
+            //keystore中key的密码
+            keyPassword "778744"
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
 
@@ -44,6 +85,7 @@ android {
         jniLibs.srcDirs = ['libs']  // <-- so文件和libs库需要添加这个配置，我由于没加，初始化失败
     }
 
+
 }
 
 dependencies {
@@ -63,5 +105,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile files('libs/jcore-android_v1.1.0.jar')
     compile files('libs/jpush-android_v3.0.1.jar')
-    compile files('libs/AMap2DMap_2.9.2_AMapSearch_3.6.1_AMapLocation_3.1.0_20161122.jar')
+    compile files('libs/AMap2DMap_4.2.0_AMapSearch_4.0.0_AMapLocation_3.3.0_20170120.jar')
 }

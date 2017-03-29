@@ -28,6 +28,7 @@ import com.yvision.utils.WebUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,7 +126,7 @@ public class UserHelper {
     /**
      * 01 密码登录
      */
-    public static void loginByPs(Context context, String adminUserName, String userName, String password, String clientID) throws MyException {
+    public static void loginByPs(Context context, String adminUserName, String userName, String password, String registRationID) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context))
             throw new MyException(R.string.network_invalid);
         HttpResult httpResult = APIUtils.postForObject(WebUrl.LOGIN_POST,
@@ -141,7 +142,7 @@ public class UserHelper {
 
                         add("Remark", "").//
                         add("DeviceSN", "").//
-                        add("DeviceInfo", clientID + "@1001"));//
+                        add("DeviceInfo", registRationID + "@1001"));//
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
@@ -158,7 +159,7 @@ public class UserHelper {
         userEntity.setUserName(userName);
         userEntity.setPassword(password);
         userEntity.setAdminUserName(adminUserName);
-        userEntity.setClientID(clientID);
+        userEntity.setregistRationID(registRationID);
 
         // ConfigUtil中断保存，在退出后重新登录用getAccount()调用
         ConfigUtil config = new ConfigUtil(MyApplication.getInstance());
@@ -183,29 +184,6 @@ public class UserHelper {
         //        String newUrl = new String(WebUrl.UserManager.GET_RESPONDENTS + storeId + "/" + typeN);
         String newUrl = new String(WebUrl.GET_RESPONDENTS + storeId + "/" + typeN);
         HttpResult httpResult = APIUtils.getForObject(newUrl);
-        /**
-         * json转换到userManager中，现在不需要--0802
-         */
-        // // Gson.jar包,解析HttpResult中的jsonArray 给对象UserManagers
-        // UserEntity userManagers = null;
-        // List<UserEntity> list = new ArrayList<UserEntity>();
-        // JSONArray jsonArray = httpResult.jsonArray;
-        // Iterable<JsonElement> iterable = (Iterable<JsonElement>) jsonArray;
-        // Iterator<JsonElement> iterator = iterable.iterator();
-        // while(iterator.hasNext()){
-        // JsonElement element = (JsonElement)iterator.next();
-        // userManagers = new Gson().fromJson(element, UserEntity.class);
-        // list.add(userManagers);
-        // //数组赋值
-        // userManagers.setList(list);
-        // }
-        // mCurrentUser = userManagers;//将登陆成功的对象信息，赋值给全局变量
-        /**
-         * 完成代码后，需要加上--0802
-         */
-        // if (httpResult.hasError()) {
-        // throw httpResult.getError();
-        // }
 
         return httpResult.jsonArray;
     }
@@ -225,6 +203,7 @@ public class UserHelper {
         if (hr.hasError()) {
             throw hr.getError();
         }
+
         return hr.Message;
     }
 
@@ -455,6 +434,46 @@ public class UserHelper {
     }
 
     /**
+     * 11 添加地图考勤
+     */
+    public static String mapAttend(Context context,
+                                   String currentTime,
+                                   String address,
+                                   double weidu,
+                                   double jingdu,
+                                   String EmployeeName,
+                                   String companyID,
+                                   String EmployeeID,
+                                   String DepartmentID) throws MyException, JSONException {
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络
+        }
+
+
+        JSONObject js = new JSONObject();
+        js.put("CapTime", currentTime);
+        js.put("Location", address);
+        js.put("Latitude", weidu + "");
+        js.put("Longitude", jingdu + "");
+
+        js.put("EmployeeID", EmployeeID);
+        js.put("CompanyID", companyID);
+        js.put("DepartmentID", DepartmentID);
+        js.put("EmployeeName", EmployeeName);
+        js.put("WrokId", UserHelper.getCurrentUser().getUserName());
+
+
+        HttpResult hr = APIUtils.postForObject(WebUrl.Attend.POST_ATTENDANCE_MAP,
+                HttpParameter.create().add("obj", js.toString()));
+
+        if (hr.hasError()) {
+            throw hr.getError();
+        }
+
+        return currentTime;
+    }
+
+    /**
      * 12获取登录人信息
      */
     public static EmployeeInfoModel GetEmployeeInfoByID(Context context) throws MyException {
@@ -467,6 +486,18 @@ public class UserHelper {
         if (hr.hasError()) {
             throw hr.getError();
         }
+
+        //        UserEntity userEntity = new UserEntity();
+        //        userEntity.setEmployeeId(JSONUtils.getString(hr.jsonObject,"EmployeeId"));
+        //        userEntity.setDepartmentID(JSONUtils.getString(hr.jsonObject,"DepartmentID"));
+        //        userEntity.setStoreID(JSONUtils.getString(hr.jsonObject,"StoreID"));
+        //        userEntity.setWorkId(JSONUtils.getString(hr.jsonObject,"WrokId"));
+        //        userEntity.setEmployeeName(JSONUtils.getString(hr.jsonObject,"EmployeeName"));
+        //        userEntity.setEmployeeGender(JSONUtils.getString(hr.jsonObject,"EmployeeGender"));
+        //
+        //        ConfigUtil config = new ConfigUtil(MyApplication.getInstance());
+        //        config.setUserEntity(userEntity);// 保存已经登录成功的对象信息
+        //        mCurrentUser = userEntity;// 将登陆成功的对象信息，赋值给全局变量
 
         return (new Gson()).fromJson(hr.jsonObject.toString(), EmployeeInfoModel.class);
 
@@ -606,7 +637,6 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        Log.d("SJY", "获取老员工列表" + WebUrl.GET_OLD_EMPLOYEE_LIST + "--公司编号：" + mCurrentUser.getStoreID());
         HttpResult httpResult = APIUtils.getForObject(WebUrl.GET_OLD_EMPLOYEE_LIST + mCurrentUser.getStoreID());
 
         if (httpResult.hasError()) {
@@ -708,7 +738,7 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        HttpResult httpResult = APIUtils.getForObject(WebUrl.Attend.EMPLOYEE_DETAIL  + attendId);
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.Attend.EMPLOYEE_DETAIL + attendId);
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
@@ -727,7 +757,7 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        HttpResult httpResult = APIUtils.getForObject(WebUrl.Vip.VIP_DETAIL  + attendId);
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.Vip.VIP_DETAIL + attendId);
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
@@ -747,7 +777,7 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        HttpResult httpResult = APIUtils.getForObject(WebUrl.DoorAccess.DOORACCESS_DETAIL  + attendId);
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.DoorAccess.DOORACCESS_DETAIL + attendId);
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
