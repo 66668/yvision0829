@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- NiceSpinner的选中和没选中-->
+<!-- SelectSpinner的选中和没选中bg-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/white" android:state_pressed="true" />
-    <item android:drawable="@color/common_topbar_bgcolor" android:state_pressed="false" />
+    <item android:drawable="@android:color/white" android:state_pressed="false" />
 </selector>

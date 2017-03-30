@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yvision.R;
-import com.yvision.adapter.EmployeeNameListAdapter;
+import com.yvision.adapter.RegisterListAdapter;
 import com.yvision.adapter.MainSpinnerAdapter;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
@@ -74,7 +74,7 @@ public class MainRegisterActivity extends BaseActivity {
     private String minTime = "";
     private String maxTime = "";
 
-    private EmployeeNameListAdapter employeeNameListAdapter;//记录适配
+    private RegisterListAdapter registerListAdapter;//记录适配
     private boolean ifLoading = false;//标记
     private int pageSize = 20;
     private ArrayList list = null;
@@ -84,21 +84,20 @@ public class MainRegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.act_registermain);
-        this.context = this;
-        tv_title.setText("员工注册");
-        tv_right.setText("刷新");
-        initMyView();// spinner监听/search监听
 
-        employeeNameListAdapter = new EmployeeNameListAdapter(context);// null--没有上拉加载功能
-        listView.setAdapter(employeeNameListAdapter);
+        initMyView();
+        initListener();
+        getData();
+    }
 
+    private void initListener() {
         //		 点击一条记录后，跳转到登记时详细的信息
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int headerViewsCount = listView.getHeaderViewsCount();//得到header的总数量
                 int newPosition = position - headerViewsCount;//得到新的修正后的position
-                final String employeeId = ((OldEmployeeModel) employeeNameListAdapter.getItem(newPosition)).getEmployeeId();//recordID
+                final String employeeId = ((OldEmployeeModel) registerListAdapter.getItem(newPosition)).getEmployeeId();//recordID
                 Log.d("SJY", "详细--employeeId=" + employeeId);
                 Loading.run(MainRegisterActivity.this, new Runnable() {
                     @Override
@@ -116,11 +115,11 @@ public class MainRegisterActivity extends BaseActivity {
 
             }
         });
-        //加载全部数据
-        getData();
     }
 
     public void initMyView() {
+        this.context = this;
+        tv_title.setText("员工注册");
         tv_right.setText("刷新");
 
         //        // 搜索
@@ -134,6 +133,8 @@ public class MainRegisterActivity extends BaseActivity {
         // 设置下拉列表风格()
         mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
+        registerListAdapter = new RegisterListAdapter(context);// null--没有上拉加载功能
+        listView.setAdapter(registerListAdapter);
     }
 
     // 获取全部记录
@@ -147,15 +148,15 @@ public class MainRegisterActivity extends BaseActivity {
             public void run() {
                 ifLoading = true;
                 try {
-                    employeeNameListAdapter.IsEnd = false;
+                    registerListAdapter.IsEnd = false;
 
                     ArrayList<OldEmployeeModel> visitorModelList = UserHelper.getOldEmployList(
                             MainRegisterActivity.this);
 
                     if (visitorModelList == null) {
-                        employeeNameListAdapter.IsEnd = true;
+                        registerListAdapter.IsEnd = true;
                     } else if (visitorModelList.size() < pageSize) {
-                        employeeNameListAdapter.IsEnd = true;
+                        registerListAdapter.IsEnd = true;
                     }
 
                     sendMessage(GET_DATA_SUCCESS, visitorModelList);
@@ -174,7 +175,7 @@ public class MainRegisterActivity extends BaseActivity {
             case GET_DATA_SUCCESS://加载全部/今天
                 list = (ArrayList) msg.obj;
 
-                employeeNameListAdapter.setEntityList(list);
+                registerListAdapter.setEntityList(list);
                 //数据处理，只存最小值
                 ifLoading = false;
                 break;
@@ -195,7 +196,7 @@ public class MainRegisterActivity extends BaseActivity {
         new AlertDialog.Builder(MainRegisterActivity.this)
                 .setCancelable(false)    //不响应back按钮
                 .setTitle("选择注册类型：")
-                .setItems(new String[]{"考勤", "VIP"},  new DialogInterface.OnClickListener() {
+                .setItems(new String[]{"考勤", "VIP"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
@@ -208,6 +209,12 @@ public class MainRegisterActivity extends BaseActivity {
                                 dialog.dismiss();
                                 break;
                         }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 })
                 .create().show();
@@ -260,15 +267,22 @@ public class MainRegisterActivity extends BaseActivity {
         this.finish();
     }
 
+    /**
+     * 刷新功能
+     *
+     * @param view
+     */
     public void refresh(View view) {
-        employeeNameListAdapter = new EmployeeNameListAdapter(context);// null--没有上拉加载功能
-        listView.setAdapter(employeeNameListAdapter);
+        registerListAdapter = new RegisterListAdapter(context);// null--没有上拉加载功能
+        listView.setAdapter(registerListAdapter);
         getData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        registerListAdapter = new RegisterListAdapter(context);// null--没有上拉加载功能
+        listView.setAdapter(registerListAdapter);
         getData();
     }
 

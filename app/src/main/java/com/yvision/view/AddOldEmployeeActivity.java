@@ -104,7 +104,7 @@ public class AddOldEmployeeActivity extends BaseActivity {
     private String EmployeeName;
     private String WrokId;
     private String employeeID;
-
+    private OldEmployeeModel model;
     //    private CameraGalleryUtils cameraGalleryUtils;// 头像上传工具
     //    // 外部jar包：universal-image-loader-1.9.2.jar/异步加载图片
     //    private DisplayImageOptions imgOption;
@@ -116,21 +116,31 @@ public class AddOldEmployeeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_old_employee_register);
-        tv_title.setText("注册图片");
-        tv_right.setText("");
-        //获取跳转值
-        Intent intent = getIntent();
-        OldEmployeeModel model = (OldEmployeeModel) intent.getSerializableExtra("OldEmployeeModel");
-        employeeID = model.getEmployeeId();
-        EmployeeName = model.getEmployeeName();
-        WrokId = model.getWrokId();
 
+        initMyView();
+        setShow();
+        initListener();
+        getData();
+    }
+
+    private void setShow() {
         tvName.setText(EmployeeName);
         tvWrokId.setText(WrokId);
         tvDepartment.setText(model.getDeptName());
         tvGender.setText(model.getGender());
         Log.d("SJY", "创建==employeeID=" + employeeID + "\nEmployeeName=" + EmployeeName + "\nWrokId=" + WrokId +
                 "\n部门=" + model.getDeptName() + "\n性别=" + model.getGender());
+    }
+
+    private void initMyView() {
+        tv_title.setText("注册图片");
+        tv_right.setText("");
+        //获取跳转值
+        Intent intent = getIntent();
+        model = (OldEmployeeModel) intent.getSerializableExtra("OldEmployeeModel");
+        employeeID = model.getEmployeeId();
+        EmployeeName = model.getEmployeeName();
+        WrokId = model.getWrokId();
 
         //        // 图片处理工具类
         //        cameraGalleryUtils = new CameraGalleryUtils(this, this);// 实例化
@@ -139,33 +149,13 @@ public class AddOldEmployeeActivity extends BaseActivity {
         //        imgLoader.init(ImageLoaderConfiguration.createDefault(this));
         //        imgOption = ImageLoadingConfig.generateDisplayImageOptionsNoCatchDisc(R.mipmap.ic_launcher);
 
-
         //获取屏幕像素尺寸
         Display display = getWindowManager().getDefaultDisplay();
         mPoint = new Point();
         display.getSize(mPoint);
-
-        getData();
-        initRegisterView();
     }
 
-    private void getData() {
-        Loading.run(this, new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //获取人像库信息
-                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddOldEmployeeActivity.this);
-                    sendMessage(FACE_DATABASE_SUCCESS, jsonArrayGroupID);
-                } catch (MyException e) {
-                    Log.d("SJY", "异常=" + e.getMessage());
-                }
-            }
-        });
-    }
-
-    private void initRegisterView() {
-
+    private void initListener() {
         //选择人脸库类型
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -187,6 +177,21 @@ public class AddOldEmployeeActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void getData() {
+        Loading.run(this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //获取人像库信息
+                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddOldEmployeeActivity.this);
+                    sendMessage(FACE_DATABASE_SUCCESS, jsonArrayGroupID);
+                } catch (MyException e) {
+                    Log.d("SJY", "异常=" + e.getMessage());
+                }
+            }
+        });
     }
 
     /**

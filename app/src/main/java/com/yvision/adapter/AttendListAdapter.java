@@ -31,19 +31,19 @@ public class AttendListAdapter extends BaseListAdapter {
     }
 
     public class WidgetHolder {
-        public CircleImageView circleImg;//自定义图片
+        public TextView tv_name;
         public TextView tvTime;
-        public TextView tvName;
+        public CircleImageView imageView;
     }
 
     @Override
     protected View inflateConvertView() {
-        View view = inflater.inflate(R.layout.item_usermain_list, null);
+        View view = inflater.inflate(R.layout.item_common_list, null);
         //该布局上的控件
         WidgetHolder holder = new WidgetHolder();
-        holder.circleImg = (CircleImageView) view.findViewById(R.id.img_face);
+        holder.tv_name = (TextView) view.findViewById(R.id.tv_name);
         holder.tvTime = (TextView) view.findViewById(R.id.tv_time);
-        holder.tvName = (TextView) view.findViewById(R.id.tv_name);
+        holder.imageView = (CircleImageView) view.findViewById(R.id.imageView);
         view.setTag(holder);
         return view;
     }
@@ -53,11 +53,11 @@ public class AttendListAdapter extends BaseListAdapter {
         WidgetHolder holder = (WidgetHolder) convertView.getTag();//获取控件管理实例
         AttendModel model = (AttendModel) entityList.get(position);
 
-        holder.tvName.setText(model.getEmployeeName());
+        holder.tv_name.setText(model.getEmployeeName());
         holder.tvTime.setText(model.getCapTime());
 
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
-        imgLoader.displayImage(model.getSmallCapImagePath(), holder.circleImg, imgOption);
+        imgLoader.displayImage(model.getSmallCapImagePath(), holder.imageView, imgOption);
     }
 
     public void destroy() {

@@ -2,7 +2,6 @@ package com.yvision.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -11,21 +10,22 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.yvision.R;
 import com.yvision.common.ImageLoadingConfig;
 import com.yvision.model.VipModel;
+import com.yvision.widget.CircleImageView;
 
 
 /**
  * 应用-采购适配
  */
+
 public class VipListAdapter extends BaseListAdapter {
     private ImageLoader imgLoader;
     private DisplayImageOptions imgOptions;
     private Context context;
 
     public class WidgetHolder {
-        public TextView tv_Title;
+        public TextView tv_name;
         public TextView tvTime;
-        public TextView tvState;
-        public ImageView imageView;
+        public CircleImageView imageView;
     }
 
     public VipListAdapter(Context context) {
@@ -39,13 +39,12 @@ public class VipListAdapter extends BaseListAdapter {
     @Override
     protected View inflateConvertView() {
         //一条记录的布局
-        View view = inflater.inflate(R.layout.item_viplist, null);
+        View view = inflater.inflate(R.layout.item_common_list, null);
         //该布局上的控件
         WidgetHolder holder = new WidgetHolder();
-        holder.tv_Title = (TextView) view.findViewById(R.id.tv_procurementTitle);
+        holder.tv_name = (TextView) view.findViewById(R.id.tv_name);
         holder.tvTime = (TextView) view.findViewById(R.id.tv_time);
-        holder.tvState = (TextView) view.findViewById(R.id.tv_state);
-        holder.imageView = (ImageView) view.findViewById(R.id.imageView);
+        holder.imageView = (CircleImageView) view.findViewById(R.id.imageView);
         view.setTag(holder);
         return view;
     }
@@ -56,8 +55,8 @@ public class VipListAdapter extends BaseListAdapter {
 
         VipModel model = (VipModel) entityList.get(position);
         //获取一条信息
-        holder.tvTime.setText(model.getCompanyName());
-        holder.tv_Title.setText(model.getCapTime());
+        holder.tvTime.setText(model.getCapTime());
+        holder.tv_name.setText(model.getEmployeeName());
 
         imgLoader.displayImage(model.getSmallCapImagePath(), holder.imageView, imgOptions);
     }

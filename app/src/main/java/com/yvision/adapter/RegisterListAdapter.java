@@ -9,43 +9,43 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.yvision.R;
 import com.yvision.common.ImageLoadingConfig;
-import com.yvision.model.VisitorBModel;
+import com.yvision.model.OldEmployeeModel;
 import com.yvision.widget.CircleImageView;
 
-import java.util.ArrayList;
 
 /**
- * 访客列表适配
+ * 老员工姓名列表适配
  *
  * @author
  */
 
-public class VisitorListAdapter extends BaseListAdapter {
+public class RegisterListAdapter extends BaseListAdapter {
+    // 图片缓存
+    private Context context;
+    private DisplayImageOptions imgOption;
     private ImageLoader imgLoader;
-    private DisplayImageOptions imgOptions;
-
-
     public class WidgetHolder {
         public TextView tv_name;
-        public TextView tvTime;
+        public TextView tv_workid;
         public CircleImageView imageView;
     }
 
-    public VisitorListAdapter(Context context) {
+    public RegisterListAdapter(Context context) {
         super(context);
+        // 图片缓存实例化
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));
-        imgOptions = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.photo);
+        imgOption = ImageLoadingConfig.generateDisplayImageOptionsNoCatchDisc(R.mipmap.ic_launcher);
     }
 
     @Override
     protected View inflateConvertView() {
         //一条记录的布局
-        View view = inflater.inflate(R.layout.item_common_list, null);
+        View view = inflater.inflate(R.layout.item_registermain_list, null);
         //该布局上的控件
         WidgetHolder holder = new WidgetHolder();
         holder.tv_name = (TextView) view.findViewById(R.id.tv_name);
-        holder.tvTime = (TextView) view.findViewById(R.id.tv_time);
+        holder.tv_workid = (TextView) view.findViewById(R.id.tv_workid);
         holder.imageView = (CircleImageView) view.findViewById(R.id.imageView);
         view.setTag(holder);
         return view;
@@ -54,24 +54,19 @@ public class VisitorListAdapter extends BaseListAdapter {
     @Override
     protected void initViewData(final int position, View convertView) {
         WidgetHolder holder = (WidgetHolder) convertView.getTag();//获取控件管理实例
+
+        OldEmployeeModel model = (OldEmployeeModel) entityList.get(position);
         //获取一条信息
-        //?java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.yvision.model.VisitorBModel
-        VisitorBModel model = (VisitorBModel) entityList.get(position);
-        //赋值
-        imgLoader.displayImage(model.getImagePath(), holder.imageView, imgOptions);//显示图片
-        holder.tv_name.setText(model.getVisitorName());
-        holder.tvTime.setText(model.getiLastUpdateTime());
+        holder.tv_name.setText(model.getEmployeeName());
+        holder.tv_workid.setText(model.getWrokId());
 
-
+//        imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
+//        imgLoader.displayImage(model.get(), holder.imageView, imgOption);
     }
 
     public void destroy() {
-        imgLoader.clearMemoryCache();
-        imgLoader.destroy();
-    }
-
-    //checkBox相关
-    public static void setisCheckedList(ArrayList<Boolean> isCheckedList) {
-        VisitorListAdapter.isCheckedList = isCheckedList;
+        if (imgLoader!=null) {
+            imgLoader.destroy();
+        }
     }
 }

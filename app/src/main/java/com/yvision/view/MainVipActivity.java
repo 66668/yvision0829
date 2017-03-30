@@ -466,4 +466,12 @@ public class MainVipActivity extends BaseActivity implements RefreshAndLoadListV
         this.finish();
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.destroy();
+        }
+    }
 }

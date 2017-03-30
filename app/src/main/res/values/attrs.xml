@@ -39,4 +39,12 @@
         <attr name="backgroundSelector" format="integer"/>
         <attr name="textTint" format="color"/>
     </declare-styleable>
+
+    <!-- SelectSpinner-->
+    <declare-styleable name="SelectSpinner">
+        <attr name="arrowtint" format="color" />
+        <attr name="hidearrow" format="boolean" />
+        <attr name="backgroundselector" format="integer"/>
+        <attr name="texttint" format="color"/>
+    </declare-styleable>
 </resources>

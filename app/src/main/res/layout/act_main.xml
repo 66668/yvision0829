@@ -11,131 +11,214 @@
         android:id="@+id/title"
         layout="@layout/topbar_main"/>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <!-- 访客管理系统 -->
-        <RelativeLayout
-            android:id="@+id/visitorManager"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:background="@drawable/manager"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- 访客管理系统 -->
+            <RelativeLayout
+                android:id="@+id/visitorManager"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/main_item_bg"
+                android:gravity="center_vertical"
+                android:padding="12dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="34dp"
-                android:text="@string/visitorManager"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/common_textSize_default24"/>
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_visitor"
+                    android:text="@string/visitorManager"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/common_textSize_default18"/>
 
-        <!-- 用户管理系统 -->
-        <RelativeLayout
-            android:id="@+id/attendanceManager"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/manager"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/img_visitor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@mipmap/main_visitor"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="34dp"
-                android:text="@string/attendManager"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/common_textSize_default24"/>
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/maint_forword"/>
+            </RelativeLayout>
 
-        <!-- 人员管理系统 -->
-        <RelativeLayout
-            android:id="@+id/employeeRegisterManager"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:background="@mipmap/main_vip"
-            android:gravity="center_vertical">
-        </RelativeLayout>
+            <!-- 用户管理系统 -->
+            <RelativeLayout
+                android:id="@+id/attendanceManager"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/main_item_bg"
+                android:gravity="center_vertical"
+                android:padding="12dp">
 
-        <!-- VIP -->
-        <RelativeLayout
-            android:id="@+id/layout_vip"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:background="@drawable/manager"
-            android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/maint_forword"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="34dp"
-                android:text="@string/text_vip"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/common_textSize_default24"/>
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_attend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@mipmap/main_attend"/>
 
-        <RelativeLayout
-            android:id="@+id/layout_door"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:background="@drawable/manager"
-            android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_attend"
+                    android:text="@string/attendManager"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/common_textSize_default18"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="34dp"
-                android:text="@string/text_door"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/common_textSize_default24"/>
-        </RelativeLayout>  <!-- 人员管理系统 -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:gravity="center_vertical">
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+            </RelativeLayout>
+
+            <!-- 人员管理系统 -->
+            <RelativeLayout
+                android:id="@+id/employeeRegisterManager"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/main_item_bg"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/maint_forword"/>
+
+                <ImageView
+                    android:id="@+id/img_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@mipmap/main_register"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_register"
+                    android:text="@string/RegisterManager"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/common_textSize_default18"/>
+            </RelativeLayout>
+
+            <!-- VIP -->
+            <RelativeLayout
+                android:id="@+id/layout_vip"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/main_item_bg"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/maint_forword"/>
+
+                <ImageView
+                    android:id="@+id/img_vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@mipmap/main_vip"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_vip"
+                    android:text="@string/text_vip"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/common_textSize_default18"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_door"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/main_item_bg"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/maint_forword"/>
+
+                <ImageView
+                    android:id="@+id/img_door"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@mipmap/main_door"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_door"
+                    android:text="@string/text_door"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/common_textSize_default18"/>
+
+            </RelativeLayout>  <!-- 人员管理系统 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

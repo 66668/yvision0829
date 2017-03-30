@@ -2,55 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="42dp"
-              android:background="@color/common_topbar_bgcolor"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="horizontal"
               android:weightSum="1">
 
-    <TextView
-        android:id="@+id/textView2"
+    <View
+        android:background="@android:color/white"
+        android:layout_weight="0.08"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.18"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:singleLine="true"
-        android:text="@string/time"
-        android:textColor="@color/common_title_color"
-        android:textSize="@dimen/common_textSize_default12"/>
+        android:layout_height="wrap_content"/>
 
-    <com.yvision.widget.NiceSpinner
+    <com.yvision.widget.SelectSpinner
         android:id="@+id/spinner_time"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.32"
+        android:layout_weight="0.35"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textColor="@color/white"
+        app:texttint="@color/common_topbar_bgcolor"
         android:textSize="@dimen/common_textSize_default12"/>
-
-    <TextView
+    <View
+        android:background="@android:color/white"
+        android:layout_weight="0.14"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.18"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:singleLine="true"
-        android:text="@string/style"
-        android:textColor="@color/common_title_color"
-        android:textSize="@dimen/common_textSize_default12"
-        />
+        android:layout_height="wrap_content"/>
 
-    <com.yvision.widget.NiceSpinner
+    <com.yvision.widget.SelectSpinner
         android:id="@+id/spinner_style"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.32"
+        android:layout_weight="0.35"
         android:gravity="center_vertical"
-        android:textColor="@color/white"
+        app:texttint="@color/common_topbar_bgcolor"
         android:textSize="@dimen/common_textSize_default12"/>
-
-    <TextView
+    <View
+        android:background="@android:color/white"
+        android:layout_weight="0.08"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05"/>
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,8 +21,8 @@ import com.yvision.inject.ViewInject;
 import com.yvision.model.AttendModel;
 import com.yvision.model.EmployeeInfoModel;
 import com.yvision.utils.PageUtil;
-import com.yvision.widget.NiceSpinner;
 import com.yvision.widget.RefreshAndLoadListView;
+import com.yvision.widget.SelectSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +42,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     TextView tv_title;
 
     //
-    @ViewInject(id = R.id.tv_right)
+    @ViewInject(id = R.id.tv_right,click = "addAtendanceByMap")
     TextView tv_right;
 
     //listView
@@ -53,17 +51,11 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
     //时间
     @ViewInject(id = R.id.spinner_time)
-    NiceSpinner spinnerTime;
+    SelectSpinner spinnerTime;
 
     //方式
     @ViewInject(id = R.id.spinner_style)
-    NiceSpinner spinnerType;
-
-    //添加地图签到
-    @ViewInject(id = R.id.layout_addAttendance)
-    LinearLayout layout_addAttendance;
-    @ViewInject(id = R.id.btn_addMapAttendance, click = "addAtendanceByMap")
-    Button btn_addMapAttendance;
+    SelectSpinner spinnerType;
 
     //时间
     @ViewInject(id = R.id.spinner_time)
@@ -120,12 +112,12 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     public void initMyView() {
         tv_title.setText(getResources().getString(R.string.attendTile));
         //        tv_right.setText(getResources().getString(R.string.wifiAttend));
-        tv_right.setText("");
+        tv_right.setText("地图签到");
         //spinner绑定数据
-        spinnerTimeData = new LinkedList<>(Arrays.asList("全部", "今日", "本周", "本月"));
+        spinnerTimeData = new LinkedList<>(Arrays.asList("全部时间", "今日", "本周", "本月"));
         spinnerTime.attachDataSource(spinnerTimeData);//绑定数据
 
-        spinnerTypeData = new LinkedList<>(Arrays.asList("全部", "普通", "地图", "wifi"));
+        spinnerTypeData = new LinkedList<>(Arrays.asList("全部方式", "普通", "地图", "wifi"));
         spinnerType.attachDataSource(spinnerTypeData);//绑定数据
 
         //自定义listVIew监听
@@ -172,7 +164,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
     private void getSelectTimeData(String timeSpinner) {
         switch (timeSpinner) {
-            case "全部":
+            case "全部时间":
                 //                uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载全部数据
                 //                listView.setAdapter(uAdapter);
                 timeForAll();
@@ -202,7 +194,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
     private void getSelectTypeData(String timeSpinner) {
         switch (timeSpinner) {
-            case "全部":
+            case "全部方式":
                 uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载全部数据
                 listView.setAdapter(uAdapter);
                 styleForAll();
@@ -514,9 +506,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //        if (uAdapter != null) {
-        //            uAdapter.destroy();
-        //        }
+        if (uAdapter != null) {
+            uAdapter.destroy();
+        }
     }
 
 }

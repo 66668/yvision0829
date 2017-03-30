@@ -32,10 +32,10 @@ import java.util.List;
 
 
 /**
- *
+ *  spinner
  */
 @SuppressWarnings("unused")
-public class NiceSpinner extends android.support.v7.widget.AppCompatTextView {
+public class SelectSpinner extends android.support.v7.widget.AppCompatTextView {
 
     private static final int MAX_LEVEL = 10000;
     private static final int DEFAULT_ELEVATION = 16;
@@ -55,17 +55,17 @@ public class NiceSpinner extends android.support.v7.widget.AppCompatTextView {
     private int backgroundSelector;
 
     @SuppressWarnings("ConstantConditions")
-    public NiceSpinner(Context context) {
+    public SelectSpinner(Context context) {
         super(context);
         init(context, null);
     }
 
-    public NiceSpinner(Context context, AttributeSet attrs) {
+    public SelectSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public NiceSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SelectSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -111,7 +111,7 @@ public class NiceSpinner extends android.support.v7.widget.AppCompatTextView {
 
     private void init(Context context, AttributeSet attrs) {
         Resources resources = getResources();
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NiceSpinner);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SelectSpinner);
         int defaultPadding = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
 
         setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -119,9 +119,9 @@ public class NiceSpinner extends android.support.v7.widget.AppCompatTextView {
             defaultPadding);
         setClickable(true);
 
-        backgroundSelector = typedArray.getResourceId(R.styleable.NiceSpinner_backgroundSelector, R.drawable.selector);
+        backgroundSelector = typedArray.getResourceId(R.styleable.SelectSpinner_backgroundselector, R.drawable.selector2);
         setBackgroundResource(backgroundSelector);
-        textColor = typedArray.getColor(R.styleable.NiceSpinner_textTint, -1);
+        textColor = typedArray.getColor(R.styleable.SelectSpinner_texttint, -1);
         setTextColor(textColor);
 
 
@@ -182,10 +182,10 @@ public class NiceSpinner extends android.support.v7.widget.AppCompatTextView {
             }
         });
 
-        isArrowHide = typedArray.getBoolean(R.styleable.NiceSpinner_hideArrow, false);
+        isArrowHide = typedArray.getBoolean(R.styleable.SelectSpinner_hidearrow, false);
         if (!isArrowHide) {
-            Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.arrow);
-            int resId = typedArray.getColor(R.styleable.NiceSpinner_arrowTint, -1);
+            Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.select_arrow);
+            int resId = typedArray.getColor(R.styleable.SelectSpinner_arrowtint, -1);
             if (basicDrawable != null) {
                 drawable = DrawableCompat.wrap(basicDrawable);
                 if (resId != -1) {

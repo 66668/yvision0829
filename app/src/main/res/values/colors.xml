@@ -23,7 +23,7 @@
     <color name="main_bg">#3a9cea</color>
     <color name="textHintColor">#777777</color>
     <color name="textColor">#000000</color><!-- 字体颜色-->
-    <color name="common_topbar_bgcolor">#2083d2</color><!-- topbar的背景色-->
+    <color name="common_topbar_bgcolor">#1E94D4</color><!-- topbar的背景色-->
 
     <!-- 通用颜色-->
     <color name="white">#FFFFFF</color><!--白色 -->

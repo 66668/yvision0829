@@ -2,67 +2,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/item_bg">
+                android:background="@android:color/white">
 
-    <LinearLayout
-        android:id="@+id/layout_item"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_topbar_height"
-        android:orientation="horizontal"
-        android:weightSum="1">
+    <com.yvision.widget.CircleImageView
+        android:id="@+id/imageView"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:background="@mipmap/default_photo"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.15"
-            android:gravity="center"
-            android:text="姓名："/>
+    <TextView
+        android:id="@+id/tv_default_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/imageView"
+        android:text="姓名："
+        android:textColor="@color/cl_text_common"
+        android:textSize="@dimen/common_textSize_default14"/>
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.2"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="10dp"/>
+    <TextView
+        android:id="@+id/tv_default_workid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_default_name"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/imageView"
+        android:text="工号："
+        android:textColor="@color/cl_text_common"
+        android:textSize="@dimen/common_textSize_default14"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.15"
-            android:gravity="center"
-            android:text="工号："/>
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_default_name"
+        android:layout_toEndOf="@+id/tv_default_name"
+        android:layout_toRightOf="@+id/tv_default_name"
+        android:text="title"
+        android:textColor="@color/cl_text_common"
+        android:textSize="@dimen/common_textSize_default14"/>
 
-        <TextView
-            android:id="@+id/tv_workId"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.3"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="10dp"/>
+    <TextView
+        android:id="@+id/tv_workid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_default_workid"
+        android:layout_toRightOf="@+id/tv_default_workid"
+        android:text="编号"
+        android:textColor="@color/cl_text_common"
+        android:textSize="@dimen/common_textSize_default14"
+        android:layout_alignBottom="@+id/tv_default_workid"
+        android:layout_alignTop="@+id/tv_default_workid"/>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/forword"/>
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bar_line"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/forword"
+        android:id="@+id/imageView3"/>
 </RelativeLayout>

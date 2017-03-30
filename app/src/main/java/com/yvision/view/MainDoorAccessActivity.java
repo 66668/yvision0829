@@ -466,4 +466,12 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
         this.finish();
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.destroy();
+        }
+    }
 }
