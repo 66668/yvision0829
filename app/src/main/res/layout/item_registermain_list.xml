@@ -10,8 +10,7 @@
         android:layout_height="37dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:background="@mipmap/default_photo"/>
+        android:layout_marginLeft="15dp"/>
 
     <TextView
         android:id="@+id/tv_default_name"

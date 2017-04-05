@@ -1,7 +1,6 @@
 package com.yvision.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,6 @@ public abstract class BaseListAdapter extends BaseAdapter{
 		if(convertView == null){
 			convertView = inflateConvertView();
 		} 
-		Log.d("SJY", "CommonListAdapter--position="+position);//
 		initViewData(position, convertView);
 		return convertView;
 	}

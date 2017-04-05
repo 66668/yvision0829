@@ -40,10 +40,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
+ * 添加门禁员工图片
  * Created by sjy on 2016/11/11.
  */
 
-public class AddOldEmployeeActivity extends BaseActivity {
+public class AddOldDoorActivity extends BaseActivity {
 
     //back
     @ViewInject(id = R.id.layout_back, click = "forBack")
@@ -69,9 +70,6 @@ public class AddOldEmployeeActivity extends BaseActivity {
     @ViewInject(id = R.id.tvWrokId)
     TextView tvWrokId;
 
-    // 部门
-    @ViewInject(id = R.id.tvDepartment)
-    TextView tvDepartment;
     // 性别
     @ViewInject(id = R.id.tvGender)
     TextView tvGender;
@@ -115,7 +113,7 @@ public class AddOldEmployeeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_old_employee_register);
+        setContentView(R.layout.act_old_door_register);
 
         initMyView();
         setShow();
@@ -126,7 +124,6 @@ public class AddOldEmployeeActivity extends BaseActivity {
     private void setShow() {
         tvName.setText(EmployeeName);
         tvWrokId.setText(WrokId);
-        tvDepartment.setText(model.getDeptName());
         tvGender.setText(model.getGender());
         Log.d("SJY", "创建==employeeID=" + employeeID + "\nEmployeeName=" + EmployeeName + "\nWrokId=" + WrokId +
                 "\n部门=" + model.getDeptName() + "\n性别=" + model.getGender());
@@ -136,18 +133,11 @@ public class AddOldEmployeeActivity extends BaseActivity {
         tv_title.setText("注册图片");
         tv_right.setText("");
         //获取跳转值
-        Intent intent = getIntent();
-        model = (OldEmployeeModel) intent.getSerializableExtra("OldEmployeeModel");
-        employeeID = model.getEmployeeId();
+        Bundle bundle = getIntent().getExtras();
+        model = (OldEmployeeModel) bundle.getSerializable("OldEmployeeModel");
+
         EmployeeName = model.getEmployeeName();
         WrokId = model.getWrokId();
-
-        //        // 图片处理工具类
-        //        cameraGalleryUtils = new CameraGalleryUtils(this, this);// 实例化
-        //        // 图片缓存实例化
-        //        imgLoader = ImageLoader.getInstance();
-        //        imgLoader.init(ImageLoaderConfiguration.createDefault(this));
-        //        imgOption = ImageLoadingConfig.generateDisplayImageOptionsNoCatchDisc(R.mipmap.ic_launcher);
 
         //获取屏幕像素尺寸
         Display display = getWindowManager().getDefaultDisplay();
@@ -185,7 +175,7 @@ public class AddOldEmployeeActivity extends BaseActivity {
             public void run() {
                 try {
                     //获取人像库信息
-                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddOldEmployeeActivity.this);
+                    JSONArray jsonArrayGroupID = UserHelper.getDoorFaceDatabase(AddOldDoorActivity.this);
                     sendMessage(FACE_DATABASE_SUCCESS, jsonArrayGroupID);
                 } catch (MyException e) {
                     Log.d("SJY", "异常=" + e.getMessage());
@@ -233,7 +223,7 @@ public class AddOldEmployeeActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Toast.makeText(AddOldEmployeeActivity.this, "请重新选择人像库！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddOldDoorActivity.this, "请重新选择人像库！", Toast.LENGTH_SHORT).show();
             }
         });
         builder.show();
@@ -257,7 +247,7 @@ public class AddOldEmployeeActivity extends BaseActivity {
             @Override
             public void run() {
                 try {
-                    String result = UserHelper.registerOld(AddOldEmployeeActivity.this,
+                    String result = UserHelper.registerOld(AddOldDoorActivity.this,
                             HttpParameter.create().
                                     add("employeeID", employeeID).
                                     add("groupID", groupID).
@@ -265,8 +255,8 @@ public class AddOldEmployeeActivity extends BaseActivity {
                                     add("name", EmployeeName).
                                     add("IsAttend", IsAttend).
                                     add("IsVip", IsVip).
-                                    add("IsDoorAccess", IsDoorAccess).
-                                    add("operatorName", UserHelper.getCurrentUser().getStoreUserId()),
+                                    add("IsDoorAccess", "1").
+                                    add("operatorName", UserHelper.getCurrentUser().getUserName()),
                             picPath);
                     // 消息处理
                     sendMessage(SUCCESS_REGISTER, result);

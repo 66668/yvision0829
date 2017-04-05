@@ -204,10 +204,9 @@ public class WebUrl {
     /**
      * 获取人脸库
      * <p>
-     * 正式地址：http://192.168.1.127:1132/openapi/Attend/GetGroupByCyId/{companyID}
      */
     //		public static final String GET_FACE_DATEBASE_BY_COMPANYID = REGISTER_URL+ API+ "Attend/GetGroupByCyId/";
-    public static final String GET_FACE_DATEBASE_BY_COMPANYID = LOGIN_URL + API + "Attend/GetGroupByCyId/";
+    public static final String GET_FACE_DATEBASE_BY_COMPANYID = LOGIN_URL + API + "Attend/GetGroupListByType";
 
     /**
      * 获取部门库
@@ -246,6 +245,12 @@ public class WebUrl {
      */
     //		public static final String GET_OLD_EMPLOYEE_DETAILS = REGISTER_URL+API+"Employee/GetEmployeeByID/";
     public static final String GET_OLD_EMPLOYEE_DETAILS = LOGIN_URL + API + "Employee/GetEmployeeByID/";
+
+    /**
+     * 获取老员工图片集合信息
+     */
+    //		public static final String GET_OLD_EMPLOYEE_DETAILS = REGISTER_URL+API+"Employee/GetEmployeeByID/";
+    public static final String GET_OLD_EMPLOYEE_IMG = LOGIN_URL + API + "Image/GetImageListByEmployeeID/";
 
 
 

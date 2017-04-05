@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity {
                             storeId, // 公司编号
                             workId, // 工号
                             password,// 密码
-                            registRationID);
+                            "0");//是否接受推送0/1
 
                     // 访问服务端成功，消息处理
                     sendMessage(LOGIN_SUCESS);

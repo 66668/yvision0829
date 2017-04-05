@@ -24,6 +24,7 @@ public class RegisterListAdapter extends BaseListAdapter {
     private Context context;
     private DisplayImageOptions imgOption;
     private ImageLoader imgLoader;
+
     public class WidgetHolder {
         public TextView tv_name;
         public TextView tv_workid;
@@ -32,10 +33,11 @@ public class RegisterListAdapter extends BaseListAdapter {
 
     public RegisterListAdapter(Context context) {
         super(context);
+        this.context = context;
         // 图片缓存实例化
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));
-        imgOption = ImageLoadingConfig.generateDisplayImageOptionsNoCatchDisc(R.mipmap.ic_launcher);
+        imgOption = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.default_photo);
     }
 
     @Override
@@ -60,8 +62,8 @@ public class RegisterListAdapter extends BaseListAdapter {
         holder.tv_name.setText(model.getEmployeeName());
         holder.tv_workid.setText(model.getWrokId());
 
-//        imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
-//        imgLoader.displayImage(model.get(), holder.imageView, imgOption);
+        imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
+        imgLoader.displayImage(model.getPic(), holder.imageView, imgOption);
     }
 
     public void destroy() {

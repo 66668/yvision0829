@@ -1,44 +1,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:theme="@android:style/Theme.NoTitleBar" >
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:theme="@android:style/Theme.NoTitleBar">
 
     <!-- actionbar -->
 
-    <include layout="@layout/topbar_common_itt" />
+    <include layout="@layout/topbar_common_itt"/>
 
     <!-- 搜索-->
-	<!--<include layout="@layout/topbar_vmain_search" />-->
+    <!--<include layout="@layout/topbar_vmain_search" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <!-- list -->
-
-        <LinearLayout
-            android:id="@+id/layout_list"
+        <ListView
+            android:id="@+id/OldEmployeeNameList"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/title"
-            android:layout_marginBottom="50dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical" >
-
-            <ListView
-                android:id="@+id/OldEmployeeNameList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-            </ListView>
-        </LinearLayout>
+            android:layout_above="@+id/btn_addCustomerFace"
+            android:layout_height="match_parent">
+        </ListView>
 
         <!-- 添加新人 -->
 
-        <include
-            layout="@layout/bottombar_rmain_add_newemployee"
-            android:visibility="visible" />
+        <com.yvision.widget.DrawCenterButton
+            android:id="@+id/btn_addCustomerFace"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_style"
+            android:drawableLeft="@mipmap/addbutton"
+            android:includeFontPadding="false"
+            android:text="@string/addnewEmployee"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 </LinearLayout>

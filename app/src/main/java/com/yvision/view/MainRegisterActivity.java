@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -19,8 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yvision.R;
-import com.yvision.adapter.RegisterListAdapter;
 import com.yvision.adapter.MainSpinnerAdapter;
+import com.yvision.adapter.RegisterListAdapter;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
@@ -97,22 +96,11 @@ public class MainRegisterActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int headerViewsCount = listView.getHeaderViewsCount();//得到header的总数量
                 int newPosition = position - headerViewsCount;//得到新的修正后的position
-                final String employeeId = ((OldEmployeeModel) registerListAdapter.getItem(newPosition)).getEmployeeId();//recordID
-                Log.d("SJY", "详细--employeeId=" + employeeId);
-                Loading.run(MainRegisterActivity.this, new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            OldEmployeeModel model = UserHelper.getOldEmployeeDetails(MainRegisterActivity.this, employeeId);
-                            Intent intent = new Intent(MainRegisterActivity.this, AddOldEmployeeActivity.class);
-                            intent.putExtra("OldEmployeeModel", model);
-                            startActivity(intent);
-                        } catch (MyException e) {
-                            sendToastMessage(e.getMessage());
-                        }
-                    }
-                });
 
+                OldEmployeeModel employeeId = ((OldEmployeeModel) registerListAdapter.getItem(newPosition));//recordID
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("OldEmployeeModel", employeeId);
+                startActivity(AllPersonDetailActivity.class, bundle);
             }
         });
     }
@@ -201,7 +189,7 @@ public class MainRegisterActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                startActivity(AddNewEmployeeActivity.class);
+                                startActivity(AddNewAttenderActivity.class);
                                 dialog.dismiss();
                                 break;
                             case 1:
@@ -299,5 +287,11 @@ public class MainRegisterActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (registerListAdapter != null) {
+            registerListAdapter.destroy();
+        }
+    }
 }

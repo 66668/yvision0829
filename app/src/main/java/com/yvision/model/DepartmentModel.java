@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 
 /**
+ * 部门model
  * Created by sjy on 2016/11/13.
  */
 

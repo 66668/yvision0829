@@ -33,7 +33,7 @@ public class VipListAdapter extends BaseListAdapter {
         this.context = context;
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));
-        imgOptions = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.ic_launcher);
+        imgOptions = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.default_photo);
     }
 
     @Override

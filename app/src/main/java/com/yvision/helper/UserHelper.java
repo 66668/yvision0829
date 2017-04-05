@@ -16,6 +16,7 @@ import com.yvision.db.entity.UserEntity;
 import com.yvision.model.AttendModel;
 import com.yvision.model.DoorAccessModel;
 import com.yvision.model.EmployeeInfoModel;
+import com.yvision.model.OldEmployeeImgModel;
 import com.yvision.model.OldEmployeeModel;
 import com.yvision.model.UpgradeModel;
 import com.yvision.model.VipModel;
@@ -405,9 +406,9 @@ public class UserHelper {
     public static ArrayList<AttendModel> GetAttendanceRecordByPage(Context context,
                                                                    String maxTime,
                                                                    String minTime,
-                                                                   int pageSize,
-                                                                   int timespan,
-                                                                   int attendType) throws MyException {
+                                                                   String pageSize,
+                                                                   String timespan,
+                                                                   String attendType) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络
         }
@@ -503,36 +504,52 @@ public class UserHelper {
 
     }
 
-    /**
-     * 13添加wifi考勤记录
-     * addOneWIFIAttendanceRecord
-     * post
-     */
-    public static String addOneWIFIAttendanceRecord(Context context, String jsonStr) throws MyException {
-        if (!NetworkManager.isNetworkAvailable(context)) {
-            throw new MyException(R.string.network_invalid);
-        }
-        HttpResult hr = APIUtils.postForObject(WebUrl.ADD_ONE＿WIFI_ATTENDANCE,
-                HttpParameter.create().add("obj", jsonStr));
-        if (hr.hasError()) {
-            throw hr.getError();
-        }
-
-        return hr.Message;
-    }
 
     /**
-     * 14获取人脸库（注册人脸库前使用）
+     * 14获取 考勤 人脸库
      */
 
-    public static JSONArray getFaceDatabase(Context context) throws MyException {
+    public static JSONArray getAttendFaceDatabase(Context context) throws MyException {
         // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
         }
         String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
 
-        HttpResult httpResult = APIUtils.getForObject(WebUrl.GET_FACE_DATEBASE_BY_COMPANYID + companyID);
+//        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"?companyID="+ companyID + "&groupType=1";
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/1";
+
+        HttpResult httpResult = APIUtils.getForObject(url);
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        //       if(httpResult.jsonArray != null){
+        //            return (new Gson()).fromJson(httpResult.jsonArray.toString(),
+        //                    new TypeToken<List<GroupModel>>() {
+        //                    }.getType());
+        //        }else{
+        //           //后台js不标准，多这一步保险
+        //           return (new Gson()).fromJson(httpResult.resultJsonString.toString(),
+        //                   new TypeToken<List<GroupModel>>() {
+        //                   }.getType());
+        //        }
+        Log.d("SJY", "人脸库jsonArray=" + httpResult.jsonArray.toString());
+        return httpResult.jsonArray;
+    }
+
+    /**
+     * 14获取 访客 人脸库
+     */
+
+    public static JSONArray getVisitorFaceDatabase(Context context) throws MyException {
+        // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
+        }
+        String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/2";
+        HttpResult httpResult = APIUtils.getForObject(url);
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
@@ -552,6 +569,75 @@ public class UserHelper {
         return httpResult.jsonArray;
     }
 
+    /**
+     * 14获取 vip 人脸库
+     */
+
+    public static JSONArray getVIPFaceDatabase(Context context) throws MyException {
+        // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
+        }
+        String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/3";
+        HttpResult httpResult = APIUtils.getForObject(url);
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        //       if(httpResult.jsonArray != null){
+        //            return (new Gson()).fromJson(httpResult.jsonArray.toString(),
+        //                    new TypeToken<List<GroupModel>>() {
+        //                    }.getType());
+        //        }else{
+        //           //后台js不标准，多这一步保险
+        //           return (new Gson()).fromJson(httpResult.resultJsonString.toString(),
+        //                   new TypeToken<List<GroupModel>>() {
+        //                   }.getType());
+        //        }
+        Log.d("SJY", "人脸库jsonArray=" + httpResult.jsonArray.toString());
+        return httpResult.jsonArray;
+    }
+
+    /**
+     * 14获取 门禁 人脸库
+     */
+
+    public static JSONArray getDoorFaceDatabase(Context context) throws MyException {
+        // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
+        }
+        String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/4";
+        HttpResult httpResult = APIUtils.getForObject(url);
+
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        //       if(httpResult.jsonArray != null){
+        //            return (new Gson()).fromJson(httpResult.jsonArray.toString(),
+        //                    new TypeToken<List<GroupModel>>() {
+        //                    }.getType());
+        //        }else{
+        //           //后台js不标准，多这一步保险
+        //           return (new Gson()).fromJson(httpResult.resultJsonString.toString(),
+        //                   new TypeToken<List<GroupModel>>() {
+        //                   }.getType());
+        //        }
+        Log.d("SJY", "人脸库jsonArray=" + httpResult.jsonArray.toString());
+        return httpResult.jsonArray;
+    }
+
+    /**
+     * 获取部门库
+     *
+     * @param context
+     * @return
+     * @throws MyException
+     */
     public static JSONArray getDataDepartment(Context context) throws MyException {
         // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
         if (!NetworkManager.isNetworkAvailable(context)) {
@@ -559,7 +645,6 @@ public class UserHelper {
         }
 
         String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID/ 5596c761-493a-48f4-8f18-1e6191537405
-        Log.d("SJY", "UserHelper companyId=" + companyID);
 
         HttpResult httpResult = APIUtils.getForObject(WebUrl.GET_DEPARTMENT_DATEBASE_BY_COMPANYID + companyID);
 
@@ -637,7 +722,7 @@ public class UserHelper {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);
         }
-        HttpResult httpResult = APIUtils.getForObject(WebUrl.GET_OLD_EMPLOYEE_LIST + mCurrentUser.getStoreID());
+        HttpResult httpResult = APIUtils.getForObject(WebUrl.GET_OLD_EMPLOYEE_LIST + UserHelper.getCurrentUser().getStoreID());
 
         if (httpResult.hasError()) {
             throw httpResult.getError();
@@ -664,6 +749,27 @@ public class UserHelper {
         }
 
         return (new Gson()).fromJson(httpResult.jsonObject.toString(), OldEmployeeModel.class);
+    }
+
+    /**
+     * 获取老员工图片列表
+     * get
+     */
+    public static List<OldEmployeeImgModel> getOldEmployeeImgDetails(Context context, String emloyeeID) throws MyException {
+
+        if (!NetworkManager.isNetworkAvailable(context)) {
+            throw new MyException(R.string.network_invalid);
+        }
+        String url = WebUrl.GET_OLD_EMPLOYEE_IMG + emloyeeID;
+        Log.d("SJY", url);
+
+        HttpResult httpResult = APIUtils.getForObject(url);
+        if (httpResult.hasError()) {
+            throw httpResult.getError();
+        }
+
+        return (new Gson()).fromJson(httpResult.jsonArray.toString(),  new TypeToken<List<OldEmployeeImgModel>>() {
+        }.getType());
     }
 
     /**

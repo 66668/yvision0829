@@ -41,10 +41,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
+ * 添加考勤人员
  * Created by sjy on 2016/11/11.
  */
 
-public class AddNewEmployeeActivity extends BaseActivity {
+public class AddNewAttenderActivity extends BaseActivity {
     //back
     @ViewInject(id = R.id.layout_back, click = "forBack")
     RelativeLayout layout_back;
@@ -149,10 +150,10 @@ public class AddNewEmployeeActivity extends BaseActivity {
             public void run() {
                 try {
                     //获取人像库信息
-                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddNewEmployeeActivity.this);
+                    JSONArray jsonArrayGroupID = UserHelper.getAttendFaceDatabase(AddNewAttenderActivity.this);
                     sendMessage(FACE_DATABASE_SUCCESS, jsonArrayGroupID);
                     //获取部门库
-                    JSONArray jsonArrayDepartment = UserHelper.getDataDepartment(AddNewEmployeeActivity.this);
+                    JSONArray jsonArrayDepartment = UserHelper.getDataDepartment(AddNewAttenderActivity.this);
                     sendMessage(DEPARTMENT_DATABASE_SECCESS, jsonArrayDepartment);
                 } catch (MyException e) {
                     Log.d("SJY", "异常=" + e.getMessage());
@@ -279,7 +280,7 @@ public class AddNewEmployeeActivity extends BaseActivity {
             public void run() {
                 try {
                     // 对数据处理
-                    int code = UserHelper.registerNew(AddNewEmployeeActivity.this,
+                    int code = UserHelper.registerNew(AddNewAttenderActivity.this,
                             HttpParameter.create().add("operatorName", operatorName).
                                     add("employeeID", employeeID).
                                     add("groupID", groupID).
@@ -362,7 +363,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
                 GroupModel groupModel = new GroupModel();
                 groupModel.setGroupID(groupID);
                 groupModel.setGroupName(groupName);
-                Log.d("SJY", "groupID=" + groupID + ",groupName" + groupName);
                 groupIDList.add(groupModel);
             }
         } catch (Exception e) {
@@ -380,16 +380,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
 
     }
 
-    //    private int getGroupIDIndex(int provinceId) {
-    //        for (int i = 0; i < groupIDList.size(); i++) {
-    //            if (provinceId == groupIDList.get(i).getGroupID()) {
-    //                return i;
-    //            }
-    //        }
-    //        return 0;
-    //    }
-
-
     private void bindDepartmentData(JSONArray jsonArray) {
         departmentList = new ArrayList<DepartmentModel>();
         try {
@@ -399,7 +389,6 @@ public class AddNewEmployeeActivity extends BaseActivity {
                 DepartmentModel departmentModel = new DepartmentModel();
                 departmentModel.setDeptID(deptID);
                 departmentModel.setDeptName(deptName);
-                Log.d("SJY", "deptID=" + deptID + ",deptName" + deptName);
                 departmentList.add(departmentModel);
             }
         } catch (Exception e) {

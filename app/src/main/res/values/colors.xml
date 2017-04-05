@@ -4,12 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="line">#b6b6b6</color> <!-- 分割线 -->
-    <color name="btn_bg">#1e72ee</color> <!-- 按钮背景色 -->
-    <color name="btn_bg_off">#1e82d2</color> <!-- 按钮背景色(失效状态) -->
-    <color name="topbar_bg">#173c6f</color> <!--  -->
+    <color name="btn_bg">#1E94D4</color> <!-- 按钮背景色 -->
+    <color name="btn_bg_off">#1E94D4</color> <!-- 按钮背景色(失效状态) -->
+    <color name="topbar_bg">#1E94D4</color> <!--  -->
     <color name="item_bg">#fafafa</color> <!-- item背景色 -->
     <color name="common_title_color">#FFFFFF</color> <!-- topbar标题颜色 -->
-    <color name="btn_bg_on">#003399</color> <!-- 按钮背景色(按住) -->
+    <color name="btn_bg_on">#173c6f</color> <!-- 按钮背景色(按住) -->
     <color name="bar_line">#bbbbbb</color> <!-- photo_choose.xml：导航条的灰色分割线 -->
     <color name="darkTextColor">#656565</color>
     <color name="login_text_color_no">#808080</color>

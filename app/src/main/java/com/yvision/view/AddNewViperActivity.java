@@ -140,7 +140,7 @@ public class AddNewViperActivity extends BaseActivity {
             public void run() {
                 try {
                     //获取人像库信息
-                    JSONArray jsonArrayGroupID = UserHelper.getFaceDatabase(AddNewViperActivity.this);
+                    JSONArray jsonArrayGroupID = UserHelper.getVIPFaceDatabase(AddNewViperActivity.this);
                     sendMessage(FACE_DATABASE_SUCCESS, jsonArrayGroupID);
 
                 } catch (MyException e) {

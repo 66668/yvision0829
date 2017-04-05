@@ -37,8 +37,8 @@
 
                 <ImageView
                     android:id="@+id/imageView_picture"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
+                    android:layout_width="240dp"
+                    android:layout_height="240dp"
                     android:background="@mipmap/img_add"/>
             </LinearLayout>
 
@@ -84,6 +84,7 @@
                         android:textSize="@dimen/common_textSize_default12"/>
 
                     <EditText
+                        android:background="@drawable/et_regist_common_style"
                         android:id="@+id/RegisterActivity_et_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -126,12 +127,12 @@
                         android:textSize="@dimen/common_textSize_default12"/>
 
                     <Spinner
+                        android:background="@drawable/et_regist_common_style"
                         android:id="@+id/spinnerDepartment"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/edittext_bg"
                         android:gravity="center"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
@@ -167,12 +168,12 @@
                         android:textSize="@dimen/common_textSize_default12"/>
 
                     <Spinner
+                        android:background="@drawable/et_regist_common_style"
                         android:id="@+id/spinnerType"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/edittext_bg"
                         android:gravity="center"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
@@ -215,6 +216,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.66"
                         android:gravity="center_vertical"
+                        android:background="@drawable/et_regist_common_style"
                         android:hint="@string/RegisterActivity_employee_id"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
@@ -297,14 +299,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/whitegray">
+                android:background="@color/white">
 
                 <Button
                     android:id="@+id/Register_btn_register"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/btn_style"
                     android:text="添加"

@@ -12,6 +12,7 @@ import com.yvision.model.GroupModel;
 import java.util.ArrayList;
 
 /**
+ * 人像库model与spinner适配
  * Created by sjy on 2016/11/13.
  */
 

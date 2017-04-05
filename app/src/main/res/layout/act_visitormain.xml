@@ -8,40 +8,44 @@
     <include layout="@layout/topbar_common_ist"/>
 
     <!--<include-->
-        <!--android:id="@+id/title"-->
-        <!--layout="@layout/topbar_vmain_search"/>-->
+    <!--android:id="@+id/title"-->
+    <!--layout="@layout/topbar_vmain_search"/>-->
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!-- list -->
-        <LinearLayout
-            android:id="@+id/layout_list"
+
+        <com.yvision.widget.RefreshAndLoadListView
+            android:id="@+id/visitorList"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="50dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_addCustomerFace"
+            android:layout_alignBottom="@+id/btn_addCustomerFace">
+        </com.yvision.widget.RefreshAndLoadListView>
 
-            <com.yvision.widget.RefreshAndLoadListView
-                android:id="@+id/visitorList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </com.yvision.widget.RefreshAndLoadListView>
-        </LinearLayout>
+        <!--&lt;!&ndash; 编辑对应的布局 &ndash;&gt;-->
 
-        <!-- 编辑对应的布局 -->
-
-        <include
-            layout="@layout/bottombar_vmain_edit"
-            android:visibility="gone"/>
+        <!--<include-->
+        <!--layout="@layout/bottombar_vmain_edit"-->
+        <!--android:visibility="gone"/>-->
 
         <!-- 添加访客 -->
-
-        <include
-            layout="@layout/bottombar_vmain_addface"
-            android:visibility="visible"/>
+        <com.yvision.widget.DrawCenterButton
+            android:id="@+id/btn_addCustomerFace"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/btn_style"
+            android:drawableLeft="@mipmap/addbutton"
+            android:includeFontPadding="false"
+            android:text="@string/addVisitor"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -126,7 +126,7 @@
 
         <!--新员工注册界面 -->
         <activity
-            android:name="com.yvision.view.AddNewEmployeeActivity"
+            android:name="com.yvision.view.AddNewAttenderActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -138,7 +138,19 @@
 
         <!--老员工注册界面 -->
         <activity
-            android:name="com.yvision.view.AddOldEmployeeActivity"
+            android:name="com.yvision.view.AddOldDoorActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--老员工详情 -->
+        <activity
+            android:name="com.yvision.view.AllPersonDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--老员工图片详情 -->
+        <activity
+            android:name="com.yvision.view.PersonImgBorwseActivity"
             android:screenOrientation="portrait">
         </activity>
 

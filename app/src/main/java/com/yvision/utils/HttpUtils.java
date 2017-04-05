@@ -77,6 +77,7 @@ public class HttpUtils {
      * @throws Exception
      */
     public JSONObject getByURL(String urlStr) throws MyException {
+        Log.d("SJY", "运行get方法");
         URL url = null;
         HttpURLConnection conn = null;
         InputStream is = null;
@@ -108,7 +109,7 @@ public class HttpUtils {
             }
 
         } catch (Exception e) {
-            throw new MyException(e.getMessage());
+            throw new MyException(e.toString());
         } finally {
             try {
                 if (is != null)

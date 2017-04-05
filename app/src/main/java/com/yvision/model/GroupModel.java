@@ -3,6 +3,7 @@ package com.yvision.model;
 import java.io.Serializable;
 
 /**
+ * 人像库model
  * Created by sjy on 2016/11/13.
  */
 

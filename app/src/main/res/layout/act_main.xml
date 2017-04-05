@@ -97,10 +97,8 @@
                     android:textSize="@dimen/common_textSize_default18"/>
 
             </RelativeLayout>
-
-            <!-- 人员管理系统 -->
             <RelativeLayout
-                android:id="@+id/employeeRegisterManager"
+                android:id="@+id/layout_door"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="10dp"
@@ -119,23 +117,25 @@
                     android:background="@mipmap/maint_forword"/>
 
                 <ImageView
-                    android:id="@+id/img_register"
+                    android:id="@+id/img_door"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:background="@mipmap/main_register"/>
+                    android:background="@mipmap/main_door"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/img_register"
-                    android:text="@string/RegisterManager"
+                    android:layout_toRightOf="@+id/img_door"
+                    android:text="@string/text_door"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/common_textSize_default18"/>
+
             </RelativeLayout>
+            <!-- 人员管理系统 -->
 
             <!-- VIP -->
             <RelativeLayout
@@ -176,8 +176,9 @@
                     android:textSize="@dimen/common_textSize_default18"/>
             </RelativeLayout>
 
+  <!-- 人员管理系统 -->
             <RelativeLayout
-                android:id="@+id/layout_door"
+                android:id="@+id/employeeRegisterManager"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="10dp"
@@ -196,24 +197,24 @@
                     android:background="@mipmap/maint_forword"/>
 
                 <ImageView
-                    android:id="@+id/img_door"
+                    android:id="@+id/img_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:background="@mipmap/main_door"/>
+                    android:background="@mipmap/main_register"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/img_door"
-                    android:text="@string/text_door"
+                    android:layout_toRightOf="@+id/img_register"
+                    android:text="@string/RegisterManager"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/common_textSize_default18"/>
+            </RelativeLayout>
 
-            </RelativeLayout>  <!-- 人员管理系统 -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>

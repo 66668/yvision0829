@@ -27,7 +27,7 @@ public class AttendListAdapter extends BaseListAdapter {
         // 图片缓存实例化
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(ImageLoaderConfiguration.createDefault(context));
-        imgOption = ImageLoadingConfig.generateDisplayImageOptionsNoCatchDisc(R.mipmap.ic_launcher);
+        imgOption = ImageLoadingConfig.generateDisplayImageOptions(R.mipmap.default_photo);//R.mipmap.ic_launcher
     }
 
     public class WidgetHolder {
@@ -55,13 +55,26 @@ public class AttendListAdapter extends BaseListAdapter {
 
         holder.tv_name.setText(model.getEmployeeName());
         holder.tvTime.setText(model.getCapTime());
+        //根据选择图片显示方式
+        if (model.getAttendType().contains("1")) {
+            holder.imageView.setImageBitmap(null);
+            imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
+            imgLoader.displayImage(model.getSmallCapImagePath(), holder.imageView, imgOption);
+        } else if (model.getAttendType().contains("2")) {
+            holder.imageView.setBackground(convertView.getResources().getDrawable(R.mipmap.item_map_logo));
+        }else if (model.getAttendType().contains("3")) {
+            holder.imageView.setBackground(convertView.getResources().getDrawable(R.mipmap.default_photo));
+        }else{
+            holder.imageView.setImageBitmap(null);
+            imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
+            imgLoader.displayImage(model.getSmallCapImagePath(), holder.imageView, imgOption);
+        }
 
-        imgLoader.init(ImageLoaderConfiguration.createDefault(context));//异常提示没注册
-        imgLoader.displayImage(model.getSmallCapImagePath(), holder.imageView, imgOption);
+
     }
 
     public void destroy() {
-        if (imgLoader!=null) {
+        if (imgLoader != null) {
             imgLoader.destroy();
         }
     }

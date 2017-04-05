@@ -8,12 +8,59 @@ import java.io.Serializable;
 
 public class OldEmployeeModel implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private String EmployeeName;
     private String WrokId;
     private String EmployeeId;
     private String StoreName;
     private String Gender;
     private String DeptName;
+    private String Pic;
+
+    private String IsAttend;
+    private String IsVisitor;
+    private String IsVip;
+    private String IsDoorAccess;
+
+    public String getIsAttend() {
+        return IsAttend;
+    }
+
+    public void setIsAttend(String isAttend) {
+        IsAttend = isAttend;
+    }
+
+    public String getIsVisitor() {
+        return IsVisitor;
+    }
+
+    public void setIsVisitor(String isVisitor) {
+        IsVisitor = isVisitor;
+    }
+
+    public String getIsVip() {
+        return IsVip;
+    }
+
+    public void setIsVip(String isVip) {
+        IsVip = isVip;
+    }
+
+    public String getIsDoorAccess() {
+        return IsDoorAccess;
+    }
+
+    public void setIsDoorAccess(String isDoorAccess) {
+        IsDoorAccess = isDoorAccess;
+    }
+
+    public String getPic() {
+        return Pic;
+    }
+
+    public void setPic(String pic) {
+        Pic = pic;
+    }
 
     public String getStoreName() {
         return StoreName;

@@ -2,18 +2,17 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+    >
     <!-- topbar-->
     <include layout="@layout/topbar_common_itt"/>
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout1"
-        android:background="@color/whitegray">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,24 +22,24 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="14dp"
+                android:layout_height="12dp"
                 android:background="@color/whitegray"/>
 
             <LinearLayout
                 android:id="@+id/linearLayout01"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:gravity="center_vertical|center_horizontal"
-                >
-
+                android:layout_height="320dp"
+                android:gravity="center_vertical|center_horizontal">
                 <!-- 头像 -->
-
                 <ImageView
                     android:id="@+id/imageView_picture"
                     android:layout_width="240dp"
                     android:layout_height="240dp"
                     android:background="@mipmap/img_add"/>
             </LinearLayout>
+
+            <!-- 上传照片 -->
+
 
             <LinearLayout
                 android:id="@+id/linearLayout004"
@@ -51,8 +50,6 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="0.86"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:weightSum="1">
 
@@ -60,8 +57,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dip"
                     android:background="@color/bar_line"/>
-                <!-- 姓名 -->
+                <!-- 工号 -->
 
+                <LinearLayout
+                    android:id="@+id/layoutNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/tvNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:gravity="right"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:text="客户号"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/common_textSize_default12"/>
+
+                    <TextView
+                        android:id="@+id/tvWrokId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="0.7"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:singleLine="true"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/common_textSize_default12"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="@color/bar_line"/>
+                <!-- 姓名 -->
                 <LinearLayout
                     android:id="@+id/layoutName"
                     android:layout_width="match_parent"
@@ -72,7 +109,6 @@
                     android:weightSum="1">
 
                     <TextView
-                        android:id="@+id/tvName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -83,23 +119,19 @@
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/common_textSize_default12"/>
 
-                    <EditText
-                        android:id="@+id/RegisterActivity_et_name"
+                    <TextView
+                        android:id="@+id/tvName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_weight="0.7"
-                        android:background="@drawable/et_regist_common_style"
+                        android:layout_weight="0.66"
                         android:gravity="center_vertical"
-                        android:hint="@string/RegisterActivity_et_name"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
-                        android:textColorHint="@color/textHintColor"
-                        android:textSize="@dimen/common_textSize_default12">
-                    </EditText>
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
-
 
                 <View
                     android:layout_width="match_parent"
@@ -134,8 +166,7 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/et_regist_common_style"
-                        android:gravity="center"
+                        android:background="@drawable/edittext_bg"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
                         android:textColor="#494949"
@@ -146,10 +177,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dip"
                     android:background="@color/bar_line"/>
-                <!-- 编号 -->
+                <!-- 性别 -->
 
                 <LinearLayout
-                    android:id="@+id/layoutNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -158,50 +188,6 @@
                     android:weightSum="1">
 
                     <TextView
-                        android:id="@+id/tvNumber"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:gravity="right|center_vertical"
-                        android:padding="5dp"
-                        android:singleLine="true"
-                        android:text="客户号"
-                        android:textColor="@color/textColor"
-                        android:textSize="@dimen/common_textSize_default12"/>
-
-                    <EditText
-                        android:id="@+id/RegisterActivity_et_strUserIDNumber"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_weight="0.66"
-                        android:background="@drawable/et_regist_common_style"
-                        android:gravity="center_vertical"
-                        android:hint="@string/RegisterActivity_et_id"
-                        android:paddingLeft="20dp"
-                        android:singleLine="true"
-                        android:textColorHint="@color/textHintColor"
-                        android:textSize="@dimen/common_textSize_default12"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:background="@color/bar_line"/>
-                <!-- 性别 -->
-
-                <LinearLayout
-                    android:id="@+id/layoutGender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.32"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/tvGender"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -212,43 +198,18 @@
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/common_textSize_default12"/>
 
-                    <RadioGroup
-                        android:id="@+id/registerActivity_radiogroup"
+                    <TextView
+                        android:id="@+id/tvGender"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0.66"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
                         android:paddingLeft="20dp"
                         android:singleLine="true"
-                        android:weightSum="1">
-
-                        <RadioButton
-                            android:id="@+id/radioBtn_male"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.15"
-                            android:button="@null"
-                            android:drawableLeft="@drawable/checked_style"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/radioBtn_male"
-                            android:textColor="@color/textColor"
-                            android:textSize="@dimen/common_textSize_default12"/>
-
-                        <RadioButton
-                            android:id="@+id/radioBtn_female"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_weight="0.15"
-                            android:button="@null"
-                            android:drawableLeft="@drawable/checked_style"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/radioBtn_female"
-                            android:textColor="@color/textColor"
-                            android:textSize="@dimen/common_textSize_default12"/>
-                    </RadioGroup>
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/common_textSize_default12"/>
                 </LinearLayout>
 
                 <View
@@ -258,16 +219,16 @@
             </LinearLayout>
 
             <RelativeLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                android:background="@color/whitegray">
 
                 <Button
                     android:id="@+id/Register_btn_register"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="40dp"
+                    android:layout_weight="0.6"
                     android:background="@drawable/btn_style"
                     android:text="添加"
                     android:textColor="#ffffff"
@@ -278,5 +239,6 @@
 
         </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>

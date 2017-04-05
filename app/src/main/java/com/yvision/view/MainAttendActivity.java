@@ -72,9 +72,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     private List<String> spinnerTypeData;
 
     private boolean ifLoading = false;//标记
-    private static int pageSize = 20;//返回数据个数
-    private static int attendType = 4;//考勤方式--1:local 2:map3:wifi 4:all
-    private static int timespan = 4;//时间筛选方式--1:today 3:this month 2:this week 4: all
+    private static String pageSize = "20";//返回数据个数
+    private static String attendType = "4";//考勤方式--1:local 2:map3:wifi 4:all
+    private static String timespan = "4";//时间筛选方式--1:today 3:this month 2:this week 4: all
     private List<AttendModel> list = null;
 
     //地图考勤使用
@@ -248,8 +248,11 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                     Log.d("SJY", "max=" + MyApplication.getInstance().iMaxTime + "/n" + ",min=" + MyApplication.getInstance().iMinTime);
                     if (userModelList == null) {
                         uAdapter.IsEnd = true;
-                    } else if (userModelList.size() < pageSize) {
-                        uAdapter.IsEnd = true;
+                    } else {
+
+                        if (userModelList.size() < Integer.parseInt(pageSize)) {
+                            uAdapter.IsEnd =true;
+                        }
                     }
                     sendMessage(GET_NEW_DATA, userModelList);
 
@@ -287,7 +290,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
                     if (userModelList == null) {
                         uAdapter.IsEnd = true;
-                    } else if (userModelList.size() < pageSize) {
+                    } else if (userModelList.size() < Integer.parseInt(pageSize)) {
                         uAdapter.IsEnd = true;
                     }
                     sendMessage(LOAD_MORE_SUCCESS, userModelList);
@@ -326,7 +329,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
                     if (userModelList == null) {
                         uAdapter.IsEnd = true;
-                    } else if (userModelList.size() < pageSize) {
+                    } else if (userModelList.size() < Integer.parseInt(pageSize)) {
                         uAdapter.IsEnd = true;
                     }
                     sendMessage(REFRESH_SUCCESS, userModelList);
@@ -441,43 +444,45 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         }
     }
 
+    //设置attendType
     public void styleForAll() {
-        setAttendType(4);
+        setAttendType("4");
     }
 
     public void styleForLocal() {
-        setAttendType(1);
+        setAttendType("1");
     }
 
     public void styleForMap() {
-        setAttendType(2);
+        setAttendType("2");
     }
 
     public void styleForWifi() {
-        setAttendType(3);
+        setAttendType("3");
     }
 
+    //设置 timespan
     public void timeForAll() {
-        setTimespan(4);
+        setTimespan("4");
     }
 
     public void timeForToday() {
-        setTimespan(1);
+        setTimespan("1");
     }
 
     public void timeForWekend() {
-        setTimespan(2);
+        setTimespan("2");
     }
 
     public void timeForMonth() {
-        setTimespan(3);
+        setTimespan("3");
     }
 
-    public void setTimespan(int timespan) {
+    public void setTimespan(String timespan) {
         this.timespan = timespan;
     }
 
-    public void setAttendType(int attendType) {
+    public void setAttendType(String attendType) {
         this.attendType = attendType;
     }
 
