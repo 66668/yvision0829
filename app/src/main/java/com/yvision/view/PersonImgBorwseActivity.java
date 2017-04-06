@@ -109,4 +109,8 @@ public class PersonImgBorwseActivity extends BaseActivity {
         super.onDestroy();
 
     }
+    public void forBack(View view){
+        this.finish();
+
+    }
 }
