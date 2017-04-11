@@ -5,10 +5,9 @@ public class WebUrl {
      * 根接口
      */
     // 云端
-    //    public static final String LOGIN_URL = "http://101.201.72.112:9016/";//公司使用地址
-    //    public static final String LOGIN_URL = "http://101.201.72.112:7016/";//测试地址
-    //    public static final String LOGIN_URL = "http://192.168.1.85:9011/";//江苏银行
-    public static final String LOGIN_URL = "http://192.168.1.245:1132/"; //IEM测试地址
+
+//        public static final String LOGIN_URL = "http://101.201.72.112:7016/";//正式测试地址
+        public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //内部测试地址
 
 
     /**

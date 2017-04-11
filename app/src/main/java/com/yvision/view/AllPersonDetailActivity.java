@@ -51,7 +51,6 @@ public class AllPersonDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_person_detail);
-
         initMyView();
     }
 

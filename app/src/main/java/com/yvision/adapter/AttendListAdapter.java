@@ -75,6 +75,7 @@ public class AttendListAdapter extends BaseListAdapter {
 
     public void destroy() {
         if (imgLoader != null) {
+            imgLoader.clearMemoryCache();
             imgLoader.destroy();
         }
     }

@@ -42,7 +42,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     TextView tv_title;
 
     //
-    @ViewInject(id = R.id.tv_right,click = "addAtendanceByMap")
+    @ViewInject(id = R.id.tv_right, click = "addAtendanceByMap")
     TextView tv_right;
 
     //listView
@@ -103,8 +103,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
         initMyView();//控件实例化
         getEmployeeDate();//获取跳转
-        uAdapter = new AttendListAdapter(this);
-        listView.setAdapter(uAdapter);
+
         initListener();
         getData();
     }
@@ -123,6 +122,8 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         //自定义listVIew监听
         listView.setILoadMoreListener(this);
         listView.setIRefreshListener(this);
+        uAdapter = new AttendListAdapter(this);
+        listView.setAdapter(uAdapter);
     }
 
     private void initListener() {
@@ -149,7 +150,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Log.d("SJY", "MainUserActivity--item--position=" + position);
                 int headerViewsCount = listView.getHeaderViewsCount();//得到header的总数量
                 int newPosition = position - headerViewsCount;//得到新的修正后的position
 
@@ -246,13 +246,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                             timespan,
                             attendType);
                     Log.d("SJY", "max=" + MyApplication.getInstance().iMaxTime + "/n" + ",min=" + MyApplication.getInstance().iMinTime);
-                    if (userModelList == null) {
-                        uAdapter.IsEnd = true;
-                    } else {
+                    if (userModelList == null || userModelList.size() < Integer.parseInt(pageSize)) {
 
-                        if (userModelList.size() < Integer.parseInt(pageSize)) {
-                            uAdapter.IsEnd =true;
-                        }
+                        uAdapter.IsEnd = true;
                     }
                     sendMessage(GET_NEW_DATA, userModelList);
 
@@ -288,17 +284,11 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                             timespan,
                             attendType);
 
-                    if (userModelList == null) {
-                        uAdapter.IsEnd = true;
-                    } else if (userModelList.size() < Integer.parseInt(pageSize)) {
+                    if (userModelList == null || userModelList.size() < Integer.parseInt(pageSize)) {
                         uAdapter.IsEnd = true;
                     }
                     sendMessage(LOAD_MORE_SUCCESS, userModelList);
-                    if (userModelList.size() > 0) {
 
-                    } else {
-
-                    }
                 } catch (MyException e) {
                     Log.d("SJY", "getdata异常=" + e.getMessage());
                     sendMessage(GET_NONE_ATTENDDATA, e.getMessage());
@@ -327,9 +317,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                             timespan,
                             attendType);
 
-                    if (userModelList == null) {
-                        uAdapter.IsEnd = true;
-                    } else if (userModelList.size() < Integer.parseInt(pageSize)) {
+                    if (userModelList == null || (userModelList.size() < Integer.parseInt(pageSize))) {
                         uAdapter.IsEnd = true;
                     }
                     sendMessage(REFRESH_SUCCESS, userModelList);
@@ -511,9 +499,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (uAdapter != null) {
-            uAdapter.destroy();
-        }
+        //        if (uAdapter != null) {
+        //            uAdapter.destroy();
+        //        }
     }
 
 }

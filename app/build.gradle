@@ -55,8 +55,8 @@ android {
 
     defaultConfig {
         applicationId "com.yvision"
-        minSdkVersion 16
-        targetSdkVersion 24
+        minSdkVersion 19
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
@@ -91,8 +91,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:support-v4:24.2.0'
     //face++人脸识别包
     compile files('libs/faceppofflinesdk.jar')
     compile files('libs/faceppsdk.jar')
@@ -106,4 +104,9 @@ dependencies {
     compile files('libs/jcore-android_v1.1.0.jar')
     compile files('libs/jpush-android_v3.0.1.jar')
     compile files('libs/AMap2DMap_4.2.0_AMapSearch_4.0.0_AMapLocation_3.3.0_20170120.jar')
+
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile ('com.android.support:appcompat-v7:26.0.0-alpha1'){
+        exclude module: 'support-v4'
+    }
 }
