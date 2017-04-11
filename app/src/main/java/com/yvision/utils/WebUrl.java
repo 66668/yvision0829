@@ -8,6 +8,7 @@ public class WebUrl {
 
 //        public static final String LOGIN_URL = "http://101.201.72.112:7016/";//正式测试地址
         public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //正式测试地址
+//        public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式地址
 
 
     /**
