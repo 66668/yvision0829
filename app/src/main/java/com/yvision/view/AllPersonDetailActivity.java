@@ -10,6 +10,7 @@ import com.yvision.inject.ViewInject;
 import com.yvision.model.OldEmployeeModel;
 
 /**
+ * 已注册员工详情
  * Created by sjy on 2017/3/31.
  */
 

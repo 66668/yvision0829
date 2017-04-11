@@ -7,7 +7,7 @@ public class WebUrl {
     // 云端
 
 //        public static final String LOGIN_URL = "http://101.201.72.112:7016/";//正式测试地址
-        public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //内部测试地址
+        public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //正式测试地址
 
 
     /**
