@@ -82,6 +82,13 @@
             android:name="com.yvision.view.LoginActivity"
             android:screenOrientation="portrait"
             >
+        </activity>
+
+        <!--  WelcomeActivity-->
+        <activity
+            android:name="com.yvision.view.WelcomeActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
