@@ -47,9 +47,9 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(id = R.id.btn_changePsd, click = "changePassword")
     LinearLayout btn_changePsd;
 
-    //人脸登记
-    @ViewInject(id = R.id.btn_changeFace, click = "changeFace")
-    LinearLayout btn_changeFace;
+//    //人脸登记
+//    @ViewInject(id = R.id.btn_changeFace, click = "changeFace")
+//    LinearLayout btn_changeFace;
 
 
     //点击升级版本

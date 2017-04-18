@@ -15,7 +15,7 @@ public class OldEmployeeImgModel implements Serializable {
     private String imagePath;
     private String groupID;
     private String groupName;// 人脸库名称
-    private String groupType;// 人脸库类型
+    private String groupType;// 人脸库类型 1：考勤，2：访客，3：VIP，4：门禁
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

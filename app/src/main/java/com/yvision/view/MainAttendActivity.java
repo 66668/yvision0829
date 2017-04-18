@@ -111,12 +111,12 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     public void initMyView() {
         tv_title.setText(getResources().getString(R.string.attendTile));
         //        tv_right.setText(getResources().getString(R.string.wifiAttend));
-        tv_right.setText("地图签到");
+        tv_right.setText("地图考勤");
         //spinner绑定数据
         spinnerTimeData = new LinkedList<>(Arrays.asList("全部时间", "今日", "本周", "本月"));
         spinnerTime.attachDataSource(spinnerTimeData);//绑定数据
 
-        spinnerTypeData = new LinkedList<>(Arrays.asList("全部方式", "普通", "地图", "wifi"));
+        spinnerTypeData = new LinkedList<>(Arrays.asList("全部方式", "普通", "地图"));
         spinnerType.attachDataSource(spinnerTypeData);//绑定数据
 
         //自定义listVIew监听
@@ -212,12 +212,12 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                 styleForMap();
                 getData();
                 break;
-            case "wifi":
-                uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载今天数据
-                listView.setAdapter(uAdapter);
-                styleForWifi();
-                getData();
-                break;
+//            case "wifi":
+//                uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载今天数据
+//                listView.setAdapter(uAdapter);
+//                styleForWifi();
+//                getData();
+//                break;
         }
     }
 
@@ -445,9 +445,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         setAttendType("2");
     }
 
-    public void styleForWifi() {
-        setAttendType("3");
-    }
+//    public void styleForWifi() {
+//        setAttendType("3");
+//    }
 
     //设置 timespan
     public void timeForAll() {

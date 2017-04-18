@@ -46,33 +46,33 @@
         android:layout_marginRight="4dp"
         android:background="#9d9d9d" />
     <!-- 人脸登记 -->
-    <LinearLayout
-        android:id="@+id/btn_changeFace"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_topbar_height"
-        android:weightSum="1" >
+    <!--<LinearLayout-->
+        <!--android:id="@+id/btn_changeFace"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/common_topbar_height"-->
+        <!--android:weightSum="1" >-->
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="20dp"
-            android:text="@string/change_face"
-             android:textSize="@dimen/common_textSize_default16"
-            android:textColor="@color/textColor" />
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.9"-->
+            <!--android:gravity="center_vertical|left"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:text="@string/change_face"-->
+             <!--android:textSize="@dimen/common_textSize_default16"-->
+            <!--android:textColor="@color/textColor" />-->
 
-        <RelativeLayout
-            android:layout_width="@dimen/common_topbar_width"
-            android:layout_height="match_parent"
-            >
-            <Button
-                android:layout_centerInParent="true"
-                android:layout_width="10dp"
-                android:layout_height="20dp"
-                android:background="@mipmap/forword" />
-        </RelativeLayout>
-    </LinearLayout>
+        <!--<RelativeLayout-->
+            <!--android:layout_width="@dimen/common_topbar_width"-->
+            <!--android:layout_height="match_parent"-->
+            <!--&gt;-->
+            <!--<Button-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_width="10dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:background="@mipmap/forword" />-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
 
     <!-- 灰色横线 -->
 

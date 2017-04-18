@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IEM客户端</string>
+    <string name="app_name">小麟</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -10,9 +10,10 @@
     <string name="psd">密码</string> <!-- 密码-->
     <string name="byFace">人脸登录</string> <!-- 人脸登录-->
     <string name="btn_Login">登录</string> <!-- 登录-->
-    <string name="LoginActivity_companyNum">请输入公司编号！</string> <!-- 请输入公司编号！-->
-    <string name="LoginActivity_employeeNum">请输入工号！</string> <!-- 请输入工号！-->
-    <string name="LoginActivity_psd">请输入密码！</string>
+    <string name="LoginActivity_companyNum">公司编号</string> <!-- 请输入公司编号！-->
+    <string name="LoginActivity_employeeNum">员工编号</string> <!-- 请输入工号！-->
+    <string name="LoginActivity_psd">登录密码</string>
+    <string name="main_title">企业智能管理系统</string>
     <string name="LoginActivity_error">登录信息有误，请再确认账号和密码!</string>
 
     <!-- main_register.xml -->
@@ -132,7 +133,7 @@
     <string name="at_CapTime">时间</string>
     <string name="at_Score">对比分数</string>
 
-    <string name="mapAttendance">地图签到</string>
-    <string name="forAttend">签到</string>
+    <string name="mapAttendance">地图考勤</string>
+    <string name="forAttend">考勤</string>
 
 </resources>
