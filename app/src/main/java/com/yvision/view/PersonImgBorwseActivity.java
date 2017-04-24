@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,6 +14,7 @@ import com.yvision.R;
 import com.yvision.adapter.AttendGridViewAdapter;
 import com.yvision.adapter.DoorGridViewAdapter;
 import com.yvision.common.MyException;
+import com.yvision.dialog.DetailImageDialog;
 import com.yvision.dialog.Loading;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
@@ -67,14 +69,17 @@ public class PersonImgBorwseActivity extends BaseActivity {
         setContentView(R.layout.act_person_imgbrowse);
         initMyView();
         getImgListDate();
+        initListener();
     }
 
 
     private void initMyView() {
         tv_title.setText("员工图片详情");
         tv_right.setText("");
+
         Bundle bundle = getIntent().getExtras();
         OldEmployeeModel = (OldEmployeeModel) bundle.getSerializable("OldEmployeeModel");
+
         gridView = (GridView) findViewById(R.id.gridview);
         door_gridview = (GridView) findViewById(R.id.door_gridview);
         //根据200像素的图片，计算列数
@@ -94,6 +99,34 @@ public class PersonImgBorwseActivity extends BaseActivity {
 
         add_attend.setLayoutParams(param);
         add_door.setLayoutParams(param);
+    }
+
+
+    private void initListener() {
+        //图片监听，点击图片后显示大图
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = listAttend.get(position).getImagePath();
+                Log.d("SJY", "onItemClick: 图片详情URL=" + url);
+                //自定义弹窗
+                final DetailImageDialog dialog = new DetailImageDialog(PersonImgBorwseActivity.this, url);
+                dialog.show();
+                //                dialog.setClicklistener(new DetailImageDialog.ClickListenerInterface() {
+                //                    @Override
+                //                    public void forSure() {
+                //                        //修改
+                //                        dialog.dismiss();
+                //                    }
+                //
+                //                    @Override
+                //                    public void forCancel() {
+                //                        dialog.dismiss();
+                //                    }
+                //                });
+            }
+        });
+
     }
 
     private void getImgListDate() {
@@ -130,7 +163,7 @@ public class PersonImgBorwseActivity extends BaseActivity {
     }
 
     private void setShow() {
-        //显示考勤
+        //显示考勤图片
         if (listAttend == null || listAttend.size() <= 0) {
             add_attend.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
@@ -141,7 +174,8 @@ public class PersonImgBorwseActivity extends BaseActivity {
             gridView.setAdapter(gridViewAdapter);
 
         }
-        //显示门禁
+
+        //显示门禁图片
         if (listDoor == null || listDoor.size() <= 0) {
             add_door.setVisibility(View.VISIBLE);
             door_gridview.setVisibility(View.GONE);
