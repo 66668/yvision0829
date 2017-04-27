@@ -112,7 +112,7 @@
     <!-- 主界面-->
     <string name="visitorManager">访客管理</string>
     <string name="attendManager">考勤管理</string>
-    <string name="RegisterManager">人像注册</string>
+    <string name="RegisterManager">人员注册</string>
     <string name="text_vip">VIP迎宾</string>
     <string name="text_vip_title">VIP详情</string>
     <string name="text_door">门禁记录</string>
