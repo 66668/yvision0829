@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -47,7 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUtils.ChoosePicCallBack {
+public class VisitorInfoReceiveActivity extends BaseActivity implements CameraGalleryUtils.ChoosePicCallBack {
     //back
     @ViewInject(id = R.id.layout_back, click = "forBack")
     RelativeLayout layout_back;
@@ -57,12 +56,13 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
     TextView tv_title;
 
     //
-    @ViewInject(id = R.id.tv_right, click = "toSave")
+    @ViewInject(id = R.id.tv_right)
     TextView tv_right;
 
     // imgPhoto
     @ViewInject(id = R.id.imgPhoto)
     ImageView imgPhoto;
+
 
     // 添加照片
     @ViewInject(id = R.id.getPic, click = "getPciture")
@@ -70,7 +70,7 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
 
     // 访客姓名
     @ViewInject(id = R.id.VisitorName)
-    EditText et_VisitorName;
+    TextView et_VisitorName;
 
     // vip(1是 0否)
     @ViewInject(id = R.id.isVip)
@@ -81,7 +81,7 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
 
     // 访问目的
     @ViewInject(id = R.id.Aim)
-    EditText et_Aim;
+    TextView et_Aim;
 
     // 预约到访日期
     @ViewInject(id = R.id.ArrivalTimePlan_date, click = "selectStartDate")
@@ -101,19 +101,19 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
 
     // 所属单位
     @ViewInject(id = R.id.Affilication)
-    EditText et_Affilication;
+    TextView et_Affilication;
 
     //	 联系方式
     @ViewInject(id = R.id.PhoneNumber)
-    EditText PhoneNumber;
+    TextView PhoneNumber;
 
     // 欢迎语
     @ViewInject(id = R.id.tv_welcomeword)
-    EditText et_WelcomeWord;
+    TextView et_WelcomeWord;
 
     // 备注
     @ViewInject(id = R.id.Remark)
-    EditText et_Remark;
+    TextView et_Remark;
 
     // 常量
     //常量
@@ -149,10 +149,10 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.act_visitormain_detail_info);
+        setContentView(R.layout.act_visitormain_detail_receive);
 
         tv_title.setText("访客详情");
-        tv_right.setText("保存");
+        tv_right.setText("");
 
         //获取跳转信息(来自MainVisitorActivity)
         visitorModel = (VisitorBModel) getIntent().getSerializableExtra("VisitorBModel");
@@ -175,7 +175,7 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
             public void run() {
                 try {
                     // 获取受访者信息
-                    JSONArray jsonArray = UserHelper.getEmployeeListByStoreID(VisitorInfoActivity.this,
+                    JSONArray jsonArray = UserHelper.getEmployeeListByStoreID(VisitorInfoReceiveActivity.this,
                             UserHelper.getCurrentUser().getStoreID(), // storeID（公司编号）
                             "1");// typeN(写死了)
                     sendMessage(GET_EMPLOYEELIST_SUCCESS, jsonArray);
@@ -378,61 +378,6 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
         cameraGalleryUtils.onActivityResultAction(requestCode, resultCode, data);
     }
 
-    // toSave
-    public void toSave(View view) {
-
-        // 线程处理保存信息
-        //		Loading.run(this, new Runnable() {
-        //			@Override
-        //			public void run() {
-        //				String RecordID = "";// 记录ID
-        //				String VisitorName = et_VisitorName.getText().toString();// 访客姓名
-        //				String RespondentID = VisitorInfoActivity.this.respondentID;// 受访者ID
-        //				String Aim = et_Aim.getText().toString();// 目的
-        //				String Affilication = et_Affilication.getText().toString();// 单位
-        //				String ArrivalTimePlan = ArrivalTimePlan_date_str.trim() + " " + ArrivalTimePlan_time_str.trim() +".111";// 来访时间
-        //				String LeaveTimePlan = LeaveTimePlan_date_str.trim() +" " + LeaveTimePlan_time_str.trim() +".111";// 离开时间
-        //				String WelcomeWord = et_WelcomeWord.getText().toString();// 欢迎语
-        //				String PhoneNumber = VisitorInfoActivity.this.PhoneNumber.getText().toString();//手机号
-        //				String Remark = et_Remark.getText().toString();// 备注
-        //				String StoreID = UserHelper.getCurrentUser().getStoreID();// 到访公司
-        //				try {
-        //					// JSONObject
-        //					JSONObject js = new JSONObject();
-        //					js.put("VisitorName", VisitorName);
-        //					js.put("RespondentID", RespondentID);
-        //					js.put("Aim", Aim);
-        //					js.put("Affilication", Affilication);
-        //					js.put("ArrivalTimePlan", ArrivalTimePlan);
-        //					js.put("LeaveTimePlan", LeaveTimePlan);
-        //					js.put("WelcomeWord", WelcomeWord);
-        //					js.put("Remark", Remark);
-        //					js.put("StoreID", StoreID);
-        //					js.put("PhoneNumber", PhoneNumber);
-        //					js.put("isVip", isVip);
-        //
-        ////					String msg = UserHelper.addOneVisitorRecord(VisitorInfoActivity.this, js.toString(), visitorPicPath);
-        //					String msg = "";
-        //					if(visitorPicPath == null){
-        ////						msg = UserHelper.updateOneVisitorRecord(VisitorInfoActivity.this,js.toString(),imagePath);
-        //					}else{
-        //						msg = UserHelper.updateOneVisitorRecord(VisitorInfoActivity.this, js.toString(), visitorPicPath);
-        //					}
-        //					sendMessage(ADDVISITOR_SUCESS,msg);
-        //
-        //				} catch (MyException e) {
-        //					e.printStackTrace();
-        //					sendToastMessage(e.getMessage());
-        //					return;
-        //				} catch (JSONException e) {
-        //					e.printStackTrace();
-        //					sendToastMessage(e.getMessage());
-        //					return;
-        //				}
-        //			}
-        //		});
-    }
-
     // 图片展示
     // 实现UpdateAvatarUtil.ChoosePicCallBack的接口方法（1）
     @Override
@@ -518,7 +463,7 @@ public class VisitorInfoActivity extends BaseActivity implements CameraGalleryUt
     }
 
     private void showTimePickerDialog(final int whichTime, String currentTime) {
-        TimePickerDialog dialog = new TimePickerDialog(VisitorInfoActivity.this,
+        TimePickerDialog dialog = new TimePickerDialog(VisitorInfoReceiveActivity.this,
                 LeaveTimePlan_time.getText().toString(), new TimePickerDialog.TimePickerDialogCallBack() {
             @Override
             public void confirm(String date) {

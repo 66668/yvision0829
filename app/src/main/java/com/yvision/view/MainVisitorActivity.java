@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yvision.R;
 import com.yvision.adapter.MainSpinnerAdapter;
@@ -116,7 +115,6 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
 
     }
 
-
     private void initListener() {
         //spinner监听，筛选数据
         spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,32 +126,27 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
         });
 
 
-        //		 点击一条记录后，跳转到登记时详细的信息
+        //		 点击一条记录后，跳转到详细的信息
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainVisitorActivity.this, "position=" + position, Toast.LENGTH_SHORT).show();
                 //方法1：获取一条详细记录
-                final String storeID = UserHelper.getCurrentUser().getStoreID();//参数storeId
 
                 int headerViewsCount = listView.getHeaderViewsCount();//得到header的总数量
                 int newPosition = position - headerViewsCount;//得到新的修正后的position
-                final String recordID = ((VisitorBModel) vAdapter.getItem(newPosition)).getRecordID();//recordID
+                VisitorBModel model = (VisitorBModel) vAdapter.getItem(newPosition);//recordID
 
-                run(MainVisitorActivity.this, new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            VisitorBModel model = UserHelper.getOneVisitorRecordByID(MainVisitorActivity.this, recordID, storeID);
-                            Intent intent = new Intent(MainVisitorActivity.this, VisitorInfoActivity.class);
-                            intent.putExtra("VisitorBModel", model);
-                            startActivityForResult(intent, VisitorInfoActivity.REQUEST_CODE_FOR_EDIT_USER);
-                        } catch (MyException e) {
-                            sendToastMessage(e.getMessage());
-                        }
-                    }
-                });
 
+
+                if (model.isReceived() == true) {//已签到
+                    Intent intent = new Intent(MainVisitorActivity.this, VisitorInfoReceiveActivity.class);
+                    intent.putExtra("VisitorBModel", model);
+                    startActivity(intent);
+                } else {//未签到
+                    Intent intent = new Intent(MainVisitorActivity.this, VisitorInfoNotReceiveActivity.class);
+                    intent.putExtra("VisitorBModel", model);
+                    startActivityForResult(intent, VisitorInfoNotReceiveActivity.REQUEST_CODE_FOR_EDIT_USER);
+                }
             }
         });
     }
@@ -218,6 +211,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
         });
     }
 
+    //加载
     @Override
     public void onLoadMore() {
 
@@ -254,6 +248,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
         });
     }
 
+    //刷新
     @Override
     public void onRefresh() {
         if (ifLoading) {
@@ -375,7 +370,7 @@ public class MainVisitorActivity extends BaseActivity implements RefreshAndLoadL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == VisitorInfoActivity.REQUEST_CODE_FOR_EDIT_USER) {
+        if (requestCode == VisitorInfoNotReceiveActivity.REQUEST_CODE_FOR_EDIT_USER) {
             // 修改 信息界面
 
             // if(resultCode ==

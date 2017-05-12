@@ -276,7 +276,7 @@ public class MainRegisterActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == VisitorInfoActivity.REQUEST_CODE_FOR_EDIT_USER) {
+        if (requestCode == VisitorInfoNotReceiveActivity.REQUEST_CODE_FOR_EDIT_USER) {
             // 修改 信息界面
 
             // if(resultCode ==

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:theme="@android:style/Theme.NoTitleBar">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:theme="@android:style/Theme.NoTitleBar" >
 
     <!-- 01：actionBar -->
 
@@ -15,19 +15,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout1"
-        android:background="#f3f3f3">
+        android:background="#f3f3f3" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <!-- 拍照 -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -37,22 +37,22 @@
                     android:padding="5dp"
                     android:text="@string/visitorPicture"
                     android:textColor="#282828"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="0.55">
+                    android:layout_weight="0.55"
+                    android:layout_gravity="right">
 
                     <com.yvision.widget.CircleImageView
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:id="@+id/imgPhoto"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@mipmap/photo"/>
+                        android:src="@mipmap/photo" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -60,13 +60,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.15"
-                    android:gravity="center_vertical|right">
+                    android:gravity="center_vertical|right" >
 
                     <ImageView
                         android:layout_width="10dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="12dp"
-                        android:src="@mipmap/forword"/>
+                        android:src="@mipmap/forword" />
                 </LinearLayout>
             </LinearLayout>
             <!-- 灰色横线 -->
@@ -76,7 +76,7 @@
                 android:layout_height="1px"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
-                android:background="#9d9d9d"/>
+                android:background="#9d9d9d" />
             <!-- 姓名 -->
 
             <LinearLayout
@@ -94,9 +94,9 @@
                     android:padding="5dp"
                     android:text="姓名："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/VisitorName"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
@@ -106,12 +106,12 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.05"/>
+                    android:layout_weight="0.05" />
 
                 <CheckBox
                     android:id="@+id/isVip"
@@ -121,7 +121,7 @@
                     android:button="@drawable/checked_style"
                     android:text=" VIP"
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <!-- 性别 -->
@@ -178,7 +178,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -188,7 +188,7 @@
                     android:padding="5dp"
                     android:text="受访人："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <Spinner
                     android:id="@+id/RespondentID"
@@ -200,7 +200,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp">
+                    android:textSize="14sp" >
                 </Spinner>
             </LinearLayout>
             <!-- 来访目的 -->
@@ -210,7 +210,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -220,9 +220,9 @@
                     android:padding="5dp"
                     android:text="来访目的："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/Aim"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
@@ -232,8 +232,8 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp">
-                </EditText>
+                    android:textSize="14sp" >
+                </TextView>
             </LinearLayout>
             <!-- 预约到访时间 -->
 
@@ -242,7 +242,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -252,7 +252,7 @@
                     android:padding="5dp"
                     android:text="到访时间："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/ArrivalTimePlan_date"
@@ -264,12 +264,12 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
-                    android:layout_weight="0.06"/>
+                    android:layout_weight="0.06" />
 
                 <TextView
                     android:id="@+id/ArrivalTimePlan_time"
@@ -281,7 +281,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp">
+                    android:textSize="14sp" >
                 </TextView>
             </LinearLayout>
             <!-- 预约离开时间 -->
@@ -291,7 +291,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -301,7 +301,7 @@
                     android:padding="5dp"
                     android:text="离开时间："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/LeaveTimePlan_date"
@@ -313,13 +313,13 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp">
+                    android:textSize="14sp" >
                 </TextView>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
-                    android:layout_weight="0.06"/>
+                    android:layout_weight="0.06" />
 
                 <TextView
                     android:id="@+id/LeaveTimePlan_time"
@@ -331,7 +331,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp">
+                    android:textSize="14sp" >
                 </TextView>
             </LinearLayout>
             <!-- 所属单位 -->
@@ -341,7 +341,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -351,9 +351,9 @@
                     android:padding="5dp"
                     android:text="所属单位："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/Affilication"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
@@ -363,7 +363,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
             <!-- 联系方式 -->
 
@@ -372,7 +372,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -382,9 +382,9 @@
                     android:padding="5dp"
                     android:text="联系方式："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/PhoneNumber"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
@@ -392,10 +392,10 @@
                     android:layout_weight="0.66"
                     android:background="@drawable/edittext_bg"
                     android:gravity="center_vertical"
-                    android:inputType="phone"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:inputType="phone"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- 欢迎语 -->
@@ -405,7 +405,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -415,10 +415,10 @@
                     android:padding="5dp"
                     android:text="欢迎语："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
-                <EditText
-                    android:id="@+id/tv_welcomeword"
+                <TextView
+                    android:id = "@+id/tv_welcomeword"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
                     android:layout_centerVertical="true"
@@ -427,7 +427,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
             <!-- 备注 -->
 
@@ -436,7 +436,7 @@
                 android:layout_height="@dimen/common_topbar_height"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:weightSum="1">
+                android:weightSum="1" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -446,9 +446,9 @@
                     android:padding="5dp"
                     android:text="备注："
                     android:textColor="#282828"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/Remark"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/common_edittext_height"
@@ -458,7 +458,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

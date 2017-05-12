@@ -28,6 +28,7 @@ public class VisitorListAdapter extends BaseListAdapter {
     public class WidgetHolder {
         public TextView tv_name;
         public TextView tvTime;
+        public TextView tvIsArrival;
         public CircleImageView imageView;
     }
 
@@ -45,6 +46,7 @@ public class VisitorListAdapter extends BaseListAdapter {
         //该布局上的控件
         WidgetHolder holder = new WidgetHolder();
         holder.tv_name = (TextView) view.findViewById(R.id.tv_name);
+        holder.tvIsArrival = (TextView) view.findViewById(R.id.tv_isArrival);
         holder.tvTime = (TextView) view.findViewById(R.id.tv_time);
         holder.imageView = (CircleImageView) view.findViewById(R.id.imageView);
         view.setTag(holder);
@@ -61,6 +63,12 @@ public class VisitorListAdapter extends BaseListAdapter {
         imgLoader.displayImage(model.getImagePath(), holder.imageView, imgOptions);//显示图片
         holder.tv_name.setText(model.getVisitorName());
         holder.tvTime.setText(model.getiLastUpdateTime());
+        if (model.isReceived() == true) {
+            holder.tvIsArrival.setText("已接待");
+        } else {
+            holder.tvIsArrival.setText("未接待");
+
+        }
 
 
     }

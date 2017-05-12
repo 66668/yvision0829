@@ -41,6 +41,18 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"/>
+        <TextView
+            android:id="@+id/tv_isArrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="已接待"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/cl_text_common"
+            android:textSize="@dimen/common_textSize_default14"/>
     </RelativeLayout>
 
 </RelativeLayout>

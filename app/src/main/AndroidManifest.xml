@@ -247,7 +247,14 @@
 
         <!-- 访客详情 -->
         <activity
-            android:name="com.yvision.view.VisitorInfoActivity"
+            android:name="com.yvision.view.VisitorInfoNotReceiveActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+        <!-- 访客详情 -->
+        <activity
+            android:name="com.yvision.view.VisitorInfoReceiveActivity"
             android:screenOrientation="portrait"
             >
         </activity>
