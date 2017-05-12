@@ -19,26 +19,33 @@ public class VisitorBModel implements Serializable {
     private String VisitorID;//访客employeeID
     private String VisitorName;//访客姓名
     private String RespondentID;//受访者ID
+    private String RespondentName;//受访者ID
+
     private String Aim;//来访目的
     private String Affilication;//访客单位
     private String ArrivalTimePlan;//到访时间
     private String LeaveTimePlan;//离开时间
     private String WelcomeWord;//欢迎语
+
     private String Remark;//备注
     private boolean isVip;//vip
     private boolean isReceived;//来访状态
     private String ImagePath;//图片
     private String StoreID;//公司编号
+
     private String PhoneNumber;//手机号
-    private String Name;
     private String iLastUpdateTime;//用于记录访客登记的时间
 
-    public String getName() {
-        return Name;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public String getRespondentName() {
+        return RespondentName;
+    }
+
+    public void setRespondentName(String respondentName) {
+        RespondentName = respondentName;
     }
 
     public String getPhoneNumber() {

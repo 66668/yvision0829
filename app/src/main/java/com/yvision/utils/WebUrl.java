@@ -19,8 +19,7 @@ public class WebUrl {
      */
     public static final String API = "openapi/";
 
-
-
+    
     /**
      * 使用者管理
      *
