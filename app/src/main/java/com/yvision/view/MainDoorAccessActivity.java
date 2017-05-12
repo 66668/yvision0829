@@ -50,7 +50,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
     RefreshAndLoadListView listView;
 
 
-    //常量
+    //变量
     private DoorAccessListAdapter adapter;
     private boolean ifLoading = false;
     private String IMaxtime = "";
@@ -66,19 +66,20 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
     private List<String> spinnerData;
     private String myLastSelectState;//记录spinner上次选中的值
 
-    private ArrayList<DoorAccessModel> listAll = new ArrayList<>();//每次获取的数据段
+    private ArrayList<DoorAccessModel> listAll = new ArrayList<DoorAccessModel>();//每次获取的数据段
 
-    private ArrayList<DoorAccessModel> listToday = new ArrayList<>();//
-    private ArrayList<DoorAccessModel> listWeek = new ArrayList<>();//
-    private ArrayList<DoorAccessModel> listMonth = new ArrayList<>();//
+    private ArrayList<DoorAccessModel> listToday = new ArrayList<DoorAccessModel>();//
+    private ArrayList<DoorAccessModel> listWeek = new ArrayList<DoorAccessModel>();//
+    private ArrayList<DoorAccessModel> listMonth = new ArrayList<DoorAccessModel>();//
 
 
-    //变量
+    //常量
     private static final int POST_SUCCESS = 20;
     private static final int REFRESH_SUCCESS = 22;
     private static final int LOADMORE_SUCCESS = 23;
     private static final int POST_FAILED = 21;
 
+    private static final String TAG = "MainDoorAccessActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +94,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
     private void initMyView() {
         tv_right.setText("");
 
+        //添加监听
         listView.setIRefreshListener(this);
         listView.setILoadMoreListener(this);
 
@@ -119,7 +121,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
 
                     myLastSelectState = spinnerData.get(position);
 
-                    adapter = new DoorAccessListAdapter(MainDoorAccessActivity.this);
+                    adapter = new DoorAccessListAdapter(getApplicationContext());
                     listView.setAdapter(adapter);
 
                     changeDate(myLastSelectState);
@@ -145,73 +147,6 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
             }
         });
 
-    }
-
-    //获取数据
-    private void getDate() {
-        Loading.run(this, new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    List<DoorAccessModel> listDate = UserHelper.getDoorAccessList(MainDoorAccessActivity.this
-                            , IMaxtime
-                            , IMinTime
-                            , timespan);
-
-                    sendMessage(POST_SUCCESS, listDate);
-
-                } catch (MyException e) {
-                    Log.d("SJY", "异常=" + e.getMessage());
-                    sendMessage(POST_FAILED, e.getMessage());
-                }
-                //                sendMessage(POST_SUCCESS,null);
-            }
-        });
-
-    }
-
-    @Override
-    public void onLoadMore() {
-        Loading.run(this, new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    List<DoorAccessModel> listDate = UserHelper.getDoorAccessList(MainDoorAccessActivity.this
-                            , IMaxtime
-                            , IMinTime
-                            , timespan);
-
-                    sendMessage(LOADMORE_SUCCESS, listDate);
-
-                } catch (MyException e) {
-                    Log.d("SJY", "异常=" + e.getMessage());
-                    sendMessage(POST_FAILED, e.getMessage());
-                }
-                //                sendMessage(POST_SUCCESS,null);
-            }
-        });
-    }
-
-    @Override
-    public void onRefresh() {
-        Loading.noDialogRun(this, new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    List<DoorAccessModel> listDate = UserHelper.getDoorAccessList(MainDoorAccessActivity.this
-                            , IMaxtime
-                            , IMinTime
-                            , timespan);
-
-                    sendMessage(REFRESH_SUCCESS, listDate);
-
-                } catch (MyException e) {
-                    Log.d("SJY", "异常=" + e.getMessage());
-                    sendMessage(POST_FAILED, e.getMessage());
-                }
-                //                sendMessage(POST_SUCCESS,null);
-            }
-        });
     }
 
     //spinner更换
@@ -254,6 +189,77 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
         }
     }
 
+    //获取数据
+    private void getDate() {
+        Loading.run(this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<DoorAccessModel> listDate = UserHelper.getDoorAccessList(MainDoorAccessActivity.this
+                            , IMaxtime
+                            , IMinTime
+                            , timespan);
+
+                    sendMessage(POST_SUCCESS, listDate);
+
+                } catch (MyException e) {
+                    Log.d("SJY", "异常=" + e.getMessage());
+                    sendMessage(POST_FAILED, e.getMessage());
+                }
+                //                sendMessage(POST_SUCCESS,null);
+            }
+        });
+
+    }
+
+    //刷新
+    @Override
+    public void onRefresh() {
+        Loading.noDialogRun(this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ArrayList<DoorAccessModel> listDate = UserHelper.getDoorAccessList(MainDoorAccessActivity.this
+                            , IMaxtime
+                            , ""
+                            , timespan);
+                    Log.d(TAG, "run: 刷新数据的长度：size="+listDate.size()+"--"+IMaxtime+"--"+IMinTime+"--"+timespan);
+                    sendMessage(REFRESH_SUCCESS, listDate);
+
+                } catch (MyException e) {
+                    Log.d("SJY", "异常=" + e.getMessage());
+                    sendMessage(POST_FAILED, e.getMessage());
+                }
+                //                sendMessage(POST_SUCCESS,null);
+            }
+        });
+    }
+
+    //加载
+    @Override
+    public void onLoadMore() {
+        Loading.run(this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<DoorAccessModel> listDate = UserHelper.getDoorAccessList(MainDoorAccessActivity.this
+                            , ""
+                            , IMinTime
+                            , timespan);
+
+                    sendMessage(LOADMORE_SUCCESS, listDate);
+
+                } catch (MyException e) {
+                    Log.d("SJY", "异常=" + e.getMessage());
+                    sendMessage(POST_FAILED, e.getMessage());
+                }
+                //                sendMessage(POST_SUCCESS,null);
+            }
+        });
+    }
+
+
+
     @Override
     protected void handleMessage(Message msg) {
         super.handleMessage(msg);
@@ -263,7 +269,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
                 showLiseDate((ArrayList<DoorAccessModel>) msg.obj, POST_SUCCESS, null);
                 break;
 
-            case REFRESH_SUCCESS:
+            case REFRESH_SUCCESS://刷新
                 //具体展示数据
                 showLiseDate((ArrayList<DoorAccessModel>) msg.obj, REFRESH_SUCCESS, null);
                 break;
@@ -319,7 +325,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
 
                 } else if (key == LOADMORE_SUCCESS) {
                     listAll = listdate;
-                    adapter.setEntityList(listAll);
+                    adapter.addEntityList(listAll);
 
                     setIMinTime(listAll);
 
@@ -360,7 +366,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
 
                 } else if (key == LOADMORE_SUCCESS) {
                     listToday = listdate;
-                    adapter.setEntityList(listToday);
+                    adapter.addEntityList(listToday);
 
                     setIMinTime(listToday);
 
@@ -401,7 +407,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
 
                 } else if (key == LOADMORE_SUCCESS) {
                     listWeek = listdate;
-                    adapter.setEntityList(listWeek);
+                    adapter.addEntityList(listWeek);
 
                     setIMinTime(listWeek);
 
@@ -441,7 +447,7 @@ public class MainDoorAccessActivity extends BaseActivity implements RefreshAndLo
 
                 } else if (key == LOADMORE_SUCCESS) {
                     listMonth = listdate;
-                    adapter.setEntityList(listMonth);
+                    adapter.addEntityList(listMonth);
 
                     setIMinTime(listMonth);
 

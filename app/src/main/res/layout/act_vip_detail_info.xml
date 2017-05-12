@@ -173,8 +173,8 @@
 
                 <ImageView
                     android:id="@+id/img_org"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
@@ -188,8 +188,8 @@
 
                 <ImageView
                     android:id="@+id/img_cap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 

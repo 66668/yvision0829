@@ -14,7 +14,7 @@ import com.yvision.widget.CircleImageView;
 
 
 /**
- * 应用-采购适配
+ * 门禁 适配
  */
 public class DoorAccessListAdapter extends BaseListAdapter {
     private ImageLoader imgLoader;
@@ -49,10 +49,9 @@ public class DoorAccessListAdapter extends BaseListAdapter {
     }
 
     @Override
-    protected void initViewData(final int position, View convertView) {
+    protected void initViewData(int position, View convertView) {
         WidgetHolder holder = (WidgetHolder) convertView.getTag();//获取控件管理实例
-
-        DoorAccessModel model = (DoorAccessModel) entityList.get(position);
+        DoorAccessModel model = (DoorAccessModel) (entityList.get(position));
         //获取一条信息
         holder.tvTime.setText(model.getCapTime());
         holder.tv_name.setText(model.getEmployeeName());

@@ -808,7 +808,7 @@ public class UserHelper {
     /**
      * 门禁记录
      */
-    public static List<DoorAccessModel> getDoorAccessList(Context context
+    public static ArrayList<DoorAccessModel> getDoorAccessList(Context context
             , String maxTime
             , String minTime
             , String timespan) throws MyException {

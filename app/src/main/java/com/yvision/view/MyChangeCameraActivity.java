@@ -10,11 +10,10 @@ import android.view.WindowManager;
 
 import com.yvision.R;
 import com.yvision.fragment.CameraFragment;
-import com.yvision.view.BaseActivity;
 
 
 /**
- * 自定义camera2
+ * 自定义camera
  *
  * @author JackSong
  */

@@ -13,7 +13,7 @@ public abstract class BaseListAdapter extends BaseAdapter{
 
 	public Context context;
 	public LayoutInflater inflater;
-	public ArrayList<Object> entityList = new ArrayList<Object>();
+	public ArrayList entityList = new ArrayList();
 	public boolean IsEnd=false;//翻页设置
 	public static ArrayList<Boolean> isCheckedList = null;//用于标记checkBox值
 
@@ -53,6 +53,7 @@ public abstract class BaseListAdapter extends BaseAdapter{
 		this.entityList.addAll(entityList);
 		notifyDataSetChanged();
 	}
+
 	//listView插入
 	public void insertEntityList(List entityList){
 		if(entityList != null){

@@ -154,8 +154,8 @@ public class MainVipActivity extends BaseActivity implements RefreshAndLoadListV
             public void run() {
                 try {
                     List<VipModel> listDate = UserHelper.getViPList(MainVipActivity.this
-                            , IMaxtime
-                            , IMinTime
+                            , ""
+                            , ""
                             , timespan);
 
                     sendMessage(POST_SUCCESS, listDate);
@@ -177,7 +177,7 @@ public class MainVipActivity extends BaseActivity implements RefreshAndLoadListV
             public void run() {
                 try {
                     List<VipModel> listDate = UserHelper.getViPList(MainVipActivity.this
-                            , IMaxtime
+                            , ""
                             , IMinTime
                             , timespan);
 
@@ -200,7 +200,7 @@ public class MainVipActivity extends BaseActivity implements RefreshAndLoadListV
                 try {
                     List<VipModel> listDate = UserHelper.getViPList(MainVipActivity.this
                             , IMaxtime
-                            , IMinTime
+                            , ""
                             , timespan);
 
                     sendMessage(REFRESH_SUCCESS, listDate);
