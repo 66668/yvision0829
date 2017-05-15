@@ -6,12 +6,12 @@ public class WebUrl {
      */
     // 云端
 
-        public static final String LOGIN_URL = "http://101.201.72.112:7016/";//阿里云测试
-//        public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //正式测试地址
-//        public static final String LOGIN_URL = "http://192.168.1.245:1132/"; //本地测试
+    public static final String LOGIN_URL = "http://101.201.72.112:7016/";//阿里云测试
+    //        public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //正式测试地址
+    //        public static final String LOGIN_URL = "http://192.168.1.245:1132/"; //本地测试
 
 
-//        public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016
+    //        public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016
 
 
     /**
@@ -19,7 +19,7 @@ public class WebUrl {
      */
     public static final String API = "openapi/";
 
-    
+
     /**
      * 使用者管理
      *
@@ -45,10 +45,10 @@ public class WebUrl {
      */
     public static final String CHANGE_PASSWORD = LOGIN_URL + API + "User/ChangePasswordN";
 
-  /**
+    /**
      * 获取登录人信息
      */
-    public static final String GET_PERSON_MESSAGE= LOGIN_URL + API + "User/Main/GetEmployeeInfoByID/";
+    public static final String GET_PERSON_MESSAGE = LOGIN_URL + API + "User/Main/GetEmployeeInfoByID/";
 
 
     /**
@@ -85,6 +85,11 @@ public class WebUrl {
      * http://192.168.1.127:9012/openapi/Main/AddOneVisitorRecord
      */
     public static final String ADD_VISITORRECORD = LOGIN_URL + API + "Main/AddOneVisitorRecord";
+    /**
+     * 03 添加访客
+     * http://192.168.1.127:9012/openapi/Main/AddOneVisitorRecord
+     */
+    public static final String UPDATA_VISITORRECORD = LOGIN_URL + API + "Main/UpdateOneVisitorRecord";
 
 
     /**
@@ -176,7 +181,7 @@ public class WebUrl {
      */
     public static class DoorAccess {
         /**
-         *  门禁记录
+         * 门禁记录
          */
         public static final String GET_DOOR_ACCESS_LIST = LOGIN_URL + API + "DoorAccess/GetDoorAccessRecordByPage";
         /**
@@ -253,8 +258,6 @@ public class WebUrl {
      */
     //		public static final String GET_OLD_EMPLOYEE_DETAILS = REGISTER_URL+API+"Employee/GetEmployeeByID/";
     public static final String GET_OLD_EMPLOYEE_IMG = LOGIN_URL + API + "Image/GetImageListByEmployeeID/";
-
-
 
 
 }

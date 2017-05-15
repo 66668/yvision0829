@@ -18,6 +18,7 @@
 
     <!-- main_register.xml -->
     <string name="visitorPicture">添加照片:</string>
+    <string name="visitorPicture_receive">注册照片:</string>
     <string name="name">姓名</string>
     <string name="employeeName">受访人</string>
     <string name="aim">来访目的</string>

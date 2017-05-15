@@ -1,6 +1,5 @@
 package com.yvision.view;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +48,7 @@ public class VisitorInfoReceiveActivity extends BaseActivity implements CameraGa
 
 
     // 添加照片
-    @ViewInject(id = R.id.getPic, click = "getPciture")
+    @ViewInject(id = R.id.getPic)
     LinearLayout getPic;
 
     // 访客姓名
@@ -227,16 +226,6 @@ public class VisitorInfoReceiveActivity extends BaseActivity implements CameraGa
     // back
     public void forBack(View view) {
         this.finish();
-    }
-
-    // 获取人脸图片
-    public void getPciture(View view) {
-        cameraGalleryUtils.showChoosePhotoDialog(CameraGalleryUtils.IMG_TYPE_CAMERA);// -99,处理弹窗调用
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        cameraGalleryUtils.onActivityResultAction(requestCode, resultCode, data);
     }
 
     // 图片展示

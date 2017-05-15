@@ -301,20 +301,21 @@ public class UserHelper {
     /**
      * 08 UpdateOneVisitorRecord
      * <p/>
-     * 修改访客信息
+     * 修改访客信息，不换图
      */
-    public static String updateOneVisitorRecord(Context context, String parameters, File fileName) throws MyException {
+    public static String updateOneVisitorRecord(Context context, String parameters, String isPicNew, File fileName) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络
         }
-        HttpResult hr = APIUtils.postForObject(WebUrl.ADD_VISITORRECORD,
-                HttpParameter.create().add("obj", parameters),
+        HttpResult hr = APIUtils.postForObject(WebUrl.UPDATA_VISITORRECORD,
+                HttpParameter.create().add("obj", parameters).add("isPicNew", isPicNew),
                 fileName);
         if (hr.hasError()) {
             throw hr.getError();
         }
         return hr.Message;
     }
+
 
     //0906接口停用
     public static ArrayList<VisitorBModel> getVisitorRecordsByPage(Context context,
@@ -516,8 +517,8 @@ public class UserHelper {
         }
         String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
 
-//        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"?companyID="+ companyID + "&groupType=1";
-        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/1";
+        //        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"?companyID="+ companyID + "&groupType=1";
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID + "/" + companyID + "/1";
 
         HttpResult httpResult = APIUtils.getForObject(url);
         if (httpResult.hasError()) {
@@ -548,7 +549,7 @@ public class UserHelper {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
         }
         String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
-        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/2";
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID + "/" + companyID + "/2";
         HttpResult httpResult = APIUtils.getForObject(url);
 
         if (httpResult.hasError()) {
@@ -579,7 +580,7 @@ public class UserHelper {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
         }
         String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
-        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/3";
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID + "/" + companyID + "/3";
         HttpResult httpResult = APIUtils.getForObject(url);
 
         if (httpResult.hasError()) {
@@ -610,7 +611,7 @@ public class UserHelper {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
         }
         String companyID = UserHelper.getCurrentUser().getStoreID();//公司编号companyID
-        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID +"/"+ companyID + "/4";
+        String url = WebUrl.GET_FACE_DATEBASE_BY_COMPANYID + "/" + companyID + "/4";
         HttpResult httpResult = APIUtils.getForObject(url);
 
         if (httpResult.hasError()) {
@@ -768,7 +769,7 @@ public class UserHelper {
             throw httpResult.getError();
         }
 
-        return (new Gson()).fromJson(httpResult.jsonArray.toString(),  new TypeToken<List<OldEmployeeImgModel>>() {
+        return (new Gson()).fromJson(httpResult.jsonArray.toString(), new TypeToken<List<OldEmployeeImgModel>>() {
         }.getType());
     }
 

@@ -40,6 +40,7 @@ import com.yvision.utils.PageUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -205,20 +206,6 @@ public class VisitorInfoNotReceiveActivity extends BaseActivity implements Camer
             }
         });
 
-        //        // 日期格式
-        //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
-        //        ArrivalTimePlan_date_str = df.format(new Date());// 当前系统日期
-        //        LeaveTimePlan_date_str = df.format(new Date());// 当前系统日期
-        //        ArrivalTimePlan_date.setText(ArrivalTimePlan_date_str);
-        //        LeaveTimePlan_date.setText(LeaveTimePlan_date_str);
-        //
-        //        // 时间格式
-        //        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        //        ArrivalTimePlan_time_str = sdf.format(new Date());
-        //        LeaveTimePlan_time_str = sdf.format(new Date());
-        //        ArrivalTimePlan_time.setText(ArrivalTimePlan_time_str);
-        //        ArrivalTimePlan_time.setText(ArrivalTimePlan_time_str);
-
         // vip监听
         checkBoxVip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -263,6 +250,7 @@ public class VisitorInfoNotReceiveActivity extends BaseActivity implements Camer
                     super.onLoadingCancelled(imageUri, view);
                 }
             });
+
         } else {
             ImageLoader.getInstance().displayImage("file://" + imagePath, imgPhoto, imgOption);
         }
@@ -307,7 +295,7 @@ public class VisitorInfoNotReceiveActivity extends BaseActivity implements Camer
                 bindEmployeeList(jsonArray);
                 break;
             case ADDVISITOR_SUCESS:
-                sendToastMessage("注册成功!");
+                sendToastMessage("修改成功!");
                 break;
             default:
                 break;
@@ -380,55 +368,60 @@ public class VisitorInfoNotReceiveActivity extends BaseActivity implements Camer
     public void toSave(View view) {
 
         // 线程处理保存信息
-        //		Loading.run(this, new Runnable() {
-        //			@Override
-        //			public void run() {
-        //				String RecordID = "";// 记录ID
-        //				String VisitorName = et_VisitorName.getText().toString();// 访客姓名
-        //				String RespondentID = VisitorInfoActivity.this.respondentID;// 受访者ID
-        //				String Aim = et_Aim.getText().toString();// 目的
-        //				String Affilication = et_Affilication.getText().toString();// 单位
-        //				String ArrivalTimePlan = ArrivalTimePlan_date_str.trim() + " " + ArrivalTimePlan_time_str.trim() +".111";// 来访时间
-        //				String LeaveTimePlan = LeaveTimePlan_date_str.trim() +" " + LeaveTimePlan_time_str.trim() +".111";// 离开时间
-        //				String WelcomeWord = et_WelcomeWord.getText().toString();// 欢迎语
-        //				String PhoneNumber = VisitorInfoActivity.this.PhoneNumber.getText().toString();//手机号
-        //				String Remark = et_Remark.getText().toString();// 备注
-        //				String StoreID = UserHelper.getCurrentUser().getStoreID();// 到访公司
-        //				try {
-        //					// JSONObject
-        //					JSONObject js = new JSONObject();
-        //					js.put("VisitorName", VisitorName);
-        //					js.put("RespondentID", RespondentID);
-        //					js.put("Aim", Aim);
-        //					js.put("Affilication", Affilication);
-        //					js.put("ArrivalTimePlan", ArrivalTimePlan);
-        //					js.put("LeaveTimePlan", LeaveTimePlan);
-        //					js.put("WelcomeWord", WelcomeWord);
-        //					js.put("Remark", Remark);
-        //					js.put("StoreID", StoreID);
-        //					js.put("PhoneNumber", PhoneNumber);
-        //					js.put("isVip", isVip);
-        //
-        ////					String msg = UserHelper.addOneVisitorRecord(VisitorInfoActivity.this, js.toString(), visitorPicPath);
-        //					String msg = "";
-        //					if(visitorPicPath == null){
-        ////						msg = UserHelper.updateOneVisitorRecord(VisitorInfoActivity.this,js.toString(),imagePath);
-        //					}else{
-        //						msg = UserHelper.updateOneVisitorRecord(VisitorInfoActivity.this, js.toString(), visitorPicPath);
-        //					}
-        //					sendMessage(ADDVISITOR_SUCESS,msg);
-        //
-        //				} catch (MyException e) {
-        //					e.printStackTrace();
-        //					sendToastMessage(e.getMessage());
-        //					return;
-        //				} catch (JSONException e) {
-        //					e.printStackTrace();
-        //					sendToastMessage(e.getMessage());
-        //					return;
-        //				}
-        //			}
-        //		});
+        Loading.run(this, new Runnable() {
+            @Override
+            public void run() {
+                String RecordID = visitorModel.getRecordID();//
+                String VisitorID = visitorModel.getVisitorID();//
+                String VisitorName = et_VisitorName.getText().toString();// 访客姓名
+                String RespondentID = VisitorInfoNotReceiveActivity.this.respondentID;// 受访者ID
+                String Aim = et_Aim.getText().toString();// 目的
+                String employeeID = UserHelper.getCurrentUser().getEmployeeId();
+                String Affilication = et_Affilication.getText().toString();// 单位
+                String ArrivalTimePlan = ArrivalTimePlan_date.getText().toString() + " " + LeaveTimePlan_time.getText().toString();// 来访时间
+                String LeaveTimePlan = LeaveTimePlan_date.getText().toString() + " " + LeaveTimePlan_time.getText().toString();// 离开时间
+                String WelcomeWord = et_WelcomeWord.getText().toString();// 欢迎语
+                String PhoneNumber = VisitorInfoNotReceiveActivity.this.PhoneNumber.getText().toString();//手机号
+                String Remark = et_Remark.getText().toString();// 备注
+                String StoreID = UserHelper.getCurrentUser().getStoreID();// 到访公司
+                try {
+                    // JSONObject
+                    JSONObject js = new JSONObject();
+                    js.put("RecordID", RecordID);
+                    js.put("employeeID", employeeID);
+                    js.put("VisitorName", VisitorName);
+                    js.put("VisitorID", VisitorID);
+                    js.put("RespondentID", RespondentID);
+                    js.put("Aim", Aim);
+                    js.put("Affilication", Affilication);
+                    js.put("ArrivalTimePlan", ArrivalTimePlan);
+                    js.put("LeaveTimePlan", LeaveTimePlan);
+                    js.put("WelcomeWord", WelcomeWord);
+                    js.put("Remark", Remark);
+                    js.put("PhoneNumber", PhoneNumber);
+                    js.put("StoreID", StoreID);
+                    js.put("isVip", isVip);
+                    js.put("GroupId", "");
+
+                    String msg = "";
+                    if (visitorPicPath == null) {
+                        msg = UserHelper.updateOneVisitorRecord(VisitorInfoNotReceiveActivity.this, js.toString(), "", null);
+                    } else {
+                        msg = UserHelper.updateOneVisitorRecord(VisitorInfoNotReceiveActivity.this, js.toString(), "true", visitorPicPath);
+                    }
+                    sendMessage(ADDVISITOR_SUCESS, msg);
+
+                } catch (MyException e) {
+                    e.printStackTrace();
+                    sendToastMessage(e.getMessage());
+                    return;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    sendToastMessage(e.getMessage());
+                    return;
+                }
+            }
+        });
     }
 
     // 图片展示

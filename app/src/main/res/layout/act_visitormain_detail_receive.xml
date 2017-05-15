@@ -35,7 +35,7 @@
                     android:layout_weight="0.3"
                     android:gravity="center_vertical|left"
                     android:padding="5dp"
-                    android:text="@string/visitorPicture"
+                    android:text="@string/visitorPicture_receive"
                     android:textColor="#282828"
                     android:textSize="14sp"/>
 
