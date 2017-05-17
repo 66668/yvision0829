@@ -156,6 +156,7 @@ public class UserHelper {
         userEntity.setStoreID(JSONUtils.getString(httpResult.jsonObject, "StoreId"));//公司id
         userEntity.setEmployeeId(JSONUtils.getString(httpResult.jsonObject, "EmployeeId"));//员工id
         userEntity.setStoreUserId(JSONUtils.getString(httpResult.jsonObject, "StoreUserId"));//用户id
+        userEntity.setEmployeeName(JSONUtils.getString(httpResult.jsonObject, "EmployeeName"));//用户id
 
         userEntity.setUserName(userName);
         userEntity.setPassword(password);

@@ -32,9 +32,27 @@ public class VisitorBModel implements Serializable {
     private boolean isReceived;//来访状态
     private String ImagePath;//图片
     private String StoreID;//公司编号
+    private String OperatorName;//
+    private String GroupId;//
 
     private String PhoneNumber;//手机号
     private String iLastUpdateTime;//用于记录访客登记的时间
+
+    public String getOperatorName() {
+        return OperatorName;
+    }
+
+    public void setOperatorName(String operatorName) {
+        OperatorName = operatorName;
+    }
+
+    public String getGroupId() {
+        return GroupId;
+    }
+
+    public void setGroupId(String groupId) {
+        GroupId = groupId;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

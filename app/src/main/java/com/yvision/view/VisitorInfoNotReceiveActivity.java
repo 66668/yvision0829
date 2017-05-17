@@ -46,6 +46,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * 未接待的访客 修改类
+ */
 public class VisitorInfoNotReceiveActivity extends BaseActivity implements CameraGalleryUtils.ChoosePicCallBack {
     //back
     @ViewInject(id = R.id.layout_back, click = "forBack")
@@ -372,6 +375,8 @@ public class VisitorInfoNotReceiveActivity extends BaseActivity implements Camer
             @Override
             public void run() {
                 String RecordID = visitorModel.getRecordID();//
+                String GroupId = visitorModel.getGroupId();//
+                String OperatorName = visitorModel.getOperatorName();//
                 String VisitorID = visitorModel.getVisitorID();//
                 String VisitorName = et_VisitorName.getText().toString();// 访客姓名
                 String RespondentID = VisitorInfoNotReceiveActivity.this.respondentID;// 受访者ID
@@ -401,7 +406,8 @@ public class VisitorInfoNotReceiveActivity extends BaseActivity implements Camer
                     js.put("PhoneNumber", PhoneNumber);
                     js.put("StoreID", StoreID);
                     js.put("isVip", isVip);
-                    js.put("GroupId", "");
+                    js.put("GroupId", GroupId);
+                    js.put("OperatorName", OperatorName);
 
                     String msg = "";
                     if (visitorPicPath == null) {
