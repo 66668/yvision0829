@@ -65,6 +65,14 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     @ViewInject(id = R.id.spinner_style)
     Spinner spinner_style;
 
+    //人员1
+    @ViewInject(id = R.id.spinner_name)
+    Spinner spinner_name;
+
+    //人员2
+    @ViewInject(id = R.id.tv_name)
+    TextView tv_name;
+
     //变量
     private AttendListAdapter uAdapter;
     //spinner
@@ -102,11 +110,15 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         setContentView(R.layout.act_usermain);
 
         initMyView();//控件实例化
+        isEmployeeNameNULL();//登录返回是否有employeeName,有--》,布局更换为人名，无--》布局更换为spinner
+
         getEmployeeDate();//获取跳转
 
         initListener();
         getData();
+
     }
+
 
     public void initMyView() {
         tv_title.setText(getResources().getString(R.string.attendTile));
@@ -124,6 +136,23 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         listView.setIRefreshListener(this);
         uAdapter = new AttendListAdapter(this);
         listView.setAdapter(uAdapter);
+    }
+
+    private void isEmployeeNameNULL() {
+        //空
+        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeName())) {
+            //显示spinner
+            tv_name.setVisibility(View.GONE);
+            spinner_name.setVisibility(View.VISIBLE);
+
+            //获取数据
+            getEmployeeNameListDate();
+        } else {
+            //显示人名
+            tv_name.setVisibility(View.VISIBLE);
+            spinner_name.setVisibility(View.GONE);
+            tv_name.setText(UserHelper.getCurrentUser().getEmployeeName());
+        }
     }
 
     private void initListener() {
@@ -162,6 +191,16 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         });
     }
 
+    //获取人员
+    private void getEmployeeNameListDate(){
+        Loading.noDialogRun(this, new Runnable() {
+            @Override
+            public void run() {
+
+
+            }
+        });
+    }
     private void getSelectTimeData(String timeSpinner) {
         switch (timeSpinner) {
             case "全部时间":
@@ -212,12 +251,12 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                 styleForMap();
                 getData();
                 break;
-//            case "wifi":
-//                uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载今天数据
-//                listView.setAdapter(uAdapter);
-//                styleForWifi();
-//                getData();
-//                break;
+            //            case "wifi":
+            //                uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载今天数据
+            //                listView.setAdapter(uAdapter);
+            //                styleForWifi();
+            //                getData();
+            //                break;
         }
     }
 
@@ -445,9 +484,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         setAttendType("2");
     }
 
-//    public void styleForWifi() {
-//        setAttendType("3");
-//    }
+    //    public void styleForWifi() {
+    //        setAttendType("3");
+    //    }
 
     //设置 timespan
     public void timeForAll() {

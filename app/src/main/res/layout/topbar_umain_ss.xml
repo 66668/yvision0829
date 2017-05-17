@@ -1,44 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="42dp"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="horizontal"
-              android:weightSum="1">
+              android:orientation="horizontal">
 
     <View
-        android:background="@android:color/white"
-        android:layout_weight="0.08"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:background="@android:color/white"/>
 
     <com.yvision.widget.SelectSpinner
         android:id="@+id/spinner_time"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.35"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:singleLine="true"
-        app:texttint="@color/common_topbar_bgcolor"
-        android:textSize="@dimen/common_textSize_default12"/>
+        android:textSize="@dimen/common_textSize_default12"
+        app:texttint="@color/common_topbar_bgcolor"/>
+
     <View
-        android:background="@android:color/white"
-        android:layout_weight="0.14"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="0.4"
+        android:background="@android:color/white"/>
 
     <com.yvision.widget.SelectSpinner
         android:id="@+id/spinner_style"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.35"
+        android:layout_weight="1"
         android:gravity="center_vertical"
-        app:texttint="@color/common_topbar_bgcolor"
-        android:textSize="@dimen/common_textSize_default12"/>
-    <View
-        android:background="@android:color/white"
-        android:layout_weight="0.08"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        android:textSize="@dimen/common_textSize_default12"
+        app:texttint="@color/common_topbar_bgcolor"/>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:background="@android:color/white"/>
+
+    <com.yvision.widget.SelectSpinner
+        android:id="@+id/spinner_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/common_textSize_default12"
+        app:texttint="@color/common_topbar_bgcolor"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textColor="@color/common_topbar_bgcolor"
+        android:textSize="@dimen/common_textSize_default12"
+        android:visibility="gone"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:background="@android:color/white"/>
 </LinearLayout>
