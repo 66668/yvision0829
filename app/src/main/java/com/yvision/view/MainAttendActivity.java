@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.yvision.R;
@@ -20,6 +19,7 @@ import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.AttendModel;
 import com.yvision.model.EmployeeInfoModel;
+import com.yvision.model.StoreEmployeeModel;
 import com.yvision.utils.PageUtil;
 import com.yvision.widget.RefreshAndLoadListView;
 import com.yvision.widget.SelectSpinner;
@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.yvision.R.id.spinner_name;
 
 /**
  * 考勤主界面
@@ -57,17 +59,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     @ViewInject(id = R.id.spinner_style)
     SelectSpinner spinnerType;
 
-    //时间
-    @ViewInject(id = R.id.spinner_time)
-    Spinner spinner_time;
-
-    //方式
-    @ViewInject(id = R.id.spinner_style)
-    Spinner spinner_style;
-
     //人员1
-    @ViewInject(id = R.id.spinner_name)
-    Spinner spinner_name;
+    @ViewInject(id = spinner_name)
+    SelectSpinner spinnerName;
 
     //人员2
     @ViewInject(id = R.id.tv_name)
@@ -78,12 +72,15 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     //spinner
     private List<String> spinnerTimeData;
     private List<String> spinnerTypeData;
+    private ArrayList<String> spinnerNameData;
 
     private boolean ifLoading = false;//标记
     private static String pageSize = "20";//返回数据个数
     private static String attendType = "4";//考勤方式--1:local 2:map3:wifi 4:all
     private static String timespan = "4";//时间筛选方式--1:today 3:this month 2:this week 4: all
+    private static String employeeId = "";//默认为空，获取的数据为全部员工记录
     private List<AttendModel> list = null;
+    ArrayList<StoreEmployeeModel> listName;//人员（管理权限）
 
     //地图考勤使用
     private EmployeeInfoModel employeeInfoModel = null;
@@ -93,15 +90,18 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
     //常量
     private static final int ADDONEWIFI_SUCCESS = 30;
+    private static final String TAG = "MainAttendActivity";
     private static final int ADDONEWIFI_FAILED = 31;
 
     private static final int GET_NEW_DATA = -41;// 获取所有数据列表 标志
     private static final int LOAD_MORE_SUCCESS = -42;//
-    private static final int REFRESH_SUCCESS = -22;//
+    private static final int REFRESH_SUCCESS = -40;//
     private static final int GET_NONE_ATTENDDATA = -43;//
 
     private static final int GET_EMPLOYEE_DATA = -44;//
     private static final int GET_NONE_EMPLOYEE_DATA = -45;//
+    private static final int GET_EMPLOYEE_NAME_LIST = -46;//
+    private static final int GET_EMPLOYEE_NAME_LIST_FAILED = -47;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +124,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         tv_title.setText(getResources().getString(R.string.attendTile));
         //        tv_right.setText(getResources().getString(R.string.wifiAttend));
         tv_right.setText("地图考勤");
+
         //spinner绑定数据
         spinnerTimeData = new LinkedList<>(Arrays.asList("全部时间", "今日", "本周", "本月"));
         spinnerTime.attachDataSource(spinnerTimeData);//绑定数据
@@ -131,6 +132,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         spinnerTypeData = new LinkedList<>(Arrays.asList("全部方式", "普通", "地图"));
         spinnerType.attachDataSource(spinnerTypeData);//绑定数据
 
+        spinnerNameData = new ArrayList<>();
         //自定义listVIew监听
         listView.setILoadMoreListener(this);
         listView.setIRefreshListener(this);
@@ -139,19 +141,22 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     }
 
     private void isEmployeeNameNULL() {
+        employeeId = UserHelper.getCurrentUser().getEmployeeId();
+
+        Log.d(TAG, "isEmployeeNameNULL: 判断登录返回EmployeeName" + TextUtils.isEmpty(employeeId));
         //空
-        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeName())) {
+        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeId())) {
             //显示spinner
             tv_name.setVisibility(View.GONE);
-            spinner_name.setVisibility(View.VISIBLE);
+            spinnerName.setVisibility(View.VISIBLE);
 
             //获取数据
             getEmployeeNameListDate();
         } else {
             //显示人名
             tv_name.setVisibility(View.VISIBLE);
-            spinner_name.setVisibility(View.GONE);
-            tv_name.setText(UserHelper.getCurrentUser().getEmployeeName());
+            spinnerName.setVisibility(View.GONE);
+            tv_name.setText(TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeName()) ? "返回值为空" : UserHelper.getCurrentUser().getEmployeeName());
         }
     }
 
@@ -161,7 +166,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         spinnerTime.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("SJY", "spinner监听--" + spinnerTimeData.get(position));
+                Log.d(TAG, "spinner监听--" + spinnerTimeData.get(position));
                 getSelectTimeData(spinnerTimeData.get(position).trim());//参数2必填GET_NEW_DATA
 
             }
@@ -170,9 +175,17 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         spinnerType.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("SJY", "spinner监听--" + spinnerTimeData.get(position));
+                Log.d(TAG, "spinner监听--" + spinnerTypeData.get(position));
                 getSelectTypeData(spinnerTypeData.get(position).trim());//参数2必填GET_NEW_DATA
 
+            }
+        });
+
+        spinnerName.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "spinner监听--" + spinnerNameData.get(position));
+                getSelectNameData(spinnerNameData.get(position));
             }
         });
 
@@ -191,16 +204,28 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         });
     }
 
-    //获取人员
-    private void getEmployeeNameListDate(){
+    //获取人员（管理员权限）
+    private void getEmployeeNameListDate() {
         Loading.noDialogRun(this, new Runnable() {
             @Override
             public void run() {
+                try {
 
+                    ArrayList<StoreEmployeeModel> list = UserHelper.getEmployeeListNameByStoreID(MainAttendActivity.this
+                            , UserHelper.getCurrentUser().getStoreID()
+                            , "1");
+                    Log.d(TAG, "run: " + list.size());
+                    sendMessage(GET_EMPLOYEE_NAME_LIST, list);
+                } catch (MyException e) {
+                    e.printStackTrace();
+                    sendMessage(GET_EMPLOYEE_NAME_LIST_FAILED, e.getMessage());
+                }
 
             }
         });
     }
+
+    //根据时间筛选数据
     private void getSelectTimeData(String timeSpinner) {
         switch (timeSpinner) {
             case "全部时间":
@@ -231,6 +256,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
     }
 
+    //根据类型筛选数据
     private void getSelectTypeData(String timeSpinner) {
         switch (timeSpinner) {
             case "全部方式":
@@ -260,6 +286,46 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         }
     }
 
+    //根据名字筛选数据
+    private void getSelectNameData(final String nameSpinner) {
+        Log.d(TAG, "getSelectNameData: 1");
+        if (listName == null || listName.size() <= 0) {
+            Log.d(TAG, "getSelectNameData:listName被回收 ");
+        }
+        if (nameSpinner.equals("全部")) {
+            Log.d(TAG, "getSelectNameData: 选择员工=" + nameSpinner);
+            employeeId = "";
+            uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载全部数据
+            listView.setAdapter(uAdapter);
+            getData();
+        } else {
+            Log.d(TAG, "getSelectNameData: 2");
+            //遍历的耗时操作
+            //            for (StoreEmployeeModel a : listName) {
+            //                if (a.getEmployeeName().trim().contains(nameSpinner)) {
+            //                    employeeId = a.getEmployeeId();
+            //                    //                            sendMessage(SEARCH_EMPLOYEEID,employeeId);
+            //                    uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载全部数据
+            //                    listView.setAdapter(uAdapter);
+            //                    getData();
+            //                }
+            //            }
+            for (int i = 0; i < listName.size(); i++) {
+
+                if (listName.get(i).getEmployeeName().trim().contains(nameSpinner)) {
+                    Log.d(TAG, "getSelectNameData: 选择员工=" + nameSpinner + "--对应id=" + list.get(i).getEmployeeID());
+                    employeeId = list.get(i).getEmployeeID();
+                    uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载全部数据
+                    listView.setAdapter(uAdapter);
+                    getData();
+                }
+            }
+
+
+        }
+
+    }
+
     /**
      * 获取全部记录
      */
@@ -269,7 +335,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
         }
         maxTime = "";
         minTime = "";
-
+        Log.d(TAG, "getData: 获取数据employeeid状态=" + employeeId);
         Loading.run(MainAttendActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -283,8 +349,9 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                             minTime,
                             pageSize,
                             timespan,
+                            employeeId,
                             attendType);
-                    Log.d("SJY", "max=" + MyApplication.getInstance().iMaxTime + "/n" + ",min=" + MyApplication.getInstance().iMinTime);
+                    Log.d(TAG, "max=" + MyApplication.getInstance().iMaxTime + "/n" + ",min=" + MyApplication.getInstance().iMinTime);
                     if (userModelList == null || userModelList.size() < Integer.parseInt(pageSize)) {
 
                         uAdapter.IsEnd = true;
@@ -292,7 +359,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                     sendMessage(GET_NEW_DATA, userModelList);
 
                 } catch (MyException e) {
-                    Log.d("SJY", "getdata异常=" + e.getMessage());
+                    Log.d(TAG, "getdata异常=" + e.getMessage());
                     sendMessage(GET_NONE_ATTENDDATA, e.getMessage());
                 }
             }
@@ -314,13 +381,14 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
             public void run() {
                 ifLoading = true;//
                 try {
-                    Log.d("SJY", "上拉拼接minTime=" + minTime);
+                    Log.d(TAG, "上拉拼接minTime=" + minTime);
                     List<AttendModel> userModelList = UserHelper.GetAttendanceRecordByPage(
                             MainAttendActivity.this,
                             "",
                             minTime,
                             pageSize,
                             timespan,
+                            employeeId,
                             attendType);
 
                     if (userModelList == null || userModelList.size() < Integer.parseInt(pageSize)) {
@@ -329,7 +397,7 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                     sendMessage(LOAD_MORE_SUCCESS, userModelList);
 
                 } catch (MyException e) {
-                    Log.d("SJY", "getdata异常=" + e.getMessage());
+                    Log.d(TAG, "getdata异常=" + e.getMessage());
                     sendMessage(GET_NONE_ATTENDDATA, e.getMessage());
                 }
             }
@@ -347,13 +415,14 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
             public void run() {
                 ifLoading = true;//
                 try {
-                    Log.d("SJY", "上拉拼接minTime=" + minTime);
+                    Log.d(TAG, "上拉拼接minTime=" + minTime);
                     List<AttendModel> userModelList = UserHelper.GetAttendanceRecordByPage(
                             MainAttendActivity.this,
                             maxTime,
                             "",
                             pageSize,
                             timespan,
+                            employeeId,
                             attendType);
 
                     if (userModelList == null || (userModelList.size() < Integer.parseInt(pageSize))) {
@@ -361,8 +430,30 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
                     }
                     sendMessage(REFRESH_SUCCESS, userModelList);
                 } catch (MyException e) {
-                    Log.d("SJY", "getdata异常=" + e.getMessage());
+                    Log.d(TAG, "getdata异常=" + e.getMessage());
                     sendMessage(GET_NONE_ATTENDDATA, e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void getEmployeeDate() {
+        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeId())) {
+            Log.d(TAG, "获取employeeid = null");
+            return;
+        }
+        Log.d(TAG, "获取employeeid != null");
+
+        Loading.run(MainAttendActivity.this, new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EmployeeInfoModel employeeInfoModel = UserHelper.GetEmployeeInfoByID(MainAttendActivity.this);
+
+                    sendMessage(GET_EMPLOYEE_DATA, employeeInfoModel);
+                } catch (MyException e) {
+                    Log.d("SJY", "EmployeeInfoModel异常：" + e.getMessage());
+                    sendMessage(GET_NONE_EMPLOYEE_DATA, e.getMessage());
                 }
             }
         });
@@ -371,6 +462,11 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
     @Override
     protected void handleMessage(Message msg) {
         switch (msg.what) {
+            case GET_EMPLOYEE_NAME_LIST:
+                //将list转换成数组，显示到自定义spinner中供选择
+                listName = (ArrayList<StoreEmployeeModel>) msg.obj;
+                spinnerName.attachDataSource(getByteArray(listName));//绑定数据
+                break;
             case GET_NEW_DATA://
                 // 数据显示
                 list = (List<AttendModel>) msg.obj;
@@ -421,34 +517,23 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
             case ADDONEWIFI_FAILED://添加wifi签到
                 PageUtil.DisplayToast((String) msg.obj);
                 break;
+            case GET_EMPLOYEE_NAME_LIST_FAILED:
+                PageUtil.DisplayToast((String) msg.obj + "获取管理权限下的人员数据出错");
             default:
                 break;
         }
         super.handleMessage(msg);
     }
 
-    private void getEmployeeDate() {
-        if (TextUtils.isEmpty(UserHelper.getCurrentUser().getEmployeeId())) {
-            Log.d("SJY", "获取employeeid = null");
-            return;
+    //获取人员（管理者权限）后，取出名称当做数组
+    private ArrayList<String> getByteArray(ArrayList<StoreEmployeeModel> list) {
+        for (int i = 0; i < list.size(); i++) {
+            spinnerNameData.add(list.get(i).getEmployeeName());
         }
-        Log.d("SJY", "获取employeeid != null");
-
-        Loading.run(MainAttendActivity.this, new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    EmployeeInfoModel employeeInfoModel = UserHelper.GetEmployeeInfoByID(MainAttendActivity.this);
-
-                    sendMessage(GET_EMPLOYEE_DATA, employeeInfoModel);
-                } catch (MyException e) {
-                    Log.d("SJY", "EmployeeInfoModel异常：" + e.getMessage());
-                    sendMessage(GET_NONE_EMPLOYEE_DATA, e.getMessage());
-                }
-            }
-        });
+        spinnerNameData.add(0, "全部");
+        Log.d(TAG, "getByteArray: 转换成数组spinnerNameData=" + spinnerNameData.size());
+        return spinnerNameData;
     }
-
 
     /**
      * back

@@ -60,6 +60,15 @@ public class WebUrl {
      */
     public static final String GET_RESPONDENTS = LOGIN_URL + API + "Main/GetEmployeeListByStoreID/";
 
+    /**
+     * 04 获取所有员工（管理者权限）
+     * <p>
+     * get
+     * <p>
+     * http://192.168.1.127:9012/openapi/Main/GetEmployeeListByStoreID/{storeID}/{typeN}
+     */
+    public static final String GET_EMPLOYEELISTNAME = LOGIN_URL + API + "Employee/GetEmployeeListByStoreIdAndType/";
+
 
     /**
      * 访客管理

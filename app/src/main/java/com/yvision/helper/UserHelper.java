@@ -18,6 +18,7 @@ import com.yvision.model.DoorAccessModel;
 import com.yvision.model.EmployeeInfoModel;
 import com.yvision.model.OldEmployeeImgModel;
 import com.yvision.model.OldEmployeeModel;
+import com.yvision.model.StoreEmployeeModel;
 import com.yvision.model.UpgradeModel;
 import com.yvision.model.VipModel;
 import com.yvision.model.VisitorBModel;
@@ -188,6 +189,27 @@ public class UserHelper {
         HttpResult httpResult = APIUtils.getForObject(newUrl);
 
         return httpResult.jsonArray;
+    }
+
+    /**
+     * 02-02 GetEmployeeListByStoreID
+     * <p/>
+     * 获取员工列表(管理者权限) 考勤使用
+     *
+     * @throws MyException
+     */
+
+    public static ArrayList<StoreEmployeeModel> getEmployeeListNameByStoreID(Context context, String storeId, String typeN) throws MyException {
+        // 判断否有网络连接，有网络连接，不抛异常，无连接，抛异常(logcat)
+        if (!NetworkManager.isNetworkAvailable(context))
+            throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络！
+        //        String newUrl = new String(WebUrl.UserManager.GET_RESPONDENTS + storeId + "/" + typeN);
+        String newUrl = new String(WebUrl.GET_EMPLOYEELISTNAME + storeId + "/" + typeN);
+        HttpResult httpResult = APIUtils.getForObject(newUrl);
+
+        return (new Gson()).fromJson(httpResult.jsonArray.toString(),
+                new TypeToken<ArrayList<StoreEmployeeModel>>() {
+                }.getType());
     }
 
     /**
@@ -410,6 +432,7 @@ public class UserHelper {
                                                                    String minTime,
                                                                    String pageSize,
                                                                    String timespan,
+                                                                   String employeeID,
                                                                    String attendType) throws MyException {
         if (!NetworkManager.isNetworkAvailable(context)) {
             throw new MyException(R.string.network_invalid);// 亲，您的网络不给力，请检查网络
@@ -421,7 +444,7 @@ public class UserHelper {
                         add("pageSize", pageSize + "").
                         add("timespan", timespan + "").
                         add("storeID", UserHelper.getCurrentUser().getStoreID()).
-                        add("employeeID", UserHelper.getCurrentUser().getEmployeeId()).
+                        add("employeeID", employeeID).
                         add("attendType", attendType + ""));
         if (hr.hasError()) {
             throw hr.getError();
