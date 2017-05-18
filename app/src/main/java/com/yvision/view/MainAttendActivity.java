@@ -288,7 +288,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
 
     //根据名字筛选数据
     private void getSelectNameData(final String nameSpinner) {
-        Log.d(TAG, "getSelectNameData: 1");
         if (listName == null || listName.size() <= 0) {
             Log.d(TAG, "getSelectNameData:listName被回收 ");
         }
@@ -299,7 +298,6 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
             listView.setAdapter(uAdapter);
             getData();
         } else {
-            Log.d(TAG, "getSelectNameData: 2");
             //遍历的耗时操作
             //            for (StoreEmployeeModel a : listName) {
             //                if (a.getEmployeeName().trim().contains(nameSpinner)) {
@@ -313,8 +311,8 @@ public class MainAttendActivity extends BaseActivity implements RefreshAndLoadLi
             for (int i = 0; i < listName.size(); i++) {
 
                 if (listName.get(i).getEmployeeName().trim().contains(nameSpinner)) {
-                    Log.d(TAG, "getSelectNameData: 选择员工=" + nameSpinner + "--对应id=" + list.get(i).getEmployeeID());
-                    employeeId = list.get(i).getEmployeeID();
+                    Log.d(TAG, "getSelectNameData: i=" + i + "--选择员工=" + nameSpinner + "--对应id=" + listName.get(i).getEmployeeId());
+                    employeeId = listName.get(i).getEmployeeId();
                     uAdapter = new AttendListAdapter(MainAttendActivity.this);// 加载全部数据
                     listView.setAdapter(uAdapter);
                     getData();
