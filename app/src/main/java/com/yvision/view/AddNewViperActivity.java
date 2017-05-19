@@ -26,13 +26,11 @@ import com.yvision.adapter.GroupSpinnerAdapter;
 import com.yvision.common.HttpParameter;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
-import com.yvision.dialog.TimePickerDialog;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.GroupModel;
 import com.yvision.utils.ImageUtils;
 import com.yvision.utils.PageUtil;
-import com.yvision.utils.Utils;
 
 import org.json.JSONArray;
 
@@ -53,13 +51,6 @@ public class AddNewViperActivity extends BaseActivity {
     @ViewInject(id = R.id.tv_title)
     TextView tv_title;
 
-    // 上班时间
-    @ViewInject(id = R.id.tv_punchStart, click = "dialogStartTime")
-    TextView tv_punchStart;
-
-    // 下班时间
-    @ViewInject(id = R.id.tv_punchEnd, click = "dialogEndTime")
-    TextView tv_punchEnd;
 
     //
     @ViewInject(id = R.id.tv_right, click = "refresh")
@@ -126,8 +117,6 @@ public class AddNewViperActivity extends BaseActivity {
     String name = "";//姓名
     String gender = "0";//1表示男，0表示女
     String workID = "";
-    String punchStart = "08:00:00";
-    String punchEnd = "18:00:00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,10 +157,6 @@ public class AddNewViperActivity extends BaseActivity {
         gender = "1";
         radioBtn_male.setChecked(true);//默认性别 男
 
-        //默认上班时间,下班时间
-        tv_punchStart.setText(punchStart);
-        tv_punchEnd.setText(punchEnd);
-        
         //选择人脸库类型
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -254,16 +239,7 @@ public class AddNewViperActivity extends BaseActivity {
             PageUtil.DisplayToast("请选择人像库");
             return;
         }
-        if ((!TextUtils.isEmpty(punchStart)) && (!TextUtils.isEmpty(punchEnd))) {
 
-            if (Utils.isTimesBiger(punchStart, punchEnd)) {
-                PageUtil.DisplayToast("请确认上下班时间是否合理");
-                return;
-            }
-        } else {
-            PageUtil.DisplayToast("请选择上下班时间");
-            return;
-        }
         Loading.run(this, new Runnable() {
             @Override
             public void run() {
@@ -279,8 +255,6 @@ public class AddNewViperActivity extends BaseActivity {
                                     add("gender", gender).
                                     add("departmentID", " ").
                                     add("type", type).
-                                    add("punchStart", punchStart).
-                                    add("punchEnd", punchEnd).
                                     add("workID", workID),
                             picPath);
                     // 消息处理
@@ -335,37 +309,6 @@ public class AddNewViperActivity extends BaseActivity {
         etIDNumber.setText("");
         picPath = null;
     }
-
-    // 设置时间
-    private final int TIME_START_DATA = 2;
-    private final int TIME_END_DATA = 3;
-
-    public void dialogStartTime(View view) {
-        showTimePickerDialog(TIME_START_DATA, punchStart);
-    }
-
-    public void dialogEndTime(View view) {
-        showTimePickerDialog(TIME_END_DATA, punchEnd);
-    }
-
-    private void showTimePickerDialog(final int whichTime, String currentTime) {
-        TimePickerDialog dialog = new TimePickerDialog(AddNewViperActivity.this
-                , tv_punchStart.getText().toString()
-                , new TimePickerDialog.TimePickerDialogCallBack() {
-            @Override
-            public void confirm(String date) {
-                if (whichTime == TIME_START_DATA) {
-                    tv_punchStart.setText(date);
-                    punchStart = date;
-                } else {
-                    tv_punchEnd.setText(date);
-                    punchEnd = date;//LeaveTimePlan_time.getText().toString()
-                }
-            }
-        });
-        dialog.show();
-    }
-
 
     private void bindFaceData(JSONArray jsonArray) {
         groupIDList = new ArrayList<GroupModel>();
