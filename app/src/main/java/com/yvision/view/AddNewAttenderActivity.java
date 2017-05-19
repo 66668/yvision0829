@@ -63,7 +63,6 @@ public class AddNewAttenderActivity extends BaseActivity {
     Button btnRegister;
 
     // 姓名
-
     @ViewInject(id = R.id.RegisterActivity_et_name)
     EditText etName;
 
