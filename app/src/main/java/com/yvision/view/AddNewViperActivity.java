@@ -308,6 +308,7 @@ public class AddNewViperActivity extends BaseActivity {
         etName.setText("");
         etIDNumber.setText("");
         picPath = null;
+        imgView.setImageBitmap(null);
     }
 
     private void bindFaceData(JSONArray jsonArray) {

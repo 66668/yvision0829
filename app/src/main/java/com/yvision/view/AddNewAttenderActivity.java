@@ -380,6 +380,7 @@ public class AddNewAttenderActivity extends BaseActivity {
         etName.setText("");
         etIDNumber.setText("");
         picPath = null;
+        imgView.setImageBitmap(null);
     }
 
     ;
