@@ -73,7 +73,7 @@ public class TimePickerDialog extends Dialog implements View.OnClickListener{
 			timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 				@Override
 				public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-					timeString = getFriendlyNum(hourOfDay) +":"+ getFriendlyNum(minute)+":22";
+					timeString = getFriendlyNum(hourOfDay) +":"+ getFriendlyNum(minute)+":00";
 				}
 			});
 		} catch (ParseException e) {

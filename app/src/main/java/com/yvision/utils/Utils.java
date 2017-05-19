@@ -40,7 +40,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -127,6 +127,30 @@ public class Utils {
                 c[i] = (char) (c[i] - 65248);
         }
         return new String(c);
+    }
+
+    /**
+     * 比较两个时间的大小，参数格式必须是 HH:mm:ss
+     *
+     * @return
+     */
+    public static boolean isTimesBiger(String time1, String time2) {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//创建日期转换对象HH:mm:ss为时分秒，年月日为yyyy-MM-dd
+        try {
+            Date dt1 = df.parse(time1);//将字符串转换为date类型
+            Date dt2 = df.parse(time2);
+            Log.d("SJY", "isTimesBiger: " + dt1.getTime() + "--" + dt2.getTime());
+            if (dt1.getTime() > dt2.getTime())//比较时间大小,如果dt1大于dt2
+            {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("SJY", "isTimesBiger: " + e.toString());
+        }
+        return true;
     }
 
     /**

@@ -27,12 +27,14 @@ import com.yvision.adapter.GroupSpinnerAdapter;
 import com.yvision.common.HttpParameter;
 import com.yvision.common.MyException;
 import com.yvision.dialog.Loading;
+import com.yvision.dialog.TimePickerDialog;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.DepartmentModel;
 import com.yvision.model.GroupModel;
 import com.yvision.utils.ImageUtils;
 import com.yvision.utils.PageUtil;
+import com.yvision.utils.Utils;
 
 import org.json.JSONArray;
 
@@ -73,6 +75,14 @@ public class AddNewAttenderActivity extends BaseActivity {
     // 性别
     @ViewInject(id = R.id.registerActivity_radiogroup)
     RadioGroup group_gender;
+
+    // 上班时间
+    @ViewInject(id = R.id.tv_punchStart, click = "dialogStartTime")
+    TextView tv_punchStart;
+
+    // 下班时间
+    @ViewInject(id = R.id.tv_punchEnd, click = "dialogEndTime")
+    TextView tv_punchEnd;
 
     // 男
     @ViewInject(id = R.id.radioBtn_male)
@@ -125,6 +135,8 @@ public class AddNewAttenderActivity extends BaseActivity {
     String name = "";//姓名
     String gender = "0";//1表示男，0表示女
     String workID = "";
+    String punchStart = "08:00:00";
+    String punchEnd = "18:00:00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +178,10 @@ public class AddNewAttenderActivity extends BaseActivity {
         // 性别默认设置
         gender = "1";
         radioBtn_male.setChecked(true);//默认性别 男
+
+        //默认上班时间,下班时间
+        tv_punchStart.setText(punchStart);
+        tv_punchEnd.setText(punchEnd);
 
         //选择人脸库类型
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -210,7 +226,6 @@ public class AddNewAttenderActivity extends BaseActivity {
         });
     }
 
-
     /**
      * 选择照片
      */
@@ -244,7 +259,7 @@ public class AddNewAttenderActivity extends BaseActivity {
      * 注册
      */
     public void btnRegister(View view) {
-        Log.d("SJY", "注册1");
+
         UUID guid = UUID.randomUUID();
         employeeID = guid.toString();//员工编号
         operatorName = UserHelper.getCurrentUser().getUserName();//操作人姓名/登录时的工号
@@ -253,7 +268,12 @@ public class AddNewAttenderActivity extends BaseActivity {
         gender = group_gender.getCheckedRadioButtonId() == R.id.radioBtn_male ? "1" : "0";//性别
         workID = etIDNumber.getText().toString().trim();//工号
 
+        //        punchStart = tv_punchStart.getText().toString();//上班时间
+        //        punchEnd = tv_punchEnd.getText().toString();//下班时间
         //非空验证
+
+
+        Log.d("SJY", "注册2");
         if (picPath == null) {
             PageUtil.DisplayToast("无法添加，请选择图片");
             return;
@@ -269,8 +289,19 @@ public class AddNewAttenderActivity extends BaseActivity {
         if (TextUtils.isEmpty(groupID.trim())) {
             PageUtil.DisplayToast("请选择人像库");
             return;
-        } if (TextUtils.isEmpty(deptID.trim())) {
+        }
+        if (TextUtils.isEmpty(deptID.trim())) {
             PageUtil.DisplayToast("请选择部门");
+            return;
+        }
+        if ((!TextUtils.isEmpty(punchStart)) && (!TextUtils.isEmpty(punchEnd))) {
+
+            if (Utils.isTimesBiger(punchStart, punchEnd)) {
+                PageUtil.DisplayToast("请确认上下班时间是否合理");
+                return;
+            }
+        } else {
+            PageUtil.DisplayToast("请选择上下班时间");
             return;
         }
 
@@ -285,10 +316,12 @@ public class AddNewAttenderActivity extends BaseActivity {
                                     add("groupID", groupID).
                                     add("storeID", UserHelper.getCurrentUser().getStoreID()).
                                     add("name", name).
-                                    add("operatorName",UserHelper.getCurrentUser().getUserName()).
+                                    add("operatorName", UserHelper.getCurrentUser().getUserName()).
                                     add("departmentID", deptID).
                                     add("gender", gender).
                                     add("type", type).
+                                    add("punchStart", punchStart).
+                                    add("punchEnd", punchEnd).
                                     add("workID", workID),
                             picPath);
                     // 消息处理
@@ -414,6 +447,35 @@ public class AddNewAttenderActivity extends BaseActivity {
     //        return 0;
     //    }
 
+    // 设置时间
+    private final int TIME_START_DATA = 2;
+    private final int TIME_END_DATA = 3;
+
+    public void dialogStartTime(View view) {
+        showTimePickerDialog(TIME_START_DATA, punchStart);
+    }
+
+    public void dialogEndTime(View view) {
+        showTimePickerDialog(TIME_END_DATA, punchEnd);
+    }
+
+    private void showTimePickerDialog(final int whichTime, String currentTime) {
+        TimePickerDialog dialog = new TimePickerDialog(AddNewAttenderActivity.this
+                , tv_punchStart.getText().toString()
+                , new TimePickerDialog.TimePickerDialogCallBack() {
+            @Override
+            public void confirm(String date) {
+                if (whichTime == TIME_START_DATA) {
+                    tv_punchStart.setText(date);
+                    punchStart = date;
+                } else {
+                    tv_punchEnd.setText(date);
+                    punchEnd = date;//LeaveTimePlan_time.getText().toString()
+                }
+            }
+        });
+        dialog.show();
+    }
 
     /**
      * 返回
