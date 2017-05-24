@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tv_default_name"
         android:layout_toEndOf="@+id/tv_default_name"
@@ -51,20 +51,20 @@
         android:id="@+id/tv_workid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_default_workid"
+        android:layout_alignTop="@+id/tv_default_workid"
         android:layout_toEndOf="@+id/tv_default_workid"
         android:layout_toRightOf="@+id/tv_default_workid"
         android:text="编号"
         android:textColor="@color/cl_text_common"
-        android:textSize="@dimen/common_textSize_default14"
-        android:layout_alignBottom="@+id/tv_default_workid"
-        android:layout_alignTop="@+id/tv_default_workid"/>
+        android:textSize="@dimen/common_textSize_default14"/>
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:background="@mipmap/forword"
-        android:id="@+id/imageView3"/>
+        android:background="@mipmap/forword"/>
 </RelativeLayout>
