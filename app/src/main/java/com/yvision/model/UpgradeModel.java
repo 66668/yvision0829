@@ -10,7 +10,6 @@ public class UpgradeModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private boolean isexistsnewversion;
 
     private String Version;
 
@@ -18,13 +17,6 @@ public class UpgradeModel implements Serializable {
 
     private String PackageUrl;
 
-    public boolean isIsexistsnewversion() {
-        return isexistsnewversion;
-    }
-
-    public void setIsexistsnewversion(boolean isexistsnewversion) {
-        this.isexistsnewversion = isexistsnewversion;
-    }
 
     public String getVersion() {
         return Version;

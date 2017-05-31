@@ -37,6 +37,7 @@
     <string name="help">帮助</string>
     <string name="about">关于</string>
     <string name="vission">当前版本</string>
+    <string name="getvision">检查更新</string>
     <string name="exist">退出登录</string>
 
     <!-- / ChangePassWordActivity.java -->

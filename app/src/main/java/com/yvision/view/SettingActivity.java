@@ -19,8 +19,8 @@ import com.yvision.dialog.UpdateAppDialog;
 import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.UpgradeModel;
+import com.yvision.utils.BaseTools;
 import com.yvision.utils.IntentUtil;
-import com.yvision.utils.PageUtil;
 
 /**
  * 设置界面
@@ -38,23 +38,28 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(id = R.id.tv_right, click = "forCommit")
     TextView tv_right;
 
-     //退出
+    //退出
     @ViewInject(id = R.id.btn_quit, click = "quit")
-     Button btn_quit;
+    Button btn_quit;
 
 
     //密码修改
     @ViewInject(id = R.id.btn_changePsd, click = "changePassword")
     LinearLayout btn_changePsd;
 
-//    //人脸登记
-//    @ViewInject(id = R.id.btn_changeFace, click = "changeFace")
-//    LinearLayout btn_changeFace;
+    //    //人脸登记
+    //    @ViewInject(id = R.id.btn_changeFace, click = "changeFace")
+    //    LinearLayout btn_changeFace;
 
 
     //点击升级版本
-    @ViewInject(id = R.id.layout_version, click = "getVersion")
+    @ViewInject(id = R.id.layout_version)
     LinearLayout layout_Version;
+
+    //点击升级版本
+    @ViewInject(id = R.id.layout_getversion, click = "getVersion")
+    LinearLayout layout_getversion;
+
     //版本
     @ViewInject(id = R.id.tv_Version)
     TextView tv_Version;
@@ -69,6 +74,7 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.act_main_settings);
         tv_title.setText("设置");
         tv_right.setText("");
+        tv_Version.setText(BaseTools.getVersionName());
     }
 
     /**
@@ -78,15 +84,6 @@ public class SettingActivity extends BaseActivity {
         startActivity(ChangePassWordActivity.class);
     }
 
-    /**
-     * 人脸登记跳转
-     *
-     * @param view
-     */
-    public void changeFace(View view) {
-//        startActivity(AddMyFaceActivity.class);
-        PageUtil.DisplayToast("该功能模块不可用");
-    }
 
     /**
      * 后退
@@ -94,7 +91,6 @@ public class SettingActivity extends BaseActivity {
     public void forBack(View vie) {
         this.finish();
     }
-
 
 
     /**
@@ -117,28 +113,29 @@ public class SettingActivity extends BaseActivity {
     }
 
     /**
-     * 版本升级
+     * 检查更新
      *
      * @param view
      */
     public void getVersion(View view) {
-        PageUtil.DisplayToast("该功能模块不可用");
-//        Loading.run(this, new Runnable() {
-//            @Override
-//            public void run() {
-//                String type = "1001";
-//                try {
-//                    UpgradeModel upgradeModel = UserHelper.CheckVersion(SettingActivity.this, type);
-//                    if (upgradeModel.isIsexistsnewversion()) {
-//                        sendMessage(SUCCESS, upgradeModel);
-//                    } else {
-//                        sendToastMessage(R.string.last_version_already);// 已是最新版本
-//                    }
-//                } catch (MyException e) {
-//                    sendToastMessage(e.getMessage());
-//                }
-//            }
-//        });
+
+
+        Loading.run(this, new Runnable() {
+            @Override
+            public void run() {
+                String type = "1001";
+                try {
+                    UpgradeModel upgradeModel = UserHelper.CheckVersion(SettingActivity.this, type);
+                    if (!upgradeModel.getVersion().equals(BaseTools.getVersionName())) {
+                        sendMessage(SUCCESS, upgradeModel);
+                    } else {
+                        sendToastMessage(R.string.last_version_already);// 已是最新版本
+                    }
+                } catch (MyException e) {
+                    sendToastMessage(e.getMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -151,6 +148,8 @@ public class SettingActivity extends BaseActivity {
 
                     @Override
                     public void confirm() {
+                        //                        BaseTools.openLink(getApplicationContext(), upgradeModel.getPackageUrl());
+
                         Intent intent = IntentUtil.getBrowserIntent(upgradeModel.getPackageUrl());
                         startActivity(intent);
                     }

@@ -268,5 +268,10 @@ public class WebUrl {
     //		public static final String GET_OLD_EMPLOYEE_DETAILS = REGISTER_URL+API+"Employee/GetEmployeeByID/";
     public static final String GET_OLD_EMPLOYEE_IMG = LOGIN_URL + API + "Image/GetImageListByEmployeeID/";
 
+    /**
+     * 打开更新VIew,下载
+     */
+    public static final String  CHECK_UPDATA= "https://iem.yuevision.com/xiaolin.apk";
+
 
 }

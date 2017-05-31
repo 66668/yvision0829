@@ -72,6 +72,7 @@ public class BaseActivity extends FragmentActivity {
 		exitFilter.addAction(EXIT_APP_ACTION);
 		this.registerReceiver(exitAppReceiver, exitFilter);
 	}
+
 	//onDestroy调用
 	private void unRegisterExitReceiver(){
 		this.unregisterReceiver(exitAppReceiver);//取消注册

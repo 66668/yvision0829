@@ -1,7 +1,6 @@
 package com.yvision.helper;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -416,10 +415,6 @@ public class UserHelper {
             throw hr.getError();
         }
         UpgradeModel model = (new Gson()).fromJson(hr.jsonObject.toString(), UpgradeModel.class);
-        Log.d("SJY", "hr = " + hr.jsonObject.toString());
-        if (!TextUtils.isEmpty(model.getPackageUrl())) {
-            model.setIsexistsnewversion(true);
-        }
         return model;
     }
 
