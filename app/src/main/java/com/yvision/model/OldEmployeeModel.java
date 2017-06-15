@@ -113,4 +113,21 @@ public class OldEmployeeModel implements Serializable {
     public void setEmployeeId(String employeeId) {
         EmployeeId = employeeId;
     }
+
+    @Override
+    public String toString() {
+        return "OldEmployeeModel{" +
+                "EmployeeName='" + EmployeeName + '\'' +
+                ", WrokId='" + WrokId + '\'' +
+                ", EmployeeId='" + EmployeeId + '\'' +
+                ", StoreName='" + StoreName + '\'' +
+                ", Gender='" + Gender + '\'' +
+                ", DeptName='" + DeptName + '\'' +
+                ", Pic='" + Pic + '\'' +
+                ", IsAttend='" + IsAttend + '\'' +
+                ", IsVisitor='" + IsVisitor + '\'' +
+                ", IsVip='" + IsVip + '\'' +
+                ", IsDoorAccess='" + IsDoorAccess + '\'' +
+                '}';
+    }
 }

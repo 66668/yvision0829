@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 老员工注册图像浏览
+ * 老员工注册 图像浏览
  * Created by sjy on 2017/3/31.
  */
 
@@ -51,7 +51,7 @@ public class PersonImgBorwseActivity extends BaseActivity {
 
     //变量
     int colnum;
-    private OldEmployeeModel OldEmployeeModel;
+    private OldEmployeeModel oldEmployeeModel;
     private ArrayList<OldEmployeeImgModel> listDate;
     private ArrayList<OldEmployeeImgModel> listAttend;
     private ArrayList<OldEmployeeImgModel> listDoor;
@@ -62,6 +62,7 @@ public class PersonImgBorwseActivity extends BaseActivity {
     //常量
     private static final int GET_SUCCESS = 11;
     private static final int GET_FAILED = 21;
+    private static final String TAG = "PersonImgBorwseActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,8 @@ public class PersonImgBorwseActivity extends BaseActivity {
         tv_right.setText("");
 
         Bundle bundle = getIntent().getExtras();
-        OldEmployeeModel = (OldEmployeeModel) bundle.getSerializable("OldEmployeeModel");
+        oldEmployeeModel = (OldEmployeeModel) bundle.getSerializable("OldEmployeeModel");
+        Log.d(TAG, oldEmployeeModel.toString());
 
         gridView = (GridView) findViewById(R.id.gridview);
         door_gridview = (GridView) findViewById(R.id.door_gridview);
@@ -134,8 +136,8 @@ public class PersonImgBorwseActivity extends BaseActivity {
             @Override
             public void run() {
                 try {
-                    Log.d("SJY", "OldEmployeeModel.getEmployeeId()=" + OldEmployeeModel.getEmployeeId());
-                    List<OldEmployeeImgModel> listDate = UserHelper.getOldEmployeeImgDetails(PersonImgBorwseActivity.this, OldEmployeeModel.getEmployeeId());
+                    Log.d("SJY", "OldEmployeeModel.getEmployeeId()=" + oldEmployeeModel.getEmployeeId());
+                    List<OldEmployeeImgModel> listDate = UserHelper.getOldEmployeeImgDetails(PersonImgBorwseActivity.this, oldEmployeeModel.getEmployeeId());
                     sendMessage(GET_SUCCESS, listDate);
                 } catch (MyException e) {
                     e.printStackTrace();
@@ -204,7 +206,7 @@ public class PersonImgBorwseActivity extends BaseActivity {
 
     public void addDoor(View view) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("OldEmployeeModel", OldEmployeeModel);
+        bundle.putSerializable("OldEmployeeModel", oldEmployeeModel);
         startActivity(AddOldDoorActivity.class, bundle);
     }
 

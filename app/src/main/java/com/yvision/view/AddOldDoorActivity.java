@@ -88,6 +88,7 @@ public class AddOldDoorActivity extends BaseActivity {
     public static final int SUCCESS_REGISTER = -27;// 注册成功
     public static final int FAILED_REGISTER = -28;// 注册失败
     private static final int REQUEST_CAMERA = 0;//自定义相机
+    private static final String TAG = "AddOldDoorActivity";
 
     private File picPath;
     private Point mPoint;//获取屏幕像素尺寸
@@ -101,6 +102,7 @@ public class AddOldDoorActivity extends BaseActivity {
     private String IsAttend, IsVip, IsDoorAccess;
     private String EmployeeName;
     private String WrokId;
+    private String gender;
     private String employeeID;
     private OldEmployeeModel model;
     //    private CameraGalleryUtils cameraGalleryUtils;// 头像上传工具
@@ -121,28 +123,34 @@ public class AddOldDoorActivity extends BaseActivity {
         getData();
     }
 
-    private void setShow() {
-        tvName.setText(EmployeeName);
-        tvWrokId.setText(WrokId);
-        tvGender.setText(model.getGender());
-        Log.d("SJY", "创建==employeeID=" + employeeID + "\nEmployeeName=" + EmployeeName + "\nWrokId=" + WrokId +
-                "\n部门=" + model.getDeptName() + "\n性别=" + model.getGender());
-    }
 
     private void initMyView() {
         tv_title.setText("注册图片");
         tv_right.setText("");
+
         //获取跳转值
         Bundle bundle = getIntent().getExtras();
         model = (OldEmployeeModel) bundle.getSerializable("OldEmployeeModel");
 
+
         EmployeeName = model.getEmployeeName();
         WrokId = model.getWrokId();
+        employeeID = model.getEmployeeId();
+        gender = model.getGender();
 
         //获取屏幕像素尺寸
         Display display = getWindowManager().getDefaultDisplay();
         mPoint = new Point();
         display.getSize(mPoint);
+    }
+
+    private void setShow() {
+
+        tvName.setText(EmployeeName);
+        tvWrokId.setText(WrokId);
+        tvGender.setText(model.getGender());
+
+        Log.d(TAG, model.toString());
     }
 
     private void initListener() {

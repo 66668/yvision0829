@@ -58,16 +58,18 @@ public class AllPersonDetailActivity extends BaseActivity {
     private void initMyView() {
         tv_title.setText("员工详情");
         tv_right.setText("");
+
+        //获取跳转值
         Bundle bundle = getIntent().getExtras();
         OldEmployeeModel = (OldEmployeeModel) bundle.getSerializable("OldEmployeeModel");
         setShow(OldEmployeeModel);
     }
 
     private void setShow(OldEmployeeModel model) {
-        tv_name.setText(model.getEmployeeName()!=null?model.getEmployeeName():"无");
-        tv_gender.setText(model.getGender() != null?model.getGender():"无");
-        tv_workid.setText(model.getWrokId() != null?model.getWrokId():"无");
-        tv_dept.setText(model.getDeptName() != null? model.getDeptName():"无");
+        tv_name.setText(model.getEmployeeName() != null ? model.getEmployeeName() : "无");
+        tv_gender.setText(model.getGender() != null ? model.getGender() : "无");
+        tv_workid.setText(model.getWrokId() != null ? model.getWrokId() : "无");
+        tv_dept.setText(model.getDeptName() != null ? model.getDeptName() : "无");
 
         StringBuilder builder = new StringBuilder();
         if (model.getIsAttend().contains("1")) {
@@ -88,11 +90,12 @@ public class AllPersonDetailActivity extends BaseActivity {
         }
     }
 
-    public void toImg(View view){
+    public void toImg(View view) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("OldEmployeeModel",OldEmployeeModel);
-        startActivity(PersonImgBorwseActivity.class,bundle);
+        bundle.putSerializable("OldEmployeeModel", OldEmployeeModel);
+        startActivity(PersonImgBorwseActivity.class, bundle);
     }
+
     // 后退
     public void forBack(View view) {
         this.finish();

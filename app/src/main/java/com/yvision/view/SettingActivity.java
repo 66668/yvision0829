@@ -20,7 +20,6 @@ import com.yvision.helper.UserHelper;
 import com.yvision.inject.ViewInject;
 import com.yvision.model.UpgradeModel;
 import com.yvision.utils.BaseTools;
-import com.yvision.utils.IntentUtil;
 
 /**
  * 设置界面
@@ -148,10 +147,11 @@ public class SettingActivity extends BaseActivity {
 
                     @Override
                     public void confirm() {
-                        //                        BaseTools.openLink(getApplicationContext(), upgradeModel.getPackageUrl());
 
-                        Intent intent = IntentUtil.getBrowserIntent(upgradeModel.getPackageUrl());
-                        startActivity(intent);
+                        BaseTools.openLink(SettingActivity.this, upgradeModel.getPackageUrl());
+
+                        //                        Intent intent = IntentUtil.getBrowserIntent(upgradeModel.getPackageUrl());
+                        //                        startActivity(intent);
                     }
 
                     @Override

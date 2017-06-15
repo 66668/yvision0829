@@ -58,7 +58,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
 
         ndk {
             //设置支持的SO库架构

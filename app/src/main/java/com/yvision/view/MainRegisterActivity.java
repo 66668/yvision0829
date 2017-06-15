@@ -30,7 +30,7 @@ import com.yvision.utils.PageUtil;
 import java.util.ArrayList;
 
 /**
- * 员工注册系统详细界面
+ * 员工注册 界面
  */
 public class MainRegisterActivity extends BaseActivity {
     //back
@@ -49,7 +49,7 @@ public class MainRegisterActivity extends BaseActivity {
     @ViewInject(id = R.id.btn_addCustomerFace, click = "addNewEmployee")
     Button btn_addface;
 
-    // xml:添加访客
+    // xml:添加
     @ViewInject(id = R.id.layout_addCustomerFace)
     LinearLayout layout_addCustomerFace;
 
@@ -90,6 +90,7 @@ public class MainRegisterActivity extends BaseActivity {
     }
 
     private void initListener() {
+
         //		 点击一条记录后，跳转到登记时详细的信息
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override

@@ -137,7 +137,7 @@ public class BaseTools {
             return packInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return "1.0";
+            return "1.1";
         }
     }
 
@@ -155,8 +155,8 @@ public class BaseTools {
     /**
      * 使用浏览器打开链接
      */
-    public static void openLink(Context context, String content) {
-        Uri issuesUrl = Uri.parse(content);
+    public static void openLink(Context context, String url) {
+        Uri issuesUrl = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, issuesUrl);
         context.startActivity(intent);
     }
