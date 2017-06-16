@@ -95,21 +95,25 @@
     <string name="attendTile">考勤管理</string>
     <string name="attendTile_detail">考勤详情</string>
     <string name="wifiAttend">wifi签到</string>
+
     <!-- MapAttendedActivity-->
     <string name="attendance">考勤</string>
+
     <!-- UserInfoActivity-->
     <string name="place">地点：</string>
     <string name="time">时间：</string>
     <string name="next">下一个</string>
     <string name="previous">上一个</string>
+
     <!-- RegisterActivity -->
     <string name="RegisterActivity_et_name">请输入客户姓名</string>
     <string name="RegisterActivity_employee_id">请输入员工编号</string>
     <string name="RegisterActivity_et_id">请输入客户号</string>
     <string name="radioBtn_male">男</string>
     <string name="radioBtn_female">女</string>
+
     <!--MainUserActivity -->
-    <string name="addnewEmployee">添加新员工</string>
+    <string name="addnewEmployee">添加新人员</string>
 
     <!-- 主界面-->
     <string name="visitorManager">访客管理</string>
@@ -122,9 +126,12 @@
 
     <!-- 老员工注册-->
     <string name="hint_Number">请输入客户号</string>
+
     <!-- vip-->
     <string name="title_vip">VIP</string>
     <string name="vip_id">VIP号</string>
+    <string name="Registervip_et_company">请输入公司名称</string>
+    <string name="vip_company">公司名称</string>
     <!-- 考勤详情-->
     <string name="at_EmployeeName">姓名</string>
     <string name="at_CompanyName">公司</string>

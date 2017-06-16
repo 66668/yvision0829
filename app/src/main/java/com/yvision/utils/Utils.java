@@ -225,6 +225,18 @@ public class Utils {
     }
 
     /**
+     * 获取当前日期yyyy-MM-dd HH:mm:ss
+     *
+     * @return
+     */
+
+    public static String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.format(new Date());
+        return dateFormat.format(new Date());
+    }
+
+    /**
      * 获取日期yyyy-MM-dd HH:mm:ss
      *
      * @param datetime 毫秒

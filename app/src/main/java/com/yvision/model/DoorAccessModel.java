@@ -164,4 +164,25 @@ public class DoorAccessModel implements Serializable {
     public void setCompanyName(String companyName) {
         CompanyName = companyName;
     }
+
+    @Override
+    public String toString() {
+        return "DoorAccessModel{" +
+                "AccessRecordID='" + AccessRecordID + '\'' +
+                ", EmployeeID='" + EmployeeID + '\'' +
+                ", CompanyID='" + CompanyID + '\'' +
+                ", ImageID='" + ImageID + '\'' +
+                ", CapImageID='" + CapImageID + '\'' +
+                ", EmployeeName='" + EmployeeName + '\'' +
+                ", EmployeeGender='" + EmployeeGender + '\'' +
+                ", WrokId='" + WrokId + '\'' +
+                ", ImagePath='" + ImagePath + '\'' +
+                ", SmallImagePath='" + SmallImagePath + '\'' +
+                ", CapImagePath='" + CapImagePath + '\'' +
+                ", SmallCapImagePath='" + SmallCapImagePath + '\'' +
+                ", CapTime='" + CapTime + '\'' +
+                ", Score='" + Score + '\'' +
+                ", CompanyName='" + CompanyName + '\'' +
+                '}';
+    }
 }

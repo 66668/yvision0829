@@ -156,4 +156,25 @@ public class VipModel implements Serializable {
     public void setCompanyName(String companyName) {
         CompanyName = companyName;
     }
+
+    @Override
+    public String toString() {
+        return "VipModel{" +
+                "VipRecordID='" + VipRecordID + '\'' +
+                ", EmployeeName='" + EmployeeName + '\'' +
+                ", EmployeeCardNo='" + EmployeeCardNo + '\'' +
+                ", SmallCapImagePath='" + SmallCapImagePath + '\'' +
+                ", CapTime='" + CapTime + '\'' +
+                ", Score='" + Score + '\'' +
+                ", CompanyName='" + CompanyName + '\'' +
+                ", EmployeeID='" + EmployeeID + '\'' +
+                ", CompanyID='" + CompanyID + '\'' +
+                ", ImageID='" + ImageID + '\'' +
+                ", CapImageID='" + CapImageID + '\'' +
+                ", EmployeeGender='" + EmployeeGender + '\'' +
+                ", ImagePath='" + ImagePath + '\'' +
+                ", SmallImagePath='" + SmallImagePath + '\'' +
+                ", CapImagePath='" + CapImagePath + '\'' +
+                '}';
+    }
 }

@@ -6,12 +6,12 @@ public class WebUrl {
      */
     // 云端
 
-    public static final String LOGIN_URL = "http://101.201.72.112:7016/";//阿里云测试 yueshi2 yueshi2 yueshi2
+    //    public static final String LOGIN_URL = "http://101.201.72.112:7016/";//阿里云测试 yueshi2 yueshi2 yueshi2
     //        public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //正式测试地址
     //        public static final String LOGIN_URL = "http://192.168.1.245:1132/"; //本地测试
 
 
-    //            public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016
+    public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016 yueshi yueshi yueshi
 
 
     /**

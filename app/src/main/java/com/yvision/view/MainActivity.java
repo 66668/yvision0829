@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity {
      */
     public void toVisitor(View view) {
         sendMessage(TO_VISITOR);
+
     }
 
 

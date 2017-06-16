@@ -31,6 +31,7 @@ import com.yvision.inject.ViewInject;
 import com.yvision.model.GroupModel;
 import com.yvision.utils.ImageUtils;
 import com.yvision.utils.PageUtil;
+import com.yvision.utils.Utils;
 
 import org.json.JSONArray;
 
@@ -65,9 +66,9 @@ public class AddNewViperActivity extends BaseActivity {
     @ViewInject(id = R.id.RegisterActivity_et_name)
     EditText etName;
 
-    // 编号
-    @ViewInject(id = R.id.RegisterActivity_et_strUserIDNumber)
-    EditText etIDNumber;
+    // 公司名称
+    @ViewInject(id = R.id.vip_company)
+    EditText etVipCompany;
 
     // 性别
     @ViewInject(id = R.id.registerActivity_radiogroup)
@@ -96,6 +97,7 @@ public class AddNewViperActivity extends BaseActivity {
     public static final int SUCCESS_REGISTER = -27;// 注册成功
     public static final int FAILED_REGISTER = -30;// 注册成功
     private static final int REQUEST_CAMERA = 0;//自定义相机
+    private static final String TAG = "AddNewViperActivity";
     //变量
     //    private CameraGalleryUtils updateAvatarUtil;// 头像上传工具
     //    // 外部jar包：universal-image-loader-1.9.2.jar/异步加载图片
@@ -116,7 +118,7 @@ public class AddNewViperActivity extends BaseActivity {
     String type = "3";//默认 1为考勤，3 为vip，4为门禁，必填
     String name = "";//姓名
     String gender = "0";//1表示男，0表示女
-    String workID = "";
+    String companyName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +128,7 @@ public class AddNewViperActivity extends BaseActivity {
         tv_title.setText("注册VIP");
         tv_right.setText("");
 
+        Log.d(TAG, "onCreate: "+Utils.getCurrentDate());
         //获取屏幕像素尺寸
         Display display = getWindowManager().getDefaultDisplay();
         mPoint = new Point();
@@ -220,7 +223,7 @@ public class AddNewViperActivity extends BaseActivity {
         companyID = UserHelper.getCurrentUser().getStoreID();//storeID公司编号
         name = etName.getText().toString().trim();//姓名
         gender = group_gender.getCheckedRadioButtonId() == R.id.radioBtn_male ? "1" : "0";//性别
-        workID = etIDNumber.getText().toString().trim();//工号
+        companyName = etVipCompany.getText().toString().trim();//工号
 
         //非空验证
         if (picPath == null) {
@@ -231,10 +234,7 @@ public class AddNewViperActivity extends BaseActivity {
             PageUtil.DisplayToast("请输入姓名");
             return;
         }
-        if (TextUtils.isEmpty(workID.trim())) {
-            PageUtil.DisplayToast("请输入工号");
-            return;
-        }
+
         if (TextUtils.isEmpty(groupID.trim())) {
             PageUtil.DisplayToast("请选择人像库");
             return;
@@ -255,7 +255,8 @@ public class AddNewViperActivity extends BaseActivity {
                                     add("gender", gender).
                                     add("departmentID", " ").
                                     add("type", type).
-                                    add("workID", workID),
+                                    add("workID", Utils.getCurrentDate()).
+                                    add("otherStoreName", companyName),
                             picPath);
                     // 消息处理
                     sendMessage(SUCCESS_REGISTER, code);
@@ -305,8 +306,9 @@ public class AddNewViperActivity extends BaseActivity {
     }
 
     private void setClear() {
+        companyName = null;
         etName.setText("");
-        etIDNumber.setText("");
+        etVipCompany.setText("");
         picPath = null;
         imgView.setImageBitmap(null);
     }
