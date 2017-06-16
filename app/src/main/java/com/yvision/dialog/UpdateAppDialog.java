@@ -14,7 +14,7 @@ import com.yvision.R;
 import com.yvision.utils.Utils;
 
 /**
- * 版本升级
+ * 版本升级 弹窗
  */
 
 public class UpdateAppDialog extends Dialog implements View.OnClickListener{
