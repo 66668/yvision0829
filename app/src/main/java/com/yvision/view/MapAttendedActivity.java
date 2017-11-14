@@ -100,7 +100,8 @@ public class MapAttendedActivity extends BaseActivity implements LocationSource,
             public void run() {
                 try {
                     Log.d("SJY", "地图考勤");
-                    String msg = UserHelper.mapAttend(MapAttendedActivity.this, currentTime
+                    String msg = UserHelper.mapAttend(MapAttendedActivity.this
+                            , currentTime
                             , address
                             , lat
                             , lon

@@ -30,8 +30,8 @@ public class WifiTopbar extends RelativeLayout{
     private String leftTextName;
     private int leftTextColor;
     private float leftTextSize;
-    private Drawable leftBackground; 
-    
+    private Drawable leftBackground;
+
     private String rightTextName;
     private int rightTextColor;
     private float rightTextSize;
