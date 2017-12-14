@@ -12,7 +12,7 @@ public class WebUrl {
 
 
 //    public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016 yueshi yueshi yueshi
-    public static final String LOGIN_URL = "http://iemapi.yuevision.com/"; //正式 9016 yueshi yueshi yueshi
+    public static final String LOGIN_URL = "http://101.201.72.112:9016/"; //正式 9016 yueshi yueshi yueshi
 
 
     /**
