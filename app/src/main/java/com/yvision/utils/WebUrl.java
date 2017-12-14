@@ -11,7 +11,8 @@ public class WebUrl {
     //        public static final String LOGIN_URL = "http://192.168.1.245:1132/"; //本地测试
 
 
-    public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016 yueshi yueshi yueshi
+//    public static final String LOGIN_URL = "https://iemapi.yuevision.com/"; //正式 9016 yueshi yueshi yueshi
+    public static final String LOGIN_URL = "http://iemapi.yuevision.com/"; //正式 9016 yueshi yueshi yueshi
 
 
     /**
